@@ -10,6 +10,7 @@ namespace EvolvingCode.MergingBoard
         public List<Food_Save_Data> food_Saves;
         public List<Generator_Save_Data> generator_Saves;
         public List<House_Save_Data> house_Saves;
+        public List<Refiner_Save_Data> refiner_Saves;
         public List<Shop_Save_Data> shop_Saves;
         public List<Upgradeable_Save_Data> upgradeable_Saves;
         public List<Worker_Save_Data> worker_Saves;
@@ -21,6 +22,7 @@ namespace EvolvingCode.MergingBoard
             List<Food_Save_Data> p_Food_Saves,
             List<Generator_Save_Data> p_Generator_Saves,
             List<House_Save_Data> p_House_Saves,
+            List<Refiner_Save_Data> p_Refiner_Saves,
             List<Shop_Save_Data> p_Shop_Saves,
             List<Upgradeable_Save_Data> p_Upgradeable_Saves,
             List<Worker_Save_Data> p_Worker_Saves,
@@ -33,6 +35,7 @@ namespace EvolvingCode.MergingBoard
             food_Saves = p_Food_Saves;
             generator_Saves = p_Generator_Saves;
             house_Saves = p_House_Saves;
+            refiner_Saves = p_Refiner_Saves;
             shop_Saves = p_Shop_Saves;
             upgradeable_Saves = p_Upgradeable_Saves;
             worker_Saves = p_Worker_Saves;

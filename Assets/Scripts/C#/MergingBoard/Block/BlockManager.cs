@@ -14,10 +14,11 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] private Block food_Prefab;
         [SerializeField] private Block generator_Prefab;
         [SerializeField] private Block house_Prefab;
+        [SerializeField] private Block refiner_Prefab;
+        [SerializeField] private Block shop_Prefab;
+        [SerializeField] private Block upgradeable_Prefab;
         [SerializeField] private Block worker_Prefab;
         [SerializeField] private Block workstation_Prefab;
-        [SerializeField] private Block upgradeable_Prefab;
-        [SerializeField] private Block shop_Prefab;
 
 
         internal Block Create_Block(int block_ID, Node parent_Node)
@@ -50,6 +51,10 @@ namespace EvolvingCode.MergingBoard
                 case BlockType.House:
                     block = Instantiate(house_Prefab, parent_Node.transform.position, Quaternion.identity);
                     block.GetComponent<House>().init_Block((HouseData)block_Info, block_Travel_Time);
+                    break;
+                case BlockType.Refiner:
+                    block = Instantiate(refiner_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block.GetComponent<Refiner>().init_Block((RefinerData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.Shop:
                     block = Instantiate(shop_Prefab, parent_Node.transform.position, Quaternion.identity);
@@ -137,6 +142,22 @@ namespace EvolvingCode.MergingBoard
             Block block;
             block = Instantiate(house_Prefab, parent_Node.transform.position, Quaternion.identity);
             block.GetComponent<House>().init_Block((HouseData)block_Info, block_Travel_Time, save_Data);
+
+            Destroy(parent_Node.current_Block.gameObject);
+
+            parent_Node.current_Block = block;
+            block.Parent_Node = parent_Node;
+
+            return block;
+        }
+        internal Block Load_Block_From_Save(Refiner_Save_Data save_Data, Node parent_Node)
+        {
+
+            BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
+
+            Block block;
+            block = Instantiate(refiner_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block.GetComponent<Refiner>().init_Block((RefinerData)block_Info, block_Travel_Time, save_Data);
 
             Destroy(parent_Node.current_Block.gameObject);
 
@@ -233,7 +254,7 @@ namespace EvolvingCode.MergingBoard
         Food,
         Generator,
         House,
-        Converter,
+        Refiner,
         Processor,
         Character,
         Consumable,
@@ -308,6 +329,7 @@ namespace EvolvingCode.MergingBoard
             areRoomsEmpty = p_AreRoomsEmpty;
         }
     }
+
 
     [System.Serializable]
     public struct Shop_Save_Data
