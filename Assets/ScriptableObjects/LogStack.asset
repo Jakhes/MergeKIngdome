@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f5d917b4cc3d4448f30aa321c60df1, type: 3}
+  m_Name: LogStack
+  m_EditorClassIdentifier: 
+  id: 3
+  name: Log Stack
+  blockType: 2
+  description: A full heap of Logs
+  sprite: {fileID: 865249697, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 1
+  isMergeable: 1
+  isMaxLevel: 1
+  level: 3
+  value: 6
