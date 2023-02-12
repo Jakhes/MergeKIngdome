@@ -35,9 +35,10 @@ namespace EvolvingCode.MergingBoard
             List<Food_Save_Data> food_Saves = new List<Food_Save_Data>();
             List<Generator_Save_Data> generator_Saves = new List<Generator_Save_Data>();
             List<House_Save_Data> house_Saves = new List<House_Save_Data>();
+            List<Shop_Save_Data> shop_Saves = new List<Shop_Save_Data>();
+            List<Upgradeable_Save_Data> upgradeable_Saves = new List<Upgradeable_Save_Data>();
             List<Worker_Save_Data> worker_Saves = new List<Worker_Save_Data>();
             List<WorkStation_Save_Data> workStation_Saves = new List<WorkStation_Save_Data>();
-            List<Upgradeable_Save_Data> upgradeable_Saves = new List<Upgradeable_Save_Data>();
 
             nodes
                 .Where(n => !n.current_Block.IsEmpty)
@@ -58,14 +59,17 @@ namespace EvolvingCode.MergingBoard
                             case BlockType.House:
                                 house_Saves.Add(((House)n.current_Block).SaveBlock());
                                 break;
+                            case BlockType.Shop:
+                                shop_Saves.Add(((Shop)n.current_Block).SaveBlock());
+                                break;
+                            case BlockType.Upgradeable:
+                                upgradeable_Saves.Add(((Upgradeable)n.current_Block).SaveBlock());
+                                break;
                             case BlockType.Worker:
                                 worker_Saves.Add(((Worker)n.current_Block).SaveBlock());
                                 break;
                             case BlockType.WorkStation:
                                 workStation_Saves.Add(((Workstation)n.current_Block).SaveBlock());
-                                break;
-                            case BlockType.Upgradeable:
-                                upgradeable_Saves.Add(((Upgradeable)n.current_Block).SaveBlock());
                                 break;
                             default:
                                 block_Saves.Add(n.current_Block.SaveBlock());
@@ -73,7 +77,7 @@ namespace EvolvingCode.MergingBoard
                         }
                     });
             // Create BoardData
-            BoardData boardData = new BoardData(width, height, block_Saves, food_Saves, generator_Saves, house_Saves, worker_Saves, workStation_Saves, upgradeable_Saves);
+            BoardData boardData = new BoardData(width, height, block_Saves, food_Saves, generator_Saves, house_Saves, shop_Saves, upgradeable_Saves, worker_Saves, workStation_Saves);
             return boardData;
         }
 
@@ -104,9 +108,10 @@ namespace EvolvingCode.MergingBoard
             LoadBlockSaves(boardData.food_Saves);
             LoadBlockSaves(boardData.generator_Saves);
             LoadBlockSaves(boardData.house_Saves);
+            LoadBlockSaves(boardData.upgradeable_Saves);
+            LoadBlockSaves(boardData.shop_Saves);
             LoadBlockSaves(boardData.worker_Saves);
             LoadBlockSaves(boardData.workStation_Saves);
-            LoadBlockSaves(boardData.upgradeable_Saves);
         }
 
         public void cleanBoard()
@@ -272,6 +277,24 @@ namespace EvolvingCode.MergingBoard
                 new_Block.transform.parent = this.transform;
             }
         }
+        private void LoadBlockSaves(List<Shop_Save_Data> block_Saves)
+        {
+            foreach (Shop_Save_Data blockSave in block_Saves)
+            {
+                Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
+                Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
+                new_Block.transform.parent = this.transform;
+            }
+        }
+        private void LoadBlockSaves(List<Upgradeable_Save_Data> block_Saves)
+        {
+            foreach (Upgradeable_Save_Data blockSave in block_Saves)
+            {
+                Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
+                Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
+                new_Block.transform.parent = this.transform;
+            }
+        }
         private void LoadBlockSaves(List<Worker_Save_Data> block_Saves)
         {
             foreach (Worker_Save_Data blockSave in block_Saves)
@@ -291,15 +314,6 @@ namespace EvolvingCode.MergingBoard
             }
         }
 
-        private void LoadBlockSaves(List<Upgradeable_Save_Data> block_Saves)
-        {
-            foreach (Upgradeable_Save_Data blockSave in block_Saves)
-            {
-                Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
-                Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
-                new_Block.transform.parent = this.transform;
-            }
-        }
 
         public List<Node> GetNeighborNodes(Vector2 pos)
         {

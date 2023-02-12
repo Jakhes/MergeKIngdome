@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private static bool isLoading = false;
     [SerializeField] private bool load_Save_Game = true;
-    [SerializeField] private PlayerData player_Data;
+    [SerializeField] public PlayerData player_Data;
 
     private void Start()
     {
@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
 
 
         boardManager.FocusBoard(0);
+    }
+
+    void Update()
+    {
+        gold_Text.text = "Gold: " + player_Data.gold;
     }
 
     public void Focus(int id)
@@ -72,7 +77,6 @@ public class GameManager : MonoBehaviour
     public void SellBlock(Block to_Sell_Block)
     {
         player_Data.gold += main_Board.SellBlock(to_Sell_Block);
-        gold_Text.text = "Gold: " + player_Data.gold;
     }
 
     public void NextDay()

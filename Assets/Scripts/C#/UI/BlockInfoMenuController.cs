@@ -74,6 +74,12 @@ namespace EvolvingCode
         [SerializeField] private GameObject _Scroll_Content_Obj;
         [SerializeField] private Image _Content_Image_Prefab;
 
+        // Shop References
+        [SerializeField] private GameObject _Shop_Panel;
+        [SerializeField] private GameObject _Shop_Scroll_Content_Obj;
+        [SerializeField] private GameObject _Shop_Entry_Panel_Prefab;
+        [SerializeField] private List<ShopUIEntry> _Shop_Entry_Panel_Pool;
+
         // Button References
         [SerializeField] private GameObject _Button_Panel;
         [SerializeField] private GameObject _Sell_Button;
@@ -121,6 +127,9 @@ namespace EvolvingCode
                 case BlockType.House:
                     HouseSelection((House)selected_Block, (HouseData)block_Data);
                     break;
+                case BlockType.Shop:
+                    ShopSelection((Shop)selected_Block, (ShopData)block_Data);
+                    break;
                 case BlockType.Worker:
                     WorkerSelection((Worker)selected_Block, (WorkerData)block_Data);
                     break;
@@ -146,6 +155,7 @@ namespace EvolvingCode
             _Worker_Extra_Info_Panel.SetActive(false);
             _Workstation_Info_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
+            _Shop_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -172,6 +182,7 @@ namespace EvolvingCode
             _Worker_Extra_Info_Panel.SetActive(false);
             _Workstation_Info_Panel.SetActive(false);
             _Results_Panel.SetActive(true);
+            _Shop_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -227,6 +238,7 @@ namespace EvolvingCode
             _Worker_Extra_Info_Panel.SetActive(true);
             _Workstation_Info_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
+            _Shop_Panel.SetActive(false);
             _Button_Panel.SetActive(false);
 
             // Fill in the Data
@@ -270,6 +282,7 @@ namespace EvolvingCode
             _Worker_Extra_Info_Panel.SetActive(false);
             _Workstation_Info_Panel.SetActive(true);
             _Results_Panel.SetActive(true);
+            _Shop_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -338,6 +351,7 @@ namespace EvolvingCode
             _Worker_Extra_Info_Panel.SetActive(false);
             _Workstation_Info_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
+            _Shop_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -413,6 +427,64 @@ namespace EvolvingCode
 
         }
 
+        private void ShopSelection(Shop p_Shop, ShopData p_ShopData)
+        {
+            // Set needed Panels active and others to inactive
+            _Header_Panel.SetActive(true);
+            _Description_Panel.SetActive(true);
+            _Charge_Panel.SetActive(false);
+            _House_Info_Panel.SetActive(false);
+            _Worker_Extra_Info_Panel.SetActive(false);
+            _Workstation_Info_Panel.SetActive(false);
+            _Results_Panel.SetActive(false);
+            _Shop_Panel.SetActive(true);
+            _Button_Panel.SetActive(true);
+
+            // Fill in the Data
+
+            // Header
+            _Main_Image.sprite = p_ShopData.sprite;
+            _Name_Text.text = p_ShopData.name;
+            _Level_Text.text = p_ShopData.blockType.ToString() + "\nLvl " + p_ShopData.level;
+            _Max_Tag.SetActive(p_ShopData.isMaxLevel);
+
+            // Description
+            _Description_Text.text = p_ShopData.description;
+
+            // Shop Scroll View
+            List<ShopEntry> l_Shop_Entry_List = p_ShopData.shopEntries;
+            int l_Shop_Entries_Amount = l_Shop_Entry_List.Count;
+
+            // Increase the ScrollView Contents height to fit all Entries
+            int l_Inhabitants_Content_Window_Height = l_Shop_Entries_Amount * 120 + 20;
+            _Shop_Scroll_Content_Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(520, l_Inhabitants_Content_Window_Height);
+
+            // Increase the Shop UI Entries Pool if necessary
+            while (_Shop_Entry_Panel_Pool.Count < l_Shop_Entries_Amount)
+            {
+                GameObject l_Shop_Entry_Object = Instantiate(_Shop_Entry_Panel_Prefab);
+                l_Shop_Entry_Object.transform.SetParent(_Shop_Scroll_Content_Obj.transform);
+                _Shop_Entry_Panel_Pool.Add(l_Shop_Entry_Object.GetComponent<ShopUIEntry>());
+            }
+
+            for (int i = 0; i < l_Shop_Entries_Amount; i++)
+            {
+                _Shop_Entry_Panel_Pool[i].GetComponent<Image>().canvasRenderer.SetAlpha(1);
+                int l_Block_ID = l_Shop_Entry_List[i].BlockID;
+                Sprite sprite = _BlockManager.GetBlock_Data_By_ID(l_Block_ID).sprite;
+                _Shop_Entry_Panel_Pool[i].SetUpEntry(sprite, "Costs: " + l_Shop_Entry_List[i].Cost + " G", l_Block_ID);
+            }
+            for (int i = l_Shop_Entries_Amount; i < _Shop_Entry_Panel_Pool.Count; i++)
+            {
+                _Shop_Entry_Panel_Pool[i].GetComponent<Image>().canvasRenderer.SetAlpha(0);
+            }
+
+            // Activate useable Buttons
+            _Sell_Button.SetActive(false);
+            _Generate_All_Button.SetActive(false);
+        }
+
+
         public void DeactivateMenu()
         {
             this.gameObject.SetActive(false);
@@ -427,6 +499,12 @@ namespace EvolvingCode
         public void GenerateAll()
         {
             ((Generator)current_Selected_Block).TryEmptyStorage();
+        }
+
+        public void BuyBlock(int p_BlockID)
+        {
+            int l_New_Player_Gold = ((Shop)current_Selected_Block).BuyBlock(p_BlockID, game_Manager.player_Data.gold);
+            game_Manager.player_Data.gold = l_New_Player_Gold;
         }
     }
 }
