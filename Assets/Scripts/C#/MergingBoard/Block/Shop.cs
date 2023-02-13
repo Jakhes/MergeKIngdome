@@ -57,4 +57,14 @@ namespace EvolvingCode.MergingBoard
         public int BlockID;
         public int Cost;
     }
+
+    [System.Serializable]
+    public struct Shop_Save_Data
+    {
+        public Block_Save_Data base_Block_Save;
+        public Shop_Save_Data(Block_Save_Data p_Base_Block_Save)
+        {
+            base_Block_Save = p_Base_Block_Save;
+        }
+    }
 }

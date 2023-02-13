@@ -126,4 +126,31 @@ namespace EvolvingCode.MergingBoard
                 hasWorker = false;
         }
     }
+
+    [System.Serializable]
+    public struct WorkStation_Save_Data
+    {
+        public Block_Save_Data base_Block_Save;
+        public int remaining_Charges;
+        public int current_Production_Day;
+        public List<int> item_Buffer;
+        public bool hasWorker;
+        public Worker_Save_Data savedWorker;
+
+        public WorkStation_Save_Data(
+            Block_Save_Data p_Base_Block_Save,
+            int p_Remaining_Charges,
+            int p_Current_Production_Day,
+            List<int> p_Item_Buffer,
+            bool p_HasWorker,
+            Worker_Save_Data p_SavedWorker)
+        {
+            base_Block_Save = p_Base_Block_Save;
+            remaining_Charges = p_Remaining_Charges;
+            current_Production_Day = p_Current_Production_Day;
+            item_Buffer = p_Item_Buffer;
+            hasWorker = p_HasWorker;
+            savedWorker = p_SavedWorker;
+        }
+    }
 }

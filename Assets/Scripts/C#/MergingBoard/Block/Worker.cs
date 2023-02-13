@@ -59,4 +59,23 @@ namespace EvolvingCode.MergingBoard
             Destroy(this.gameObject);
         }
     }
+
+    [System.Serializable]
+    public struct Worker_Save_Data
+    {
+        public Block_Save_Data base_Block_Save;
+        public int current_HP;
+        public bool isTired;
+        public bool isHungry;
+        public int foodConsumption;
+
+        public Worker_Save_Data(Block_Save_Data p_Base_Block_Save, int p_Current_HP, bool p_IsTired, bool p_IsHungry, int p_FoodConsumption)
+        {
+            base_Block_Save = p_Base_Block_Save;
+            current_HP = p_Current_HP;
+            isTired = p_IsTired;
+            isHungry = p_IsHungry;
+            foodConsumption = p_FoodConsumption;
+        }
+    }
 }

@@ -140,4 +140,28 @@ namespace EvolvingCode.MergingBoard
             inhabitants = updatedInhabitants;
         }
     }
+
+    [System.Serializable]
+    public struct House_Save_Data
+    {
+        public Block_Save_Data base_Block_Save;
+        public List<Worker_Save_Data> inhabitants;
+        public List<Food_Save_Data> foodStorage;
+        public bool isFoodStorageEmpty;
+        public bool areRoomsEmpty;
+
+        public House_Save_Data(
+            Block_Save_Data p_Base_Block_Save,
+            List<Worker_Save_Data> p_Inhabitants,
+            List<Food_Save_Data> p_FoodStorage,
+            bool p_IsFoodEmpty,
+            bool p_AreRoomsEmpty)
+        {
+            base_Block_Save = p_Base_Block_Save;
+            inhabitants = p_Inhabitants;
+            foodStorage = p_FoodStorage;
+            isFoodStorageEmpty = p_IsFoodEmpty;
+            areRoomsEmpty = p_AreRoomsEmpty;
+        }
+    }
 }

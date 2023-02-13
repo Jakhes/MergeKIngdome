@@ -116,4 +116,21 @@ namespace EvolvingCode.MergingBoard
             item_Buffer = rest_Buffer;
         }
     }
+
+    [System.Serializable]
+    public struct Generator_Save_Data
+    {
+        public Block_Save_Data base_Block_Save;
+        public bool isCharging;
+        public int remaining_Time;
+        public List<int> item_Buffer;
+
+        public Generator_Save_Data(Block_Save_Data p_Base_Block_Save, bool p_IsCharging, int p_Remaining_Time, List<int> p_Item_Buffer)
+        {
+            base_Block_Save = p_Base_Block_Save;
+            isCharging = p_IsCharging;
+            remaining_Time = p_Remaining_Time;
+            item_Buffer = p_Item_Buffer;
+        }
+    }
 }

@@ -30,4 +30,17 @@ namespace EvolvingCode.MergingBoard
             return workStation_Save;
         }
     }
+
+    [System.Serializable]
+    public struct Food_Save_Data
+    {
+        public Block_Save_Data base_Block_Save;
+        public int chargesLeft;
+
+        public Food_Save_Data(Block_Save_Data p_Base_Block_Save, int p_ChargesLeft)
+        {
+            base_Block_Save = p_Base_Block_Save;
+            chargesLeft = p_ChargesLeft;
+        }
+    }
 }

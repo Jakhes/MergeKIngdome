@@ -99,4 +99,22 @@ namespace EvolvingCode.MergingBoard
             has = p_Has;
         }
     }
+
+    [System.Serializable]
+    public struct Upgradeable_Save_Data
+    {
+        public Block_Save_Data base_Block_Save;
+        public List<UpgradeMaterial> saved_Materials;
+        public bool is_Upgrade_Ready;
+
+        public Upgradeable_Save_Data(
+            Block_Save_Data p_Base_Block_Save,
+            List<UpgradeMaterial> p_Saved_Materials,
+            bool p_Is_Upgrade_Ready)
+        {
+            base_Block_Save = p_Base_Block_Save;
+            saved_Materials = p_Saved_Materials;
+            is_Upgrade_Ready = p_Is_Upgrade_Ready;
+        }
+    }
 }

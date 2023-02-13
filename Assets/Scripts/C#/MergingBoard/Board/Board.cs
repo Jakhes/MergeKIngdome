@@ -112,9 +112,10 @@ namespace EvolvingCode.MergingBoard
             LoadBlockSaves(boardData.block_Saves);
             LoadBlockSaves(boardData.food_Saves);
             LoadBlockSaves(boardData.generator_Saves);
-            LoadBlockSaves(boardData.upgradeable_Saves);
+            LoadBlockSaves(boardData.house_Saves);
             LoadBlockSaves(boardData.refiner_Saves);
             LoadBlockSaves(boardData.shop_Saves);
+            LoadBlockSaves(boardData.upgradeable_Saves);
             LoadBlockSaves(boardData.worker_Saves);
             LoadBlockSaves(boardData.workStation_Saves);
         }

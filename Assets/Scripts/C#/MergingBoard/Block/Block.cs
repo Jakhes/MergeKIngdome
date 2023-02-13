@@ -54,4 +54,17 @@ namespace EvolvingCode.MergingBoard
 
         }
     }
+
+    [System.Serializable]
+    public struct Block_Save_Data
+    {
+        public int id;
+        public Vector2 node_Pos;
+
+        public Block_Save_Data(int p_ID, Vector2 p_Node_Pos)
+        {
+            id = p_ID;
+            node_Pos = p_Node_Pos;
+        }
+    }
 }
