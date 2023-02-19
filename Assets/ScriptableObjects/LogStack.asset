@@ -21,4 +21,5 @@ MonoBehaviour:
   isMergeable: 1
   isMaxLevel: 1
   level: 3
+  isSellable: 1
   value: 6

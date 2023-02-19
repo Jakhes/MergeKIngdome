@@ -193,7 +193,7 @@ namespace EvolvingCode
             _Upgrade_Button.SetActive(false);
         }
 
-        private void GeneratorSelection(Generator generator, GeneratorData generatorData)
+        private void GeneratorSelection(Generator p_Generator, GeneratorData p_GeneratorData)
         {
             // Set needed Panels active and others to inactive
             _Header_Panel.SetActive(true);
@@ -210,19 +210,19 @@ namespace EvolvingCode
 
             // Fill in the Data
             // Header
-            _Main_Image.sprite = generatorData.sprite;
-            _Name_Text.text = generatorData.name;
-            _Level_Text.text = generatorData.blockType.ToString() + "\nLvl " + generatorData.level;
-            _Max_Tag.SetActive(generatorData.isMaxLevel);
+            _Main_Image.sprite = p_GeneratorData.sprite;
+            _Name_Text.text = p_GeneratorData.name;
+            _Level_Text.text = p_GeneratorData.blockType.ToString() + "\nLvl " + p_GeneratorData.level;
+            _Max_Tag.SetActive(p_GeneratorData.isMaxLevel);
             // Description
-            _Description_Text.text = generatorData.description;
+            _Description_Text.text = p_GeneratorData.description;
             // Charge
-            _Days_charge_Text.text = "Days/Charge : " + generatorData.charge_Time;
-            _Remaining_Text.text = generator.remaining_Time + " Days remaining";
-            _Stored_Text.text = generator.item_Buffer.Count + " / " + generatorData.max_ItemBuffer + " Stored";
+            _Days_charge_Text.text = "Days/Charge : " + p_GeneratorData.charge_Time;
+            _Remaining_Text.text = p_Generator.remaining_Time + " Days remaining";
+            _Stored_Text.text = p_Generator.item_Buffer.Count + " / " + p_GeneratorData.max_ItemBuffer + " Stored";
 
             // Results
-            int result_Amount = generatorData.possible_Results.Count;
+            int result_Amount = p_GeneratorData.possible_Results.Count;
             int content_Window_Width = result_Amount * 130 + 40;
             _Scroll_Content_Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(content_Window_Width, 110);
             List<Image> images = _Scroll_Content_Obj
@@ -233,7 +233,7 @@ namespace EvolvingCode
             for (int i = 0; i < result_Amount; i++)
             {
                 images[i].gameObject.SetActive(true);
-                Sprite sprite = generatorData.possible_Results.list.ToList()[i].item.sprite;
+                Sprite sprite = p_GeneratorData.possible_Results.list.ToList()[i].item.sprite;
                 images[i].sprite = sprite;
             }
             List<Image> unused_Images = _Scroll_Content_Obj
@@ -245,13 +245,13 @@ namespace EvolvingCode
             }
 
             // Activate useable Buttons
-            _Sell_Button.SetActive(true);
+            _Sell_Button.SetActive(p_GeneratorData.isSellable);
             // if it is a neighbor generator deactivate generate all button
-            _Generate_All_Button.SetActive(!generatorData.isNeighborGenerator);
+            _Generate_All_Button.SetActive(!p_GeneratorData.isNeighborGenerator);
             _Upgrade_Button.SetActive(false);
         }
 
-        private void WorkerSelection(Worker worker, WorkerData worker_Data)
+        private void WorkerSelection(Worker p_Worker, WorkerData p_Worker_Data)
         {
             // Set needed Panels active and others to inactive
             _Header_Panel.SetActive(true);
@@ -268,26 +268,26 @@ namespace EvolvingCode
 
             // Fill in the Data
             // Header
-            _Main_Image.sprite = worker_Data.sprite;
-            _Name_Text.text = worker_Data.name;
-            _Level_Text.text = worker_Data.blockType.ToString() + "\nLvl " + worker_Data.level;
-            _Max_Tag.SetActive(worker_Data.isMaxLevel);
+            _Main_Image.sprite = p_Worker_Data.sprite;
+            _Name_Text.text = p_Worker_Data.name;
+            _Level_Text.text = p_Worker_Data.blockType.ToString() + "\nLvl " + p_Worker_Data.level;
+            _Max_Tag.SetActive(p_Worker_Data.isMaxLevel);
             // Description
-            _Description_Text.text = worker_Data.description;
+            _Description_Text.text = p_Worker_Data.description;
 
             // Worker Extra Info
-            _Job_Text.text = "Job : " + worker_Data.job.ToString();
-            _Health_Text.text = worker.currentHealth + " / " + worker_Data.maxHP + " HP";
-            _Damage_Text.text = worker_Data.attackDamage + " Damage";
-            _Defense_Text.text = worker_Data.defense + " Defense";
+            _Job_Text.text = "Job : " + p_Worker_Data.job.ToString();
+            _Health_Text.text = p_Worker.currentHealth + " / " + p_Worker_Data.maxHP + " HP";
+            _Damage_Text.text = p_Worker_Data.attackDamage + " Damage";
+            _Defense_Text.text = p_Worker_Data.defense + " Defense";
 
-            if (worker.isTired)
+            if (p_Worker.isTired)
                 _Tired_Image.sprite = true_Sprite;
             else
                 _Tired_Image.sprite = false_Sprite;
 
             // Activate useable Buttons
-            _Sell_Button.SetActive(false);
+            _Sell_Button.SetActive(p_Worker_Data.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
         }
@@ -358,7 +358,7 @@ namespace EvolvingCode
             }
 
             // Activate useable Buttons
-            _Sell_Button.SetActive(true);
+            _Sell_Button.SetActive(p_WorkstationData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
         }
@@ -419,7 +419,7 @@ namespace EvolvingCode
             }
 
             // Activate useable Buttons
-            _Sell_Button.SetActive(true);
+            _Sell_Button.SetActive(p_HouseData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
         }
@@ -538,7 +538,7 @@ namespace EvolvingCode
             }
 
             // Activate useable Buttons
-            _Sell_Button.SetActive(true);
+            _Sell_Button.SetActive(p_UpgradeableData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(true);
         }
@@ -615,7 +615,7 @@ namespace EvolvingCode
             }
 
             // Activate useable Buttons
-            _Sell_Button.SetActive(true);
+            _Sell_Button.SetActive(p_RefinerData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
         }

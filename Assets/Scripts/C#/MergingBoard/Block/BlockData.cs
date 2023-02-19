@@ -14,9 +14,11 @@ namespace EvolvingCode.MergingBoard
 
         [SerializeField] public bool isMoveable;
         [SerializeField] public bool isMergeable;
-        [SerializeField] public bool isMaxLevel;
 
+        [SerializeField] public bool isMaxLevel;
         [SerializeField] public int level;
+
+        [SerializeField] public bool isSellable;
         [SerializeField] public int value;
     }
 }

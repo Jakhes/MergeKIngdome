@@ -21,6 +21,7 @@ MonoBehaviour:
   isMergeable: 1
   isMaxLevel: 0
   level: 1
+  isSellable: 1
   value: 40
   refinement_Recipes:
   - base_Block_To_Refine: {fileID: 11400000, guid: 989e47b06da2e4a4db4b115f1f742af5, type: 2}

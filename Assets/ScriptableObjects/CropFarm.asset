@@ -21,6 +21,7 @@ MonoBehaviour:
   isMergeable: 1
   isMaxLevel: 0
   level: 1
+  isSellable: 1
   value: 10
   max_Slots: 1
   farmType: 0

@@ -21,6 +21,6 @@ MonoBehaviour:
   isMergeable: 1
   isMaxLevel: 0
   level: 1
+  isSellable: 1
   value: 10
   roomLimit: 2
-  foodStorageLimit: 2
