@@ -7,9 +7,9 @@ namespace EvolvingCode.MergingBoard
 {
     public class Refiner : Block
     {
-        [SerializeField] private RefiningRecipe _Selected_Recipe;
-        [SerializeField] private bool _Is_A_Recipe_Selected;
-        [SerializeField] private int _Still_Needed_Labor;
+        [SerializeField] public RefiningRecipe _Selected_Recipe;
+        [SerializeField] public bool _Is_A_Recipe_Selected;
+        [SerializeField] public int _Still_Needed_Labor;
         [SerializeField] private List<int> _Item_Buffer;
 
         private void Update()
@@ -137,6 +137,4 @@ namespace EvolvingCode.MergingBoard
             _Item_Buffer = p_Item_Buffer;
         }
     }
-
-
 }
