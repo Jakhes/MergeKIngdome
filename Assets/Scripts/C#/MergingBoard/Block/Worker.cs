@@ -9,7 +9,6 @@ namespace EvolvingCode.MergingBoard
     {
         [SerializeField] public int currentHealth;
         [SerializeField] public bool isTired;
-        [SerializeField] public bool isHungry;
 
         public void init_Block(WorkerData init_Block_Data, float p_Travel_Time)
         {
@@ -17,7 +16,6 @@ namespace EvolvingCode.MergingBoard
 
             currentHealth = init_Block_Data.maxHP;
             isTired = false;
-            isHungry = false;
         }
 
         public void init_Block(WorkerData init_Block_Data, float p_Travel_Time, Worker_Save_Data block_Save)
@@ -26,7 +24,6 @@ namespace EvolvingCode.MergingBoard
 
             currentHealth = block_Save.current_HP;
             isTired = block_Save.isTired;
-            isHungry = block_Save.isHungry;
         }
 
         private void Update()
@@ -36,7 +33,7 @@ namespace EvolvingCode.MergingBoard
 
         public new Worker_Save_Data SaveBlock()
         {
-            Worker_Save_Data workStation_Save = new Worker_Save_Data(base.SaveBlock(), currentHealth, isTired, isHungry, ((WorkerData)block_Data).foodConsumption);
+            Worker_Save_Data workStation_Save = new Worker_Save_Data(base.SaveBlock(), currentHealth, isTired);
             return workStation_Save;
         }
 
@@ -66,16 +63,12 @@ namespace EvolvingCode.MergingBoard
         public Block_Save_Data base_Block_Save;
         public int current_HP;
         public bool isTired;
-        public bool isHungry;
-        public int foodConsumption;
 
-        public Worker_Save_Data(Block_Save_Data p_Base_Block_Save, int p_Current_HP, bool p_IsTired, bool p_IsHungry, int p_FoodConsumption)
+        public Worker_Save_Data(Block_Save_Data p_Base_Block_Save, int p_Current_HP, bool p_IsTired)
         {
             base_Block_Save = p_Base_Block_Save;
             current_HP = p_Current_HP;
             isTired = p_IsTired;
-            isHungry = p_IsHungry;
-            foodConsumption = p_FoodConsumption;
         }
     }
 }

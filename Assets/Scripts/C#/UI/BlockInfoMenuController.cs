@@ -50,11 +50,8 @@ namespace EvolvingCode
         [SerializeField] private TMP_Text _Health_Text;
         [SerializeField] private TMP_Text _Damage_Text;
         [SerializeField] private TMP_Text _Defense_Text;
-        [SerializeField] private TMP_Text _Food_Consumption_Text;
         [SerializeField] private Image _Tired_Image;
         [SerializeField] private TMP_Text _Tired_Text;
-        [SerializeField] private Image _Hungry_Image;
-        [SerializeField] private TMP_Text _Hungry_Text;
 
         // Workstation References
         [SerializeField] private GameObject _Workstation_Info_Panel;
@@ -283,17 +280,11 @@ namespace EvolvingCode
             _Health_Text.text = worker.currentHealth + " / " + worker_Data.maxHP + " HP";
             _Damage_Text.text = worker_Data.attackDamage + " Damage";
             _Defense_Text.text = worker_Data.defense + " Defense";
-            _Food_Consumption_Text.text = "Consumes :" + worker_Data.foodConsumption + " Food Charges";
 
             if (worker.isTired)
                 _Tired_Image.sprite = true_Sprite;
             else
                 _Tired_Image.sprite = false_Sprite;
-
-            if (worker.isHungry)
-                _Hungry_Image.sprite = true_Sprite;
-            else
-                _Hungry_Image.sprite = false_Sprite;
 
             // Activate useable Buttons
             _Sell_Button.SetActive(false);

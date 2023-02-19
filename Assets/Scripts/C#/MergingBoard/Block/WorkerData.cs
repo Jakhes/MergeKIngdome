@@ -10,7 +10,6 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] public int maxHP;
         [SerializeField] public int attackDamage;
         [SerializeField] public int defense;
-        [SerializeField] public int foodConsumption;
         [SerializeField] public Job job;
     }
 

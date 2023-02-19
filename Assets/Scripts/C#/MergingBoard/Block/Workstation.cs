@@ -94,7 +94,6 @@ namespace EvolvingCode.MergingBoard
                 }
                 currentProductionDay = 1;
                 saved_Worker.isTired = true;
-                saved_Worker.isHungry = true;
                 if (!((WorkStationData)block_Data).isLimitless)
                 {
                     remainingCharges -= 1;
