@@ -10,23 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9da9e767712bc84d896b5fb21ce3cbf, type: 3}
-  m_Name: VillageCenter
+  m_Name: VillageTent
   m_EditorClassIdentifier: 
-  id: 4
-  name: VillageCenter
+  id: 15
+  name: VillageTent
   blockType: 1
   description: The Towns Center. Can be Upgraded.
-  sprite: {fileID: -513518808, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 0
   isMergeable: 1
   isMaxLevel: 0
-  level: 2
+  level: 1
   value: 0
   initial_Upgrade_Materials:
   - block_ID: 3
-    needed: 5
+    needed: 2
     has: 0
-  - block_ID: 13
-    needed: 4
-    has: 0
-  upgrade_Target: {fileID: 11400000}
+  upgrade_Target: {fileID: 11400000, guid: c9c540a306c01164f94683f2b26f7a16, type: 2}

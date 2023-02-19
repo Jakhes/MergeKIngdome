@@ -43,8 +43,6 @@ namespace EvolvingCode
         [SerializeField] private GameObject _House_Info_Panel;
         [SerializeField] private TMP_Text _Room_Limit_Text;
         [SerializeField] private GameObject _Inhabitants_Scroll_Content_Obj;
-        [SerializeField] private TMP_Text _Storage_Limit_Text;
-        [SerializeField] private GameObject _Food_Storage_Scroll_Content_Obj;
 
         // Worker References
         [SerializeField] private GameObject _Worker_Extra_Info_Panel;
@@ -80,10 +78,27 @@ namespace EvolvingCode
         [SerializeField] private GameObject _Shop_Entry_Panel_Prefab;
         [SerializeField] private List<ShopUIEntry> _Shop_Entry_Panel_Pool;
 
+        // Upgradeable References
+        [SerializeField] private GameObject _Upgradeable_Panel;
+        [SerializeField] private UpgradeMaterialUI _Upgrade_Target_Panel;
+        [SerializeField] private GameObject _Upgradeable_Scroll_Content_Obj;
+        [SerializeField] private GameObject _Upgradeable_Entry_Panel_Prefab;
+        [SerializeField] private List<UpgradeMaterialUI> _Upgradeable_Entry_Panel_Pool;
+
+        // Refiner References
+        [SerializeField] private GameObject _Refiner_Panel;
+        [SerializeField] private UpgradeMaterialUI _Selected_Refining_Base_Block_Panel;
+        [SerializeField] private TMP_Text _Refining_Labor_Still_Needed_Text;
+        [SerializeField] private GameObject _Refiner_Scroll_Content_Obj;
+        [SerializeField] private GameObject _Refiner_Recipe_Panel_Prefab;
+        [SerializeField] private List<RefinerRecipeUI> _Refiner_Recipe_Panel_Pool;
+
         // Button References
         [SerializeField] private GameObject _Button_Panel;
         [SerializeField] private GameObject _Sell_Button;
         [SerializeField] private GameObject _Generate_All_Button;
+        [SerializeField] private GameObject _Upgrade_Button;
+
 
         private void Update()
         {
@@ -127,8 +142,14 @@ namespace EvolvingCode
                 case BlockType.House:
                     HouseSelection((House)selected_Block, (HouseData)block_Data);
                     break;
+                case BlockType.Refiner:
+                    RefinerSelection((Refiner)selected_Block, (RefinerData)block_Data);
+                    break;
                 case BlockType.Shop:
                     ShopSelection((Shop)selected_Block, (ShopData)block_Data);
+                    break;
+                case BlockType.Upgradeable:
+                    UpgradeableSelection((Upgradeable)selected_Block, (UpgradeableData)block_Data);
                     break;
                 case BlockType.Worker:
                     WorkerSelection((Worker)selected_Block, (WorkerData)block_Data);
@@ -154,8 +175,10 @@ namespace EvolvingCode
             _House_Info_Panel.SetActive(false);
             _Worker_Extra_Info_Panel.SetActive(false);
             _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -170,6 +193,7 @@ namespace EvolvingCode
             // Activate useable Buttons
             _Sell_Button.SetActive(true);
             _Generate_All_Button.SetActive(false);
+            _Upgrade_Button.SetActive(false);
         }
 
         private void GeneratorSelection(Generator generator, GeneratorData generatorData)
@@ -181,8 +205,10 @@ namespace EvolvingCode
             _House_Info_Panel.SetActive(false);
             _Worker_Extra_Info_Panel.SetActive(false);
             _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(true);
             _Shop_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -225,7 +251,7 @@ namespace EvolvingCode
             _Sell_Button.SetActive(true);
             // if it is a neighbor generator deactivate generate all button
             _Generate_All_Button.SetActive(!generatorData.isNeighborGenerator);
-
+            _Upgrade_Button.SetActive(false);
         }
 
         private void WorkerSelection(Worker worker, WorkerData worker_Data)
@@ -237,8 +263,10 @@ namespace EvolvingCode
             _House_Info_Panel.SetActive(false);
             _Worker_Extra_Info_Panel.SetActive(true);
             _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(false);
 
             // Fill in the Data
@@ -270,6 +298,7 @@ namespace EvolvingCode
             // Activate useable Buttons
             _Sell_Button.SetActive(false);
             _Generate_All_Button.SetActive(false);
+            _Upgrade_Button.SetActive(false);
         }
 
         private void WorkStationSelection(Workstation p_Workstation, WorkStationData p_WorkstationData)
@@ -281,8 +310,10 @@ namespace EvolvingCode
             _House_Info_Panel.SetActive(false);
             _Worker_Extra_Info_Panel.SetActive(false);
             _Workstation_Info_Panel.SetActive(true);
+            _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(true);
             _Shop_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -338,7 +369,7 @@ namespace EvolvingCode
             // Activate useable Buttons
             _Sell_Button.SetActive(true);
             _Generate_All_Button.SetActive(false);
-
+            _Upgrade_Button.SetActive(false);
         }
 
         private void HouseSelection(House p_House, HouseData p_HouseData)
@@ -350,8 +381,10 @@ namespace EvolvingCode
             _House_Info_Panel.SetActive(true);
             _Worker_Extra_Info_Panel.SetActive(false);
             _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -367,7 +400,6 @@ namespace EvolvingCode
 
             // House Info
             _Room_Limit_Text.text = p_House.inhabitants.Count + " / " + p_HouseData.roomLimit + " Room used";
-            _Storage_Limit_Text.text = p_House.foodStorage.Count + " / " + p_HouseData.foodStorageLimit + " Storage used";
 
             // Inhabitants Scroll View
             List<Worker_Save_Data> l_Inhabitants_List = p_House.inhabitants;
@@ -395,36 +427,10 @@ namespace EvolvingCode
                 item.canvasRenderer.SetAlpha(0);
             }
 
-            // Inhabitants Scroll View
-            List<Food_Save_Data> l_Food_Storage_List = p_House.foodStorage;
-            int l_Food_Amount = l_Food_Storage_List.Count;
-            int l_Storage_Content_Window_Width = l_Food_Amount * 130 + 40;
-            _Food_Storage_Scroll_Content_Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(l_Storage_Content_Window_Width, 110);
-
-            List<Image> l_Storage_Images = _Food_Storage_Scroll_Content_Obj
-                .GetComponentsInChildren<Image>()
-                .Take(l_Food_Amount)
-                .ToList();
-
-            for (int i = 0; i < l_Food_Amount; i++)
-            {
-                l_Storage_Images[i].canvasRenderer.SetAlpha(1);
-                int l_Worker_Block_ID = l_Food_Storage_List[i].base_Block_Save.id;
-                Sprite sprite = _BlockManager.GetBlock_Data_By_ID(l_Worker_Block_ID).sprite;
-                l_Storage_Images[i].sprite = sprite;
-            }
-            List<Image> l_Storage_Unused_Images = _Food_Storage_Scroll_Content_Obj
-                .GetComponentsInChildren<Image>()
-                .Where(n => !l_Storage_Images.Contains(n)).ToList();
-            foreach (var item in l_Storage_Unused_Images)
-            {
-                item.canvasRenderer.SetAlpha(0);
-            }
-
             // Activate useable Buttons
             _Sell_Button.SetActive(true);
             _Generate_All_Button.SetActive(false);
-
+            _Upgrade_Button.SetActive(false);
         }
 
         private void ShopSelection(Shop p_Shop, ShopData p_ShopData)
@@ -436,9 +442,11 @@ namespace EvolvingCode
             _House_Info_Panel.SetActive(false);
             _Worker_Extra_Info_Panel.SetActive(false);
             _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(true);
-            _Button_Panel.SetActive(true);
+            _Upgradeable_Panel.SetActive(false);
+            _Button_Panel.SetActive(false);
 
             // Fill in the Data
 
@@ -469,21 +477,157 @@ namespace EvolvingCode
 
             for (int i = 0; i < l_Shop_Entries_Amount; i++)
             {
-                _Shop_Entry_Panel_Pool[i].GetComponent<Image>().canvasRenderer.SetAlpha(1);
+                _Shop_Entry_Panel_Pool[i].gameObject.SetActive(true);
                 int l_Block_ID = l_Shop_Entry_List[i].BlockID;
                 Sprite sprite = _BlockManager.GetBlock_Data_By_ID(l_Block_ID).sprite;
                 _Shop_Entry_Panel_Pool[i].SetUpEntry(sprite, "Costs: " + l_Shop_Entry_List[i].Cost + " G", l_Block_ID);
             }
             for (int i = l_Shop_Entries_Amount; i < _Shop_Entry_Panel_Pool.Count; i++)
             {
-                _Shop_Entry_Panel_Pool[i].GetComponent<Image>().canvasRenderer.SetAlpha(0);
+                _Shop_Entry_Panel_Pool[i].gameObject.SetActive(false);
+            }
+        }
+
+        private void UpgradeableSelection(Upgradeable p_Upgradeable, UpgradeableData p_UpgradeableData)
+        {
+            // Set needed Panels active and others to inactive
+            _Header_Panel.SetActive(true);
+            _Description_Panel.SetActive(true);
+            _Charge_Panel.SetActive(false);
+            _House_Info_Panel.SetActive(false);
+            _Worker_Extra_Info_Panel.SetActive(false);
+            _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(false);
+            _Results_Panel.SetActive(false);
+            _Shop_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(true);
+            _Button_Panel.SetActive(true);
+
+            // Fill in the Data
+
+            // Header
+            _Main_Image.sprite = p_UpgradeableData.sprite;
+            _Name_Text.text = p_UpgradeableData.name;
+            _Level_Text.text = p_UpgradeableData.blockType.ToString() + "\nLvl " + p_UpgradeableData.level;
+            _Max_Tag.SetActive(p_UpgradeableData.isMaxLevel);
+
+            // Description
+            _Description_Text.text = p_UpgradeableData.description;
+
+            // Set Upgrade Target
+            BlockData l_Target = p_UpgradeableData.upgrade_Target;
+            _Upgrade_Target_Panel.SetUpMaterial(l_Target.sprite, l_Target.name);
+
+            // Shop Scroll View
+            List<UpgradeMaterial> l_Upgrade_Materials = p_Upgradeable._Upgrade_Materials;
+            int l_Upgrade_Materials_Amount = l_Upgrade_Materials.Count;
+
+            // Increase the ScrollView Contents height to fit all Entries
+            int l_Upgrade_Content_Window_Height = l_Upgrade_Materials_Amount * 120 + 20;
+            _Upgradeable_Scroll_Content_Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(520, l_Upgrade_Content_Window_Height);
+
+            // Increase the Shop UI Entries Pool if necessary
+            while (_Upgradeable_Entry_Panel_Pool.Count < l_Upgrade_Materials_Amount)
+            {
+                GameObject l_Upgrade_Material_Object = Instantiate(_Upgradeable_Entry_Panel_Prefab);
+                l_Upgrade_Material_Object.transform.SetParent(_Upgradeable_Scroll_Content_Obj.transform);
+                _Upgradeable_Entry_Panel_Pool.Add(l_Upgrade_Material_Object.GetComponent<UpgradeMaterialUI>());
+            }
+
+            for (int i = 0; i < l_Upgrade_Materials_Amount; i++)
+            {
+                _Upgradeable_Entry_Panel_Pool[i].gameObject.SetActive(true);
+                BlockData l_Block = _BlockManager.GetBlock_Data_By_ID(l_Upgrade_Materials[i].block_ID);
+                string l_Description_Text = l_Upgrade_Materials[i].has + " / " + l_Upgrade_Materials[i].needed + " " + l_Block.name;
+                _Upgradeable_Entry_Panel_Pool[i].SetUpMaterial(l_Block.sprite, l_Description_Text);
+            }
+            for (int i = l_Upgrade_Materials_Amount; i < _Upgradeable_Entry_Panel_Pool.Count; i++)
+            {
+                _Upgradeable_Entry_Panel_Pool[i].gameObject.SetActive(false);
             }
 
             // Activate useable Buttons
-            _Sell_Button.SetActive(false);
+            _Sell_Button.SetActive(true);
             _Generate_All_Button.SetActive(false);
+            _Upgrade_Button.SetActive(true);
         }
 
+        private void RefinerSelection(Refiner p_Refiner, RefinerData p_RefinerData)
+        {
+            // Set needed Panels active and others to inactive
+            _Header_Panel.SetActive(true);
+            _Description_Panel.SetActive(true);
+            _Charge_Panel.SetActive(false);
+            _House_Info_Panel.SetActive(false);
+            _Worker_Extra_Info_Panel.SetActive(false);
+            _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(true);
+            _Results_Panel.SetActive(false);
+            _Shop_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(false);
+            _Button_Panel.SetActive(true);
+
+            // Fill in the Data
+
+            // Header
+            _Main_Image.sprite = p_RefinerData.sprite;
+            _Name_Text.text = p_RefinerData.name;
+            _Level_Text.text = p_RefinerData.blockType.ToString() + "\nLvl " + p_RefinerData.level;
+            _Max_Tag.SetActive(p_RefinerData.isMaxLevel);
+
+            // Description
+            _Description_Text.text = p_RefinerData.description;
+
+            // Set Selected Recipe
+            if (p_Refiner._Is_A_Recipe_Selected)
+            {
+                RefiningRecipe l_Selected_Recipe = p_Refiner._Selected_Recipe;
+                BlockData l_Base_Block = l_Selected_Recipe.base_Block_To_Refine;
+                _Selected_Refining_Base_Block_Panel.SetUpMaterial(l_Base_Block.sprite, l_Base_Block.name);
+                if (l_Selected_Recipe.is_Labor_Needed)
+                {
+                    _Refining_Labor_Still_Needed_Text.text = p_Refiner._Still_Needed_Labor + " Labor Still Needed";
+                }
+                else
+                {
+                    _Refining_Labor_Still_Needed_Text.text = "No Labor Needed";
+                }
+            }
+            else
+            {
+                _Selected_Refining_Base_Block_Panel.SetUpMaterial(false_Sprite, "none Selected");
+                _Refining_Labor_Still_Needed_Text.text = "No Labor Needed";
+            }
+
+            // Shop Scroll View
+            List<RefiningRecipe> l_RefiningRecipes = p_RefinerData.refinement_Recipes;
+            int l_RefiningRecipes_Amount = l_RefiningRecipes.Count;
+
+            // Increase the Refining Recipes UI Entries Pool if necessary
+            while (_Refiner_Recipe_Panel_Pool.Count < l_RefiningRecipes_Amount)
+            {
+                GameObject l_RefiningRecipesUI_Object = Instantiate(_Refiner_Recipe_Panel_Prefab);
+                l_RefiningRecipesUI_Object.transform.SetParent(_Refiner_Scroll_Content_Obj.transform);
+                _Refiner_Recipe_Panel_Pool.Add(l_RefiningRecipesUI_Object.GetComponent<RefinerRecipeUI>());
+            }
+
+            for (int i = 0; i < l_RefiningRecipes_Amount; i++)
+            {
+                _Refiner_Recipe_Panel_Pool[i].gameObject.SetActive(true);
+                RefiningRecipe l_RefiningRecipe = l_RefiningRecipes[i];
+                _Refiner_Recipe_Panel_Pool[i].SetUpBaseMaterial(l_RefiningRecipe.base_Block_To_Refine, l_RefiningRecipe.is_Labor_Needed, l_RefiningRecipe.needed_Labor);
+                _Refiner_Recipe_Panel_Pool[i].SetUpResults(l_RefiningRecipe.refinement_Results);
+            }
+            for (int i = l_RefiningRecipes_Amount; i < _Refiner_Recipe_Panel_Pool.Count; i++)
+            {
+                _Refiner_Recipe_Panel_Pool[i].gameObject.SetActive(false);
+            }
+
+            // Activate useable Buttons
+            _Sell_Button.SetActive(true);
+            _Generate_All_Button.SetActive(false);
+            _Upgrade_Button.SetActive(false);
+        }
 
         public void DeactivateMenu()
         {
@@ -499,6 +643,11 @@ namespace EvolvingCode
         public void GenerateAll()
         {
             ((Generator)current_Selected_Block).TryEmptyStorage();
+        }
+
+        public void Upgrade()
+        {
+            ((Upgradeable)current_Selected_Block).UpgradeBlock();
         }
 
         public void BuyBlock(int p_BlockID)

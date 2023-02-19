@@ -12,18 +12,23 @@ namespace EvolvingCode.MergingBoard
 
         public bool is_Valid_Merge(int a_Block_ID, int b_Block_ID, out int merge_Result_ID)
         {
-            Match match = possible_Merges.Find(n => n.a_Block == a_Block_ID && n.b_Block == b_Block_ID
-                                                        || n.a_Block == b_Block_ID && n.b_Block == a_Block_ID);
-            merge_Result_ID = match.result_Block;
-            return match.a_Block != 0;
+            int l_Match_ID = possible_Merges.FindIndex(n => n.a_Block.id == a_Block_ID && n.b_Block.id == b_Block_ID
+                                                        || n.a_Block.id == b_Block_ID && n.b_Block.id == a_Block_ID);
+            if (l_Match_ID >= 0)
+            {
+                merge_Result_ID = possible_Merges[l_Match_ID].result_Block.id;
+                return true;
+            }
+            merge_Result_ID = 0;
+            return false;
         }
     }
 
     [System.Serializable]
     public struct Match
     {
-        public int a_Block;
-        public int b_Block;
-        public int result_Block;
+        public BlockData a_Block;
+        public BlockData b_Block;
+        public BlockData result_Block;
     }
 }

@@ -45,16 +45,17 @@ namespace EvolvingCode.MergingBoard
             boards.ForEach(n => FileHandler.SaveToJSON<BoardData>(n.board.saveBoard(), n.board_Save_Name + ".json"));
         }
 
-        public void LoadBoards(bool p_Load_Save_Game)
+        public void LoadBoards(bool p_Load_New_Game)
         {
-            if (p_Load_Save_Game)
+            if (p_Load_New_Game)
             {
                 boards.ForEach(n => n.board.loadBoard(
-                    FileHandler.ReadFromJSON<BoardData>(n.board_Save_Name + ".json")));
+                    FileHandler.ReadFromJSON<BoardData>("NewGame" + n.board_Save_Name + ".json")));
             }
             else
             {
-                boards.ForEach(n => n.board.loadBoard(default(BoardData)));
+                boards.ForEach(n => n.board.loadBoard(
+                    FileHandler.ReadFromJSON<BoardData>(n.board_Save_Name + ".json")));
             }
         }
 

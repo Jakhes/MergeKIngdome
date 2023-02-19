@@ -6,14 +6,11 @@ namespace EvolvingCode.MergingBoard
 {
     public class Upgradeable : Block
     {
-        [SerializeField] private List<UpgradeMaterial> _Upgrade_Materials;
+        [SerializeField] public List<UpgradeMaterial> _Upgrade_Materials;
         [SerializeField] private bool _Is_Upgrade_Ready;
 
 
-        void Update()
-        {
-            UpgradeBlock();
-        }
+
 
         public bool TryTakeBlock(Block p_Target_Block)
         {
@@ -22,7 +19,7 @@ namespace EvolvingCode.MergingBoard
             {
                 UpgradeMaterial l_Selected_Material = _Upgrade_Materials[i];
                 // Look if the Target Block is needed in the Materials List and if it has less than needed
-                if (l_Selected_Material.block == p_Target_Block.block_Data && l_Selected_Material.has < l_Selected_Material.needed)
+                if (l_Selected_Material.block_ID == p_Target_Block.block_Data.id && l_Selected_Material.has < l_Selected_Material.needed)
                 {
                     l_Selected_Material.has += 1;
                     _Upgrade_Materials[i] = l_Selected_Material;
@@ -60,7 +57,7 @@ namespace EvolvingCode.MergingBoard
         {
             init_Block((BlockData)init_Block_Data, p_Travel_Time);
 
-            foreach (var item in init_Block_Data.initial_Upgrade_Materials)
+            foreach (UpgradeMaterial item in init_Block_Data.initial_Upgrade_Materials)
             {
                 _Upgrade_Materials.Add(item);
             }
@@ -71,9 +68,21 @@ namespace EvolvingCode.MergingBoard
         {
             init_Block((BlockData)init_Block_Data, p_Travel_Time);
 
-            foreach (var item in block_Save.saved_Materials)
+            _Upgrade_Materials = new List<UpgradeMaterial>();
+            foreach (UpgradeMaterial item in init_Block_Data.initial_Upgrade_Materials)
             {
                 _Upgrade_Materials.Add(item);
+            }
+
+            foreach (UpgradeMaterial item in block_Save.saved_Materials)
+            {
+                int l_Index = _Upgrade_Materials.FindIndex(x => x.block_ID == item.block_ID);
+                if (l_Index >= 0)
+                {
+                    UpgradeMaterial l_Updated_Material = _Upgrade_Materials[l_Index];
+                    l_Updated_Material.has = Mathf.Clamp(item.has, 0, _Upgrade_Materials[l_Index].needed);
+                    _Upgrade_Materials[l_Index] = l_Updated_Material;
+                }
             }
             _Is_Upgrade_Ready = block_Save.is_Upgrade_Ready;
         }
@@ -88,13 +97,14 @@ namespace EvolvingCode.MergingBoard
     [System.Serializable]
     public struct UpgradeMaterial
     {
-        public BlockData block;
+        // there are Problems when saving Block Data persistently so i use the id instead
+        public int block_ID;
         public int needed;
         public int has;
 
-        public UpgradeMaterial(BlockData p_Block, int p_Needed, int p_Has)
+        public UpgradeMaterial(int p_Block_ID, int p_Needed, int p_Has)
         {
-            block = p_Block;
+            block_ID = p_Block_ID;
             needed = p_Needed;
             has = p_Has;
         }

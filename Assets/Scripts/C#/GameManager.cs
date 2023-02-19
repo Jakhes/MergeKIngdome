@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text _days_Text;
 
     private static bool isLoading = false;
-    [SerializeField] private bool load_Save_Game = true;
+    [SerializeField] private bool _Load_New_Game = false;
     [SerializeField] public PlayerData player_Data;
 
     private void Start()
@@ -51,27 +51,37 @@ public class GameManager : MonoBehaviour
     public void SaveGame()
     {
         boardManager.SaveBoards();
-        FileHandler.SaveToJSON<PlayerData>(player_Data, "playerSave.json");
+        FileHandler.SaveToJSON<PlayerData>(player_Data, "PlayerSave.json");
     }
 
     public void LoadGame()
     {
         isLoading = true;
-        boardManager.LoadBoards(load_Save_Game);
+        boardManager.LoadBoards(_Load_New_Game);
 
-        player_Data = FileHandler.ReadFromJSON<PlayerData>("playerSave.json");
-        if (player_Data != default(PlayerData))
+
+        if (_Load_New_Game)
         {
+            player_Data = FileHandler.ReadFromJSON<PlayerData>("NewGamePlayerSave.json");
             gold_Text.text = "Gold: " + player_Data.gold;
             _days_Text.text = "Day " + player_Data.days;
         }
         else
         {
-            player_Data = new PlayerData(0, 0);
+            player_Data = FileHandler.ReadFromJSON<PlayerData>("PlayerSave.json");
+            if (player_Data == default(PlayerData))
+                player_Data = FileHandler.ReadFromJSON<PlayerData>("NewGamePlayerSave.json");
             gold_Text.text = "Gold: " + player_Data.gold;
             _days_Text.text = "Day " + player_Data.days;
         }
         isLoading = false;
+    }
+
+    public void NewGame()
+    {
+        _Load_New_Game = true;
+        LoadGame();
+        _Load_New_Game = false;
     }
 
     public void SellBlock(Block to_Sell_Block)

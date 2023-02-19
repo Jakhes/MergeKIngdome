@@ -32,6 +32,7 @@ namespace EvolvingCode.MergingBoard
         {
             // Save all none empty Blocks
             List<Block_Save_Data> block_Saves = new List<Block_Save_Data>();
+            List<Farm_Save_Data> farm_Saves = new List<Farm_Save_Data>();
             List<Food_Save_Data> food_Saves = new List<Food_Save_Data>();
             List<Generator_Save_Data> generator_Saves = new List<Generator_Save_Data>();
             List<House_Save_Data> house_Saves = new List<House_Save_Data>();
@@ -50,6 +51,9 @@ namespace EvolvingCode.MergingBoard
                         {
                             case BlockType.Resource:
                                 block_Saves.Add(n.current_Block.SaveBlock());
+                                break;
+                            case BlockType.Farm:
+                                farm_Saves.Add(((Farm)n.current_Block).SaveBlock());
                                 break;
                             case BlockType.Food:
                                 food_Saves.Add(((Food)n.current_Block).SaveBlock());
@@ -82,7 +86,7 @@ namespace EvolvingCode.MergingBoard
                     });
             // Create BoardData
             BoardData boardData = new BoardData(width, height,
-                block_Saves, food_Saves, generator_Saves, house_Saves, refiner_Saves, shop_Saves, upgradeable_Saves, worker_Saves, workStation_Saves);
+                block_Saves, farm_Saves, food_Saves, generator_Saves, house_Saves, refiner_Saves, shop_Saves, upgradeable_Saves, worker_Saves, workStation_Saves);
             return boardData;
         }
 
@@ -110,6 +114,7 @@ namespace EvolvingCode.MergingBoard
             }
             // Load Blocks
             LoadBlockSaves(boardData.block_Saves);
+            LoadBlockSaves(boardData.farm_Saves);
             LoadBlockSaves(boardData.food_Saves);
             LoadBlockSaves(boardData.generator_Saves);
             LoadBlockSaves(boardData.house_Saves);
@@ -205,6 +210,10 @@ namespace EvolvingCode.MergingBoard
                 {
                     ((House)(node.current_Block)).Sleep();
                 }
+                if (node.current_Block.BlockType == BlockType.Farm)
+                {
+                    ((Farm)(node.current_Block)).NextDay();
+                }
             }
         }
 
@@ -252,6 +261,15 @@ namespace EvolvingCode.MergingBoard
             foreach (Block_Save_Data blockSave in block_Saves)
             {
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.node_Pos);
+                Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
+                new_Block.transform.parent = this.transform;
+            }
+        }
+        private void LoadBlockSaves(List<Farm_Save_Data> block_Saves)
+        {
+            foreach (Farm_Save_Data blockSave in block_Saves)
+            {
+                Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
             }
@@ -459,13 +477,6 @@ namespace EvolvingCode.MergingBoard
                     A.MoveBlockToNode();
                 }
             }
-            else if (A.BlockType == BlockType.Food && B.BlockType == BlockType.House)
-            {
-                if (!((House)B).TryTakeFood((Food)A))
-                {
-                    A.MoveBlockToNode();
-                }
-            }
             else if (B.BlockType == BlockType.Upgradeable)
             {
                 if (!((Upgradeable)B).TryTakeBlock(A))
@@ -497,6 +508,33 @@ namespace EvolvingCode.MergingBoard
                 else
                 {
                     RemoveBlock(A);
+                }
+            }
+            else if (A.BlockType == BlockType.Worker && B.BlockType == BlockType.Farm)
+            {
+                if (!((Farm)B).TryWorkOnFarm((Worker)A))
+                {
+                    A.MoveBlockToNode();
+                }
+                else
+                {
+                    A.MoveBlockToNode();
+                }
+            }
+            else if (B.BlockType == BlockType.Farm)
+            {
+                if (((Farm)B).TryAddingSlotItem(A.block_Data.id))
+                {
+                    RemoveBlock(A);
+                }
+                else if (((Farm)B).TryAddingSecondaryResource(A.block_Data.id))
+                {
+                    RemoveBlock(A);
+                }
+                else
+                {
+
+                    A.MoveBlockToNode();
                 }
             }
             else

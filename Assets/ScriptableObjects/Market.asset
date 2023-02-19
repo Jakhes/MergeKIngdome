@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 161908dc39d3b0d45b5c15c7f1e29cc8, type: 3}
-  m_Name: Shop
+  m_Name: Market
   m_EditorClassIdentifier: 
   id: 5
   name: Market
   blockType: 12
   description: The Marketplace where you can buy basic Blocks.
-  sprite: {fileID: -1017943826, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 0
   isMaxLevel: 0
@@ -31,3 +31,5 @@ MonoBehaviour:
     Cost: 1
   - BlockID: 7
     Cost: 25
+  - BlockID: 14
+    Cost: 5

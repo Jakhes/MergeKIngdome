@@ -7,6 +7,7 @@ namespace EvolvingCode.MergingBoard
     {
         public UnityEngine.Vector2 board_Dims;
         public List<Block_Save_Data> block_Saves;
+        public List<Farm_Save_Data> farm_Saves;
         public List<Food_Save_Data> food_Saves;
         public List<Generator_Save_Data> generator_Saves;
         public List<House_Save_Data> house_Saves;
@@ -19,6 +20,7 @@ namespace EvolvingCode.MergingBoard
         // contains the Board Dimensions and Lists of Saves for all BlockTypes
         public BoardData(int width, int height,
             List<Block_Save_Data> p_Block_Saves,
+            List<Farm_Save_Data> p_farm_Saves,
             List<Food_Save_Data> p_Food_Saves,
             List<Generator_Save_Data> p_Generator_Saves,
             List<House_Save_Data> p_House_Saves,
@@ -32,6 +34,7 @@ namespace EvolvingCode.MergingBoard
             board_Dims.y = height;
 
             block_Saves = p_Block_Saves;
+            farm_Saves = p_farm_Saves;
             food_Saves = p_Food_Saves;
             generator_Saves = p_Generator_Saves;
             house_Saves = p_House_Saves;

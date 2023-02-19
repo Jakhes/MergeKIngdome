@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
 {
-
     public class BlockData : ScriptableObject
     {
         [SerializeField] public int id;
