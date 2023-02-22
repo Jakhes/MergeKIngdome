@@ -28,6 +28,8 @@ namespace EvolvingCode
         [SerializeField] private TMP_Text _Name_Text;
         [SerializeField] private TMP_Text _Level_Text;
         [SerializeField] private GameObject _Max_Tag;
+        [SerializeField] private TMP_Text _Value_Text;
+
 
         // Description References
         [SerializeField] private GameObject _Description_Panel;
@@ -179,13 +181,9 @@ namespace EvolvingCode
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
-            // Header
-            _Main_Image.sprite = blockData.sprite;
-            _Name_Text.text = blockData.name;
-            _Level_Text.text = blockData.blockType.ToString() + "\nLvl " + blockData.level;
-            _Max_Tag.SetActive(blockData.isMaxLevel);
-            // Description
-            _Description_Text.text = blockData.description;
+
+            // Header and Description
+            AddBasicBlockInfo(blockData);
 
             // Activate useable Buttons
             _Sell_Button.SetActive(true);
@@ -209,13 +207,10 @@ namespace EvolvingCode
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
-            // Header
-            _Main_Image.sprite = p_GeneratorData.sprite;
-            _Name_Text.text = p_GeneratorData.name;
-            _Level_Text.text = p_GeneratorData.blockType.ToString() + "\nLvl " + p_GeneratorData.level;
-            _Max_Tag.SetActive(p_GeneratorData.isMaxLevel);
-            // Description
-            _Description_Text.text = p_GeneratorData.description;
+
+            // Header and Description
+            AddBasicBlockInfo(p_GeneratorData);
+
             // Charge
             _Days_charge_Text.text = "Days/Charge : " + p_GeneratorData.charge_Time;
             _Remaining_Text.text = p_Generator.remaining_Time + " Days remaining";
@@ -267,13 +262,9 @@ namespace EvolvingCode
             _Button_Panel.SetActive(false);
 
             // Fill in the Data
-            // Header
-            _Main_Image.sprite = p_Worker_Data.sprite;
-            _Name_Text.text = p_Worker_Data.name;
-            _Level_Text.text = p_Worker_Data.blockType.ToString() + "\nLvl " + p_Worker_Data.level;
-            _Max_Tag.SetActive(p_Worker_Data.isMaxLevel);
-            // Description
-            _Description_Text.text = p_Worker_Data.description;
+
+            // Header and Description
+            AddBasicBlockInfo(p_Worker_Data);
 
             // Worker Extra Info
             _Job_Text.text = "Job : " + p_Worker_Data.job.ToString();
@@ -309,14 +300,8 @@ namespace EvolvingCode
 
             // Fill in the Data
 
-            // Header
-            _Main_Image.sprite = p_WorkstationData.sprite;
-            _Name_Text.text = p_WorkstationData.name;
-            _Level_Text.text = p_WorkstationData.blockType.ToString() + "\nLvl " + p_WorkstationData.level;
-            _Max_Tag.SetActive(p_WorkstationData.isMaxLevel);
-
-            // Description
-            _Description_Text.text = p_WorkstationData.description;
+            // Header and Description
+            AddBasicBlockInfo(p_WorkstationData);
 
             // Worker Extra Info
             if (p_WorkstationData.isLimitless)
@@ -380,14 +365,8 @@ namespace EvolvingCode
 
             // Fill in the Data
 
-            // Header
-            _Main_Image.sprite = p_HouseData.sprite;
-            _Name_Text.text = p_HouseData.name;
-            _Level_Text.text = p_HouseData.blockType.ToString() + "\nLvl " + p_HouseData.level;
-            _Max_Tag.SetActive(p_HouseData.isMaxLevel);
-
-            // Description
-            _Description_Text.text = p_HouseData.description;
+            // Header and Description
+            AddBasicBlockInfo(p_HouseData);
 
             // House Info
             _Room_Limit_Text.text = p_House.inhabitants.Count + " / " + p_HouseData.roomLimit + " Room used";
@@ -441,14 +420,8 @@ namespace EvolvingCode
 
             // Fill in the Data
 
-            // Header
-            _Main_Image.sprite = p_ShopData.sprite;
-            _Name_Text.text = p_ShopData.name;
-            _Level_Text.text = p_ShopData.blockType.ToString() + "\nLvl " + p_ShopData.level;
-            _Max_Tag.SetActive(p_ShopData.isMaxLevel);
-
-            // Description
-            _Description_Text.text = p_ShopData.description;
+            // Header and Description
+            AddBasicBlockInfo(p_ShopData);
 
             // Shop Scroll View
             List<ShopEntry> l_Shop_Entry_List = p_ShopData.shopEntries;
@@ -496,14 +469,8 @@ namespace EvolvingCode
 
             // Fill in the Data
 
-            // Header
-            _Main_Image.sprite = p_UpgradeableData.sprite;
-            _Name_Text.text = p_UpgradeableData.name;
-            _Level_Text.text = p_UpgradeableData.blockType.ToString() + "\nLvl " + p_UpgradeableData.level;
-            _Max_Tag.SetActive(p_UpgradeableData.isMaxLevel);
-
-            // Description
-            _Description_Text.text = p_UpgradeableData.description;
+            // Header and Description
+            AddBasicBlockInfo(p_UpgradeableData);
 
             // Set Upgrade Target
             BlockData l_Target = p_UpgradeableData.upgrade_Target;
@@ -560,14 +527,8 @@ namespace EvolvingCode
 
             // Fill in the Data
 
-            // Header
-            _Main_Image.sprite = p_RefinerData.sprite;
-            _Name_Text.text = p_RefinerData.name;
-            _Level_Text.text = p_RefinerData.blockType.ToString() + "\nLvl " + p_RefinerData.level;
-            _Max_Tag.SetActive(p_RefinerData.isMaxLevel);
-
-            // Description
-            _Description_Text.text = p_RefinerData.description;
+            // Header and Description
+            AddBasicBlockInfo(p_RefinerData);
 
             // Set Selected Recipe
             if (p_Refiner._Is_A_Recipe_Selected)
@@ -618,6 +579,27 @@ namespace EvolvingCode
             _Sell_Button.SetActive(p_RefinerData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
+        }
+
+        public void AddBasicBlockInfo(BlockData p_Block_Data)
+        {
+            // Header
+            _Main_Image.sprite = p_Block_Data.sprite;
+            _Name_Text.text = p_Block_Data.name;
+            _Level_Text.text = p_Block_Data.blockType.ToString() + "\nLvl " + p_Block_Data.level;
+            _Max_Tag.SetActive(p_Block_Data.isMaxLevel);
+            if (p_Block_Data.isSellable)
+            {
+                _Value_Text.alpha = 1;
+                _Value_Text.text = p_Block_Data.value + "|G";
+            }
+            else
+            {
+                _Value_Text.alpha = 0;
+            }
+
+            // Description
+            _Description_Text.text = p_Block_Data.description;
         }
 
         public void DeactivateMenu()

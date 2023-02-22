@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
 {
+    [CreateAssetMenu(fileName = "Block", menuName = "BlockData/Block", order = 0)]
     public class BlockData : ScriptableObject
     {
         [SerializeField] public int id;
