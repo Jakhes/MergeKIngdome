@@ -22,7 +22,7 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] private Block workstation_Prefab;
 
 
-        internal Block Create_Block(int block_ID, Node parent_Node)
+        internal Block Create_Block(int block_ID)
         {
             Block block;
             BlockData block_Info = blocks.Find(n => n.id == block_ID);
@@ -34,57 +34,54 @@ namespace EvolvingCode.MergingBoard
             switch (block_Info.blockType)
             {
                 case BlockType.Empty:
-                    block = Instantiate(empty_Block_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(empty_Block_Prefab, new Vector3(), Quaternion.identity);
                     block.init_Block(block_Info, block_Travel_Time);
                     break;
                 case BlockType.Resource:
-                    block = Instantiate(block_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(block_Prefab, new Vector3(), Quaternion.identity);
                     block.init_Block(block_Info, block_Travel_Time);
                     break;
                 case BlockType.Food:
-                    block = Instantiate(food_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(food_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<Food>().init_Block((FoodData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.Farm:
-                    block = Instantiate(farm_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(farm_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<Farm>().init_Block((FarmData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.Generator:
-                    block = Instantiate(generator_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(generator_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<Generator>().init_Block((GeneratorData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.House:
-                    block = Instantiate(house_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(house_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<House>().init_Block((HouseData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.Refiner:
-                    block = Instantiate(refiner_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(refiner_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<Refiner>().init_Block((RefinerData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.Shop:
-                    block = Instantiate(shop_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(shop_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<Shop>().init_Block((ShopData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.Upgradeable:
-                    block = Instantiate(upgradeable_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(upgradeable_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<Upgradeable>().init_Block((UpgradeableData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.Worker:
-                    block = Instantiate(worker_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(worker_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<Worker>().init_Block((WorkerData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.WorkStation:
-                    block = Instantiate(workstation_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(workstation_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<Workstation>().init_Block((WorkStationData)block_Info, block_Travel_Time);
                     break;
                 default:
-                    block = Instantiate(block_Prefab, parent_Node.transform.position, Quaternion.identity);
+                    block = Instantiate(block_Prefab, new Vector3(), Quaternion.identity);
                     block.init_Block(block_Info, block_Travel_Time);
                     break;
             }
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
 
             return block;
         }
@@ -256,9 +253,9 @@ namespace EvolvingCode.MergingBoard
             return block;
         }
 
-        public Block Create_Empty_Block(Node node)
+        public Block Create_Empty_Block()
         {
-            return Create_Block(0, node);
+            return Create_Block(0);
         }
 
         public BlockData GetBlock_Data_By_ID(int id)

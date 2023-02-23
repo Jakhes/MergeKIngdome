@@ -49,7 +49,7 @@ namespace EvolvingCode.MergingBoard
             {
                 Board parent_Board = this.GetComponentInParent<Board>();
                 // this destroys this Block
-                parent_Board.ReplaceBlock(this, ((UpgradeableData)block_Data).upgrade_Target.id);
+                parent_Board.ReplaceBlock(this.Parent_Node, ((UpgradeableData)block_Data).upgrade_Target.id);
             }
         }
 

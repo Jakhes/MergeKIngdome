@@ -132,10 +132,8 @@ namespace EvolvingCode.MergingBoard
                 .ToList();
             foreach (var node in nodes)
             {
-                Block old_Block = node.current_Block;
-                var empty_Block = block_Manager.Create_Empty_Block(node);
-                empty_Block.transform.parent = this.transform;
-                Destroy(old_Block.gameObject);
+                var empty_Block = block_Manager.Create_Empty_Block();
+                ReplaceBlock(node, empty_Block);
             }
         }
 
@@ -159,8 +157,8 @@ namespace EvolvingCode.MergingBoard
                     node.board_Pos = new Vector2(x, y);
 
                     // Connect Node with Block and vise versa
-                    Block empty_Block = block_Manager.Create_Empty_Block(node);
-                    empty_Block.transform.parent = this.transform;
+                    Block empty_Block = block_Manager.Create_Empty_Block();
+                    ReplaceBlock(node, empty_Block);
 
                     // Save Node ref into nodes List
                     nodes.Add(node);
@@ -222,13 +220,8 @@ namespace EvolvingCode.MergingBoard
         {
             foreach (var node in free_nodes.Take(amount))
             {
-                Block old_Block = node.current_Block;
-                var block = block_Manager.Create_Block(id, node);
-                block.transform.parent = this.transform;
-                if (old_Block != null)
-                {
-                    Destroy(old_Block.gameObject);
-                }
+                var block = block_Manager.Create_Block(id);
+                ReplaceBlock(node, block);
             }
         }
 
@@ -236,24 +229,23 @@ namespace EvolvingCode.MergingBoard
         {
             foreach (var node in free_nodes.Take(amount))
             {
-                Block old_Block = node.current_Block;
-                var block = block_Manager.Create_Block(id, node);
+
+                var block = block_Manager.Create_Block(id);
                 if (block == null) return;
-                block.transform.parent = this.transform;
+                ReplaceBlock(node, block);
+                block.DOComplete();
                 block.transform.position = spawn_Pos;
                 block.MoveBlockToNode();
-                if (old_Block != null)
-                {
-                    Destroy(old_Block.gameObject);
-                }
             }
         }
 
         public void RemoveBlock(Block block)
         {
-            var empty_Block = block_Manager.Create_Empty_Block(block.Parent_Node);
-            empty_Block.transform.parent = this.transform;
-            Destroy(block.gameObject);
+            if (block != null)
+            {
+                var empty_Block = block_Manager.Create_Empty_Block();
+                ReplaceBlock(block.Parent_Node, empty_Block);
+            }
         }
 
         private void LoadBlockSaves(List<Block_Save_Data> block_Saves)
@@ -539,13 +531,25 @@ namespace EvolvingCode.MergingBoard
             }
         }
 
-        public void ReplaceBlock(Block p_To_Be_Replaced, int p_Replacer_Id)
+        public void ReplaceBlock(Node p_To_Be_Replaced, int p_Replacer_Id)
         {
-            Node l_Node = p_To_Be_Replaced.Parent_Node;
-            RemoveBlock(p_To_Be_Replaced);
-            List<Node> l_FreeNodes = new List<Node>();
-            l_FreeNodes.Add(l_Node);
-            SpawnBlocks(1, p_Replacer_Id, l_FreeNodes);
+            var l_Replacer_Block = block_Manager.Create_Block(p_Replacer_Id);
+            ReplaceBlock(p_To_Be_Replaced, l_Replacer_Block);
+        }
+
+        // Takes the Node of the Block_To_Be_Replaced and Replaces the Block with the given Replacer
+        public void ReplaceBlock(Node p_To_Be_Replaced, Block p_Replacer_Block)
+        {
+            // Remove old Block
+            Block l_Old_Block = p_To_Be_Replaced.current_Block;
+            if (l_Old_Block != null)
+                Destroy(l_Old_Block.gameObject);
+
+            // Fill in the replacer Block
+            p_To_Be_Replaced.current_Block = p_Replacer_Block;
+            p_Replacer_Block.Parent_Node = p_To_Be_Replaced;
+            p_Replacer_Block.transform.parent = this.transform;
+            p_Replacer_Block.transform.position = p_To_Be_Replaced.transform.position;
         }
 
         private void SwitchPlaceWithEmpty(Block a, Block empty)
@@ -584,17 +588,16 @@ namespace EvolvingCode.MergingBoard
             Node node_A = a.Parent_Node;
             Node node_B = b.Parent_Node;
 
-            var empty = block_Manager.Create_Empty_Block(node_A);
-            var new_Block = block_Manager.Create_Block(result_Block_ID, node_B);
+            var empty = block_Manager.Create_Empty_Block();
+            var new_Block = block_Manager.Create_Block(result_Block_ID);
+            // Save the position from a before it gets Destroyed in Replace
+            Vector2 l_Pos = a.transform.position;
 
-            empty.transform.parent = this.transform;
+            ReplaceBlock(node_A, empty);
+            ReplaceBlock(node_B, new_Block);
 
-            new_Block.transform.position = a.transform.position;
-            new_Block.transform.parent = this.transform;
-
+            new_Block.transform.position = l_Pos;
             new_Block.MoveBlockToNode();
-            Destroy(a.gameObject);
-            Destroy(b.gameObject);
         }
 
         private void PushOtherBlockAway(Block a, Block b)
