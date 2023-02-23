@@ -369,18 +369,6 @@ namespace EvolvingCode.MergingBoard
             return neighbors;
         }
 
-        public void Try_Spawning_Block_On_Board(string id)
-        {
-            var free_nodes = nodes
-                                .Where(n => n.current_Block.IsEmpty)
-                                .OrderBy(b => Random.value)
-                                .ToList();
-            if (free_nodes.Count > 0)
-            {
-                SpawnBlocks(1, int.Parse(id), new Vector2(), free_nodes);
-            }
-        }
-
         public bool Try_Spawning_Block_On_Board(int id, Vector2 spawn_Pos)
         {
             var free_nodes = nodes

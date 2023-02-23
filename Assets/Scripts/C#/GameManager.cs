@@ -100,7 +100,13 @@ public class GameManager : MonoBehaviour
         if (player_Data.days > 30)
         {
             // GameOver
+            GameOver();
         }
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("GameOver");
     }
 }
 

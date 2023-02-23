@@ -15,7 +15,7 @@ namespace EvolvingCode
         public void SpawnWithID()
         {
             string inputText = inputField.text;
-            if (inputText.Length > 0) board.Try_Spawning_Block_On_Board(inputText);
+            if (inputText.Length > 0) board.Try_Spawning_Block_On_Board(int.Parse(inputText), new Vector2());
         }
     }
 }
