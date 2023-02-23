@@ -38,7 +38,7 @@ namespace EvolvingCode.MergingBoard
             if (inhabitants.Count > 0) TryRemoveWorker(inhabitants[0]);
         }
 
-        public void Sleep()
+        public void NextDay()
         {
 
             List<Worker_Save_Data> updatedInhabitants = new List<Worker_Save_Data>();

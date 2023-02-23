@@ -197,7 +197,7 @@ namespace EvolvingCode.MergingBoard
             }
         }
 
-        public void Sleep()
+        public virtual void NextDay()
         {
             List<Node> filledNodes = nodes
                 .Where(n => !n.current_Block.IsEmpty)
@@ -206,7 +206,7 @@ namespace EvolvingCode.MergingBoard
             {
                 if (node.current_Block.BlockType == BlockType.House)
                 {
-                    ((House)(node.current_Block)).Sleep();
+                    ((House)(node.current_Block)).NextDay();
                 }
                 if (node.current_Block.BlockType == BlockType.Farm)
                 {

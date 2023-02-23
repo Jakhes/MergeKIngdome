@@ -59,9 +59,9 @@ namespace EvolvingCode.MergingBoard
             }
         }
 
-        public void Sleep_All_Boards()
+        public void Next_Day_All_Boards()
         {
-            boards.ForEach(n => n.board.Sleep());
+            boards.ForEach(n => n.board.NextDay());
         }
     }
 

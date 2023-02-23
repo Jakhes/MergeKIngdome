@@ -33,7 +33,7 @@ MonoBehaviour:
       weight: 15
   storageLimit: 4
   isLimitless: 0
-  charges: 5
-  items_Per_Charge: 4
+  charges: 2
+  items_Per_Charge: 5
   productionDays: 1
   allowedJobs: 0000000001000000
