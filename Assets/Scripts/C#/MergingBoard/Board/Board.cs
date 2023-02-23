@@ -558,7 +558,9 @@ namespace EvolvingCode.MergingBoard
             Node node_B = empty.Parent_Node;
 
             a.Parent_Node = node_B;
+            a.transform.SetParent(node_B.GetComponentInParent<Board>().transform);
             empty.Parent_Node = node_A;
+            empty.transform.SetParent(node_A.GetComponentInParent<Board>().transform);
 
             node_A.current_Block = empty;
             node_B.current_Block = a;
@@ -573,7 +575,9 @@ namespace EvolvingCode.MergingBoard
             Node node_B = b.Parent_Node;
 
             a.Parent_Node = node_B;
+            a.transform.SetParent(node_B.GetComponentInParent<Board>().transform);
             b.Parent_Node = node_A;
+            b.transform.SetParent(node_A.GetComponentInParent<Board>().transform);
 
             node_A.current_Block = b;
             node_B.current_Block = a;
