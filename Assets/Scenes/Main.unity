@@ -579,7 +579,7 @@ MonoBehaviour:
   block_Manager: {fileID: 1566093319}
   offset: {x: -14.5, y: 1}
   travel_Time: 1
-  orthographicOffset: 2
+  orthographicOffset: 1
 --- !u!4 &20064549
 Transform:
   m_ObjectHideFlags: 0
@@ -2962,7 +2962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.001953125}
   m_SizeDelta: {x: 543, y: 520}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &327356672
@@ -2988,7 +2988,7 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
+  m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 --- !u!1001 &362882919
@@ -9481,7 +9481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.0000333786, y: 110.00003}
   m_SizeDelta: {x: 100, y: 110}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1198027397
@@ -13016,6 +13016,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b03b7df1ec2c7d74293f0df4cae2d634, type: 2}
   - {fileID: 11400000, guid: 6dc6414511b4fd84586e6146a79ca506, type: 2}
   - {fileID: 11400000, guid: afbc5c9734118dc4494aad0227e539dc, type: 2}
+  - {fileID: 11400000, guid: 08f70f29a38677b44935ad06bcf60437, type: 2}
   empty_Block_Prefab: {fileID: 4370992532405218818, guid: 6ab41f5c286352b4190003c9a0bfdf93, type: 3}
   block_Prefab: {fileID: 1611992931262102749, guid: 8e9dd08e824e15147a65fcfe7efeeaa5, type: 3}
   farm_Prefab: {fileID: 5535378140371799111, guid: 3dc2be65a19a45249b6779172ed373d2, type: 3}
@@ -13024,6 +13025,7 @@ MonoBehaviour:
   house_Prefab: {fileID: 3960280095253442963, guid: 6452896307de59a4490f0f40d172eb89, type: 3}
   refiner_Prefab: {fileID: 1876058133321803473, guid: 3f63b220cfb454645b93d5a9d67d0d1d, type: 3}
   shop_Prefab: {fileID: 6225014970218306370, guid: dea61e5bccc7b544dae446b9576ccaf8, type: 3}
+  storage_Prefab: {fileID: 3449109046531386577, guid: 66ac8da3f5cd7b7419e000fd757001d1, type: 3}
   upgradeable_Prefab: {fileID: 8405927677287848687, guid: b3f0a99dc0fd34d428dc33d4abf8e0cd, type: 3}
   worker_Prefab: {fileID: 7024856914069146005, guid: 941341dbe1d269b4b829d1a99a8587cb, type: 3}
   workstation_Prefab: {fileID: 4478081915939628517, guid: c87cfb39df30bd847987b0e5868cf3cb, type: 3}
@@ -15640,7 +15642,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1275770550}
   m_HandleRect: {fileID: 1275770549}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -16847,7 +16849,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1391297261}
   m_HandleRect: {fileID: 1391297260}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.999932
   m_Size: 0.8665553
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -16927,7 +16929,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.00390625}
   m_SizeDelta: {x: 543, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1866961758
@@ -16967,7 +16969,7 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
+  m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 --- !u!1 &1881679646
@@ -17319,7 +17321,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.0000333786, y: -0.00012207031}
   m_SizeDelta: {x: 100, y: 110}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1904334925
@@ -18025,7 +18027,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1238821150}
   m_HandleRect: {fileID: 1238821149}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.9999867
   m_Size: 0.7173077
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -19020,7 +19022,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 130, y: -150}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 600, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2049327125
 MonoBehaviour:
@@ -19072,7 +19074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
+  m_HorizontalFit: 0
   m_VerticalFit: 2
 --- !u!114 &2049327128
 MonoBehaviour:

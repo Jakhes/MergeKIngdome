@@ -21,12 +21,16 @@ MonoBehaviour:
   isMergeable: 1
   isMaxLevel: 0
   level: 2
+  isSellable: 0
   value: 0
   initial_Upgrade_Materials:
   - block_ID: 3
     needed: 5
     has: 0
   - block_ID: 13
+    needed: 4
+    has: 0
+  - block_ID: 14
     needed: 4
     has: 0
   upgrade_Target: {fileID: 11400000}
