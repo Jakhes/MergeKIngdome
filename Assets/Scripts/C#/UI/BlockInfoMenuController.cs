@@ -92,6 +92,14 @@ namespace EvolvingCode
         [SerializeField] private GameObject _Refiner_Recipe_Panel_Prefab;
         [SerializeField] private List<RefinerRecipeUI> _Refiner_Recipe_Panel_Pool;
 
+        // Storage References
+        [SerializeField] private GameObject _Storage_Panel;
+        [SerializeField] private TMP_Text _Current_Storage_Text;
+        [SerializeField] private TMP_Text _Stored_Block_Text;
+        [SerializeField] private GameObject _Storage_Scroll_Content_Obj;
+        [SerializeField] private GameObject _Stored_Item_Image_Prefab;
+        [SerializeField] private List<Image> _Storage_Item_Panel_Pool;
+
         // Button References
         [SerializeField] private GameObject _Button_Panel;
         [SerializeField] private GameObject _Sell_Button;
@@ -147,6 +155,9 @@ namespace EvolvingCode
                 case BlockType.Shop:
                     ShopSelection((Shop)selected_Block, (ShopData)block_Data);
                     break;
+                case BlockType.Storage:
+                    StorageSelection((Storage)selected_Block, (StorageData)block_Data);
+                    break;
                 case BlockType.Upgradeable:
                     UpgradeableSelection((Upgradeable)selected_Block, (UpgradeableData)block_Data);
                     break;
@@ -177,6 +188,7 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
+            _Storage_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -203,6 +215,7 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(true);
             _Shop_Panel.SetActive(false);
+            _Storage_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -258,6 +271,7 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
+            _Storage_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(false);
 
@@ -295,6 +309,7 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(true);
             _Shop_Panel.SetActive(false);
+            _Storage_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -360,6 +375,7 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
+            _Storage_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -415,6 +431,7 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(true);
+            _Storage_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(false);
 
@@ -464,6 +481,7 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
+            _Storage_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(true);
             _Button_Panel.SetActive(true);
 
@@ -523,6 +541,7 @@ namespace EvolvingCode
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
+            _Storage_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -577,6 +596,66 @@ namespace EvolvingCode
 
             // Activate useable Buttons
             _Sell_Button.SetActive(p_RefinerData.isSellable);
+            _Generate_All_Button.SetActive(false);
+            _Upgrade_Button.SetActive(false);
+        }
+
+        private void StorageSelection(Storage p_Storage, StorageData p_StorageData)
+        {
+            // Set needed Panels active and others to inactive
+            _Header_Panel.SetActive(true);
+            _Description_Panel.SetActive(true);
+            _Charge_Panel.SetActive(false);
+            _House_Info_Panel.SetActive(false);
+            _Worker_Extra_Info_Panel.SetActive(false);
+            _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(false);
+            _Results_Panel.SetActive(false);
+            _Shop_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(false);
+            _Storage_Panel.SetActive(true);
+            _Button_Panel.SetActive(true);
+
+            // Fill in the Data
+
+            // Header and Description
+            AddBasicBlockInfo(p_StorageData);
+
+            // Storage Information
+            _Current_Storage_Text.text = p_Storage.stored_Amount + "/" + p_StorageData.max_Storage;
+            _Stored_Block_Text.text = _BlockManager.GetBlock_Data_By_ID(p_Storage.currently_Stored_Block_ID).name;
+
+
+            // Storage Scroll View
+            int l_Stored_Amount = p_Storage.stored_Amount;
+
+            // Increase the Stored Item Images Pool if necessary
+            while (_Storage_Item_Panel_Pool.Count < p_StorageData.max_Storage)
+            {
+                GameObject l_Stored_Item_Image_Object = Instantiate(_Stored_Item_Image_Prefab);
+                l_Stored_Item_Image_Object.transform.SetParent(_Storage_Scroll_Content_Obj.transform);
+                _Storage_Item_Panel_Pool.Add(l_Stored_Item_Image_Object.GetComponent<Image>());
+            }
+
+            // only stores one type of Block
+            Sprite l_Stored_Item_Sprite = _BlockManager.GetBlock_Data_By_ID(p_Storage.currently_Stored_Block_ID).sprite;
+            for (int i = 0; i < l_Stored_Amount; i++)
+            {
+                _Storage_Item_Panel_Pool[i].gameObject.SetActive(true);
+                _Storage_Item_Panel_Pool[i].sprite = l_Stored_Item_Sprite;
+            }
+            for (int i = l_Stored_Amount; i < p_StorageData.max_Storage; i++)
+            {
+                _Storage_Item_Panel_Pool[i].gameObject.SetActive(true);
+                _Storage_Item_Panel_Pool[i].sprite = false_Sprite;
+            }
+            for (int i = p_StorageData.max_Storage; i < _Storage_Item_Panel_Pool.Count; i++)
+            {
+                _Storage_Item_Panel_Pool[i].gameObject.SetActive(false);
+            }
+
+            // Activate useable Buttons
+            _Sell_Button.SetActive(p_StorageData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
         }

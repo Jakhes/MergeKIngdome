@@ -531,7 +531,7 @@ namespace EvolvingCode.MergingBoard
                     A.MoveBlockToNode();
                 }
             }
-            else if (B.BlockType == BlockType.Storage)
+            else if (B.BlockType == BlockType.Storage && A.BlockType != BlockType.Storage)
             {
                 if (((Storage)B).TryStoreBlock(A))
                 {
