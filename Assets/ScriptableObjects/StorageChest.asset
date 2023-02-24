@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f85edf911a8cd4c88ad4e22bcbbe0d, type: 3}
   m_Name: StorageChest
   m_EditorClassIdentifier: 
-  id: 16
-  name: SmallBox
+  id: 17
+  name: StorageChest
   blockType: 14
-  description: A small Storage Box.
+  description: A Chest to store stuff in
   sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
   isMaxLevel: 0
-  level: 1
+  level: 2
   isSellable: 1
-  value: 10
-  max_Storage: 4
+  value: 15
+  max_Storage: 6
   allowed_Types: 0200000003000000

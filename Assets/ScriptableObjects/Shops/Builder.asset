@@ -21,7 +21,10 @@ MonoBehaviour:
   isMergeable: 0
   isMaxLevel: 0
   level: 2
+  isSellable: 0
   value: 0
   shopEntries:
   - BlockID: 11
     Cost: 10
+  - BlockID: 16
+    Cost: 30
