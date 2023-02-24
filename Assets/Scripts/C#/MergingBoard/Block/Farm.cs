@@ -8,10 +8,10 @@ namespace EvolvingCode.MergingBoard
     public class Farm : Block
     {
         [SerializeField] private FarmingResultsManager _FarmingResultsManager;
-        [SerializeField] private List<int> _Slot_Entries;
-        [SerializeField] private bool _Has_SecondaryResource;
-        [SerializeField] private int _Still_Needed_Labor;
-        [SerializeField] private int _Still_Needed_Days;
+        [SerializeField] public List<int> _Slot_Entries;
+        [SerializeField] public bool _Has_SecondaryResource;
+        [SerializeField] public int _Still_Needed_Labor;
+        [SerializeField] public int _Still_Needed_Days;
         [SerializeField] private List<int> _Item_Buffer;
 
         private void Start()
@@ -32,7 +32,7 @@ namespace EvolvingCode.MergingBoard
         {
             bool l_Is_Valid = _FarmingResultsManager.CheckIfValidSlotItem(p_Potential_Slot_Block_ID, ((FarmData)block_Data).farmType);
 
-            if (l_Is_Valid && _Slot_Entries.Count <= ((FarmData)block_Data).max_Slots)
+            if (l_Is_Valid && _Slot_Entries.Count < ((FarmData)block_Data).max_Slots)
             {
                 _Slot_Entries.Add(p_Potential_Slot_Block_ID);
                 _Still_Needed_Days = ((FarmData)block_Data).needed_Days;

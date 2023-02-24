@@ -100,6 +100,16 @@ namespace EvolvingCode
         [SerializeField] private GameObject _Stored_Item_Image_Prefab;
         [SerializeField] private List<Image> _Storage_Item_Panel_Pool;
 
+        // Farm References
+        [SerializeField] private GameObject _Farm_Panel;
+        [SerializeField] private TMP_Text _Farm_Type_Text;
+        [SerializeField] private TMP_Text _Farm_Needed_Labor_Text;
+        [SerializeField] private UpgradeMaterialUI _Farm_Secondary_Resource_Panel;
+        [SerializeField] private TMP_Text _Farm_Needed_Days_Text;
+        [SerializeField] private GameObject _Farm_Slots_Scroll_Content_Obj;
+        [SerializeField] private GameObject _Farm_Slot_Image_Prefab;
+        [SerializeField] private List<Image> _Farm_Slot_Item_Panel_Pool;
+
         // Button References
         [SerializeField] private GameObject _Button_Panel;
         [SerializeField] private GameObject _Sell_Button;
@@ -142,6 +152,9 @@ namespace EvolvingCode
                     return;
                 case BlockType.Resource:
                     ResourceSelection(selected_Block, block_Data);
+                    break;
+                case BlockType.Farm:
+                    FarmSelection((Farm)selected_Block, (FarmData)block_Data);
                     break;
                 case BlockType.Generator:
                     GeneratorSelection((Generator)selected_Block, (GeneratorData)block_Data);
@@ -189,6 +202,7 @@ namespace EvolvingCode
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
+            _Farm_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -216,6 +230,7 @@ namespace EvolvingCode
             _Results_Panel.SetActive(true);
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
+            _Farm_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -272,6 +287,7 @@ namespace EvolvingCode
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
+            _Farm_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(false);
 
@@ -310,6 +326,7 @@ namespace EvolvingCode
             _Results_Panel.SetActive(true);
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
+            _Farm_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -376,6 +393,7 @@ namespace EvolvingCode
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
+            _Farm_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -432,6 +450,7 @@ namespace EvolvingCode
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(true);
             _Storage_Panel.SetActive(false);
+            _Farm_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(false);
 
@@ -482,6 +501,7 @@ namespace EvolvingCode
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
+            _Farm_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(true);
             _Button_Panel.SetActive(true);
 
@@ -541,6 +561,7 @@ namespace EvolvingCode
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
+            _Farm_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -614,6 +635,7 @@ namespace EvolvingCode
             _Shop_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Storage_Panel.SetActive(true);
+            _Farm_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
             // Fill in the Data
@@ -656,6 +678,88 @@ namespace EvolvingCode
 
             // Activate useable Buttons
             _Sell_Button.SetActive(p_StorageData.isSellable);
+            _Generate_All_Button.SetActive(false);
+            _Upgrade_Button.SetActive(false);
+        }
+
+        private void FarmSelection(Farm p_Farm, FarmData p_FarmData)
+        {
+            // Set needed Panels active and others to inactive
+            _Header_Panel.SetActive(true);
+            _Description_Panel.SetActive(true);
+            _Charge_Panel.SetActive(false);
+            _House_Info_Panel.SetActive(false);
+            _Worker_Extra_Info_Panel.SetActive(false);
+            _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(false);
+            _Results_Panel.SetActive(false);
+            _Shop_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(false);
+            _Storage_Panel.SetActive(false);
+            _Farm_Panel.SetActive(true);
+            _Button_Panel.SetActive(true);
+
+            // Fill in the Data
+
+            // Header and Description
+            AddBasicBlockInfo(p_FarmData);
+
+            // Storage Information
+            _Farm_Type_Text.text = p_FarmData.blockType.ToString();
+            _Farm_Needed_Labor_Text.text = "Needs " + p_Farm._Still_Needed_Labor + " Labor";
+            if (p_Farm._Has_SecondaryResource)
+            {
+                _Farm_Secondary_Resource_Panel.SetUpMaterial(true_Sprite, "Has enough " + p_FarmData.secondaryResource.name);
+            }
+            else
+            {
+                _Farm_Secondary_Resource_Panel.SetUpMaterial(p_FarmData.secondaryResource.sprite, "Needs " + p_FarmData.secondaryResource.name);
+            }
+
+            if (p_Farm._Still_Needed_Days <= 0)
+            {
+                _Farm_Needed_Days_Text.text = "Harvest Ready";
+            }
+            else if (p_Farm._Has_SecondaryResource && p_Farm._Still_Needed_Labor <= 0)
+            {
+                _Farm_Needed_Days_Text.text = "Growing... Needs " + p_Farm._Still_Needed_Days + " Days";
+            }
+            else
+            {
+                _Farm_Needed_Days_Text.text = "Not Ready to start Growing";
+            }
+
+
+            // Storage Scroll View
+            int l_Stored_Amount = p_Farm._Slot_Entries.Count;
+
+            // Increase the Stored Item Images Pool if necessary
+            while (_Farm_Slot_Item_Panel_Pool.Count <= p_FarmData.max_Slots)
+            {
+                GameObject l_Slot_Image_Object = Instantiate(_Farm_Slot_Image_Prefab);
+                l_Slot_Image_Object.transform.SetParent(_Farm_Slots_Scroll_Content_Obj.transform);
+                _Farm_Slot_Item_Panel_Pool.Add(l_Slot_Image_Object.GetComponent<Image>());
+            }
+
+
+            for (int i = 0; i < l_Stored_Amount; i++)
+            {
+                _Farm_Slot_Item_Panel_Pool[i].gameObject.SetActive(true);
+                Sprite l_Stored_Item_Sprite = _BlockManager.GetBlock_Data_By_ID(p_Farm._Slot_Entries[i]).sprite;
+                _Farm_Slot_Item_Panel_Pool[i].sprite = l_Stored_Item_Sprite;
+            }
+            for (int i = l_Stored_Amount; i < p_FarmData.max_Slots; i++)
+            {
+                _Farm_Slot_Item_Panel_Pool[i].gameObject.SetActive(true);
+                _Farm_Slot_Item_Panel_Pool[i].sprite = false_Sprite;
+            }
+            for (int i = p_FarmData.max_Slots; i < _Farm_Slot_Item_Panel_Pool.Count; i++)
+            {
+                _Farm_Slot_Item_Panel_Pool[i].gameObject.SetActive(false);
+            }
+
+            // Activate useable Buttons
+            _Sell_Button.SetActive(p_FarmData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
         }
