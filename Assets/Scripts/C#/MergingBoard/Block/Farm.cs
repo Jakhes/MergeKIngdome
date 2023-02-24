@@ -45,7 +45,9 @@ namespace EvolvingCode.MergingBoard
         public bool TryAddingSecondaryResource(int p_Potential_Resource_Block_ID)
         {
 
-            if (((FarmData)block_Data).needs_SecondaryResource && ((FarmData)block_Data).secondaryResource.id == p_Potential_Resource_Block_ID)
+            if (((FarmData)block_Data).needs_SecondaryResource &&
+                ((FarmData)block_Data).secondaryResource.id == p_Potential_Resource_Block_ID &&
+                !_Has_SecondaryResource)
             {
                 _Has_SecondaryResource = true;
 
