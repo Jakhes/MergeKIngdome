@@ -18,6 +18,7 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] private Block refiner_Prefab;
         [SerializeField] private Block shop_Prefab;
         [SerializeField] private Block storage_Prefab;
+        [SerializeField] private Block unlockable_Prefab;
         [SerializeField] private Block upgradeable_Prefab;
         [SerializeField] private Block worker_Prefab;
         [SerializeField] private Block workstation_Prefab;
@@ -69,6 +70,10 @@ namespace EvolvingCode.MergingBoard
                 case BlockType.Storage:
                     block = Instantiate(storage_Prefab, new Vector3(), Quaternion.identity);
                     block.GetComponent<Storage>().init_Block((StorageData)block_Info, block_Travel_Time);
+                    break;
+                case BlockType.Unlockable:
+                    block = Instantiate(unlockable_Prefab, new Vector3(), Quaternion.identity);
+                    block.GetComponent<Unlockable>().init_Block((UnlockableData)block_Info, block_Travel_Time);
                     break;
                 case BlockType.Upgradeable:
                     block = Instantiate(upgradeable_Prefab, new Vector3(), Quaternion.identity);
@@ -223,6 +228,39 @@ namespace EvolvingCode.MergingBoard
 
             return block;
         }
+        internal Block Load_Block_From_Save(Unlockable_Save_Data save_Data, Node parent_Node)
+        {
+
+            BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
+
+            Block block;
+            block = Instantiate(unlockable_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block.GetComponent<Unlockable>().init_Block((UnlockableData)block_Info, block_Travel_Time, save_Data);
+
+            Destroy(parent_Node.current_Block.gameObject);
+
+            parent_Node.current_Block = block;
+            block.Parent_Node = parent_Node;
+
+            return block;
+        }
+
+        internal Block Load_Block_From_Save(Upgradeable_Save_Data save_Data, Node parent_Node)
+        {
+
+            BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
+
+            Block block;
+            block = Instantiate(upgradeable_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block.GetComponent<Upgradeable>().init_Block((UpgradeableData)block_Info, block_Travel_Time, save_Data);
+
+            Destroy(parent_Node.current_Block.gameObject);
+
+            parent_Node.current_Block = block;
+            block.Parent_Node = parent_Node;
+
+            return block;
+        }
 
         internal Block Load_Block_From_Save(Worker_Save_Data save_Data, Node parent_Node)
         {
@@ -249,23 +287,6 @@ namespace EvolvingCode.MergingBoard
             Block block;
             block = Instantiate(workstation_Prefab, parent_Node.transform.position, Quaternion.identity);
             block.GetComponent<Workstation>().init_Block((WorkStationData)block_Info, block_Travel_Time, save_Data);
-
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
-            return block;
-        }
-
-        internal Block Load_Block_From_Save(Upgradeable_Save_Data save_Data, Node parent_Node)
-        {
-
-            BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
-
-            Block block;
-            block = Instantiate(upgradeable_Prefab, parent_Node.transform.position, Quaternion.identity);
-            block.GetComponent<Upgradeable>().init_Block((UpgradeableData)block_Info, block_Travel_Time, save_Data);
 
             Destroy(parent_Node.current_Block.gameObject);
 
@@ -302,6 +323,7 @@ namespace EvolvingCode.MergingBoard
         WorkStation,
         Shop,
         Farm,
-        Storage
+        Storage,
+        Unlockable
     }
 }

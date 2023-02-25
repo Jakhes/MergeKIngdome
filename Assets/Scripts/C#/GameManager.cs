@@ -89,6 +89,17 @@ public class GameManager : MonoBehaviour
         player_Data.gold += main_Board.SellBlock(to_Sell_Block);
     }
 
+    internal void UnlockBlock(Unlockable current_Selected_Block)
+    {
+        int l_Price_For_Unlocking = ((UnlockableData)(current_Selected_Block.block_Data)).price;
+
+        if (l_Price_For_Unlocking <= player_Data.gold)
+        {
+            player_Data.gold -= l_Price_For_Unlocking;
+            main_Board.UnlockBlock(current_Selected_Block);
+        }
+    }
+
     public void NextDay()
     {
         // Worker go to sleep

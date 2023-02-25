@@ -110,6 +110,10 @@ namespace EvolvingCode
         [SerializeField] private GameObject _Farm_Slot_Image_Prefab;
         [SerializeField] private List<Image> _Farm_Slot_Item_Panel_Pool;
 
+        // Unlockable References
+        [SerializeField] private GameObject _Unlockable_Panel;
+        [SerializeField] private TMP_Text _Unlockable_Price_Text;
+
         // Button References
         [SerializeField] private GameObject _Button_Panel;
         [SerializeField] private GameObject _Sell_Button;
@@ -170,6 +174,9 @@ namespace EvolvingCode
                     break;
                 case BlockType.Storage:
                     StorageSelection((Storage)selected_Block, (StorageData)block_Data);
+                    break;
+                case BlockType.Unlockable:
+                    UnlockableSelection((Unlockable)selected_Block, (UnlockableData)block_Data);
                     break;
                 case BlockType.Upgradeable:
                     UpgradeableSelection((Upgradeable)selected_Block, (UpgradeableData)block_Data);
@@ -764,6 +771,33 @@ namespace EvolvingCode
             _Upgrade_Button.SetActive(false);
         }
 
+        private void UnlockableSelection(Unlockable p_Unlockable, UnlockableData p_Unlockable_Data)
+        {
+            // Set needed Panels active and others to inactive
+            _Header_Panel.SetActive(true);
+            _Description_Panel.SetActive(true);
+            _Charge_Panel.SetActive(false);
+            _House_Info_Panel.SetActive(false);
+            _Worker_Extra_Info_Panel.SetActive(false);
+            _Workstation_Info_Panel.SetActive(false);
+            _Refiner_Panel.SetActive(false);
+            _Results_Panel.SetActive(false);
+            _Shop_Panel.SetActive(false);
+            _Storage_Panel.SetActive(false);
+            _Farm_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(true);
+            _Upgradeable_Panel.SetActive(false);
+            _Button_Panel.SetActive(false);
+
+            // Fill in the Data
+
+            // Header and Description
+            AddBasicBlockInfo(p_Unlockable_Data);
+
+            // Worker Extra Info
+            _Unlockable_Price_Text.text = p_Unlockable_Data.price + "G";
+        }
+
         public void AddBasicBlockInfo(BlockData p_Block_Data)
         {
             // Header
@@ -804,6 +838,11 @@ namespace EvolvingCode
         public void Upgrade()
         {
             ((Upgradeable)current_Selected_Block).UpgradeBlock();
+        }
+
+        public void UnlockBlock()
+        {
+            game_Manager.UnlockBlock((Unlockable)current_Selected_Block);
         }
 
         public void BuyBlock(int p_BlockID)
