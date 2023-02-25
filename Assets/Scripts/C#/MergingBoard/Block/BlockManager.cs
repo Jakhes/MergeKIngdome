@@ -92,7 +92,6 @@ namespace EvolvingCode.MergingBoard
                     block.init_Block(block_Info, block_Travel_Time);
                     break;
             }
-
             return block;
         }
 

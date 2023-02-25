@@ -13,6 +13,8 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] private int board_Id;
         [SerializeField] private int width = 1;
         [SerializeField] private int height = 1;
+        [SerializeField] protected bool _is_Unlocked;
+        [SerializeField] private GameObject _locked_View_Shield;
         [SerializeField] private Node node_Prefab;
 
         [SerializeField] private Merger merge_Manager;
@@ -93,7 +95,7 @@ namespace EvolvingCode.MergingBoard
                         }
                     });
             // Create BoardData
-            BoardData boardData = new BoardData(width, height,
+            BoardData boardData = new BoardData(width, height, _is_Unlocked,
                 block_Saves, farm_Saves, food_Saves, generator_Saves, house_Saves, refiner_Saves, shop_Saves, storage_Saves, unlockable_Saves, upgradeable_Saves, worker_Saves, workStation_Saves);
             return boardData;
         }
@@ -106,11 +108,16 @@ namespace EvolvingCode.MergingBoard
             {
                 Debug.Log("No Board save found init normal Board!");
                 InitiateBoard();
+                if (!_is_Unlocked)
+                {
+                    LockBoard();
+                }
                 return;
             }
             // Set Board Metrics
             width = (int)boardData.board_Dims.x;
             height = (int)boardData.board_Dims.y;
+            _is_Unlocked = boardData.is_Unlocked;
             if (isInitiated)
             {
                 Debug.Log("Cleaning Board " + this.name);
@@ -133,6 +140,10 @@ namespace EvolvingCode.MergingBoard
             LoadBlockSaves(boardData.upgradeable_Saves);
             LoadBlockSaves(boardData.worker_Saves);
             LoadBlockSaves(boardData.workStation_Saves);
+            if (!_is_Unlocked)
+            {
+                LockBoard();
+            }
         }
 
         public void cleanBoard()
@@ -208,6 +219,10 @@ namespace EvolvingCode.MergingBoard
 
         public virtual void NextDay()
         {
+            if (!_is_Unlocked)
+            {
+                return;
+            }
             List<Node> filledNodes = nodes
                 .Where(n => !n.current_Block.IsEmpty)
                 .ToList();
@@ -264,6 +279,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<Farm_Save_Data> block_Saves)
@@ -273,6 +290,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<Food_Save_Data> block_Saves)
@@ -282,6 +301,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<Generator_Save_Data> block_Saves)
@@ -291,6 +312,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<House_Save_Data> block_Saves)
@@ -300,6 +323,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<Refiner_Save_Data> block_Saves)
@@ -309,6 +334,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<Shop_Save_Data> block_Saves)
@@ -318,6 +345,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<Storage_Save_Data> block_Saves)
@@ -327,6 +356,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<Unlockable_Save_Data> block_Saves)
@@ -336,6 +367,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<Upgradeable_Save_Data> block_Saves)
@@ -345,6 +378,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<Worker_Save_Data> block_Saves)
@@ -354,6 +389,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
         private void LoadBlockSaves(List<WorkStation_Save_Data> block_Saves)
@@ -363,6 +400,8 @@ namespace EvolvingCode.MergingBoard
                 Node parent_Node = nodes.First(n => n.board_Pos == blockSave.base_Block_Save.node_Pos);
                 Block new_Block = block_Manager.Load_Block_From_Save(blockSave, parent_Node);
                 new_Block.transform.parent = this.transform;
+                // for if the Boards Scale changed
+                new_Block.transform.localScale = Vector3.one;
             }
         }
 
@@ -588,6 +627,7 @@ namespace EvolvingCode.MergingBoard
             p_To_Be_Replaced.current_Block = p_Replacer_Block;
             p_Replacer_Block.Parent_Node = p_To_Be_Replaced;
             p_Replacer_Block.transform.parent = this.transform;
+            p_Replacer_Block.transform.localScale = Vector3.one;
             p_Replacer_Block.transform.position = p_To_Be_Replaced.transform.position;
         }
 
@@ -682,6 +722,30 @@ namespace EvolvingCode.MergingBoard
                 int l_Underlying_Block_ID = ((UnlockableData)(p_To_Unlock_Block.block_Data)).underlyingBlock.id;
 
                 ReplaceBlock(p_To_Unlock_Block.Parent_Node, l_Underlying_Block_ID);
+            }
+        }
+        public void LockBoard()
+        {
+            Debug.Log("Locking Board: " + board_Id);
+            _locked_View_Shield.SetActive(true);
+            List<Block> l_All_Blocks = new List<Block>();
+            nodes.ForEach(n => l_All_Blocks.Add(n.current_Block));
+
+            foreach (var l_Block in l_All_Blocks)
+            {
+                l_Block.GetComponent<Rigidbody2D>().simulated = false;
+            }
+        }
+        public void UnlockBoard()
+        {
+            _is_Unlocked = true;
+            _locked_View_Shield.SetActive(false);
+            List<Block> l_All_Blocks = new List<Block>();
+            nodes.ForEach(n => l_All_Blocks.Add(n.current_Block));
+
+            foreach (var l_Block in l_All_Blocks)
+            {
+                l_Block.GetComponent<Rigidbody2D>().simulated = true;
             }
         }
     }

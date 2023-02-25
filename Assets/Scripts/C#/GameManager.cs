@@ -93,10 +93,13 @@ public class GameManager : MonoBehaviour
     public void NextDay()
     {
         // Worker go to sleep
-        boardManager.Next_Day_All_Boards();
-        // update Days counter
-        player_Data.days += 1;
-        _days_Text.text = "Day " + player_Data.days;
+        if (boardManager.Next_Day_All_Boards())
+        {
+            // update Days counter
+            player_Data.days += 1;
+            _days_Text.text = "Day " + player_Data.days;
+        }
+
         // Check if 30 Days have been reached
         if (player_Data.days > 30)
         {

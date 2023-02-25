@@ -6,6 +6,7 @@ namespace EvolvingCode.MergingBoard
     public class BoardData
     {
         public UnityEngine.Vector2 board_Dims;
+        public bool is_Unlocked = false;
         public List<Block_Save_Data> block_Saves;
         public List<Farm_Save_Data> farm_Saves;
         public List<Food_Save_Data> food_Saves;
@@ -21,6 +22,7 @@ namespace EvolvingCode.MergingBoard
 
         // contains the Board Dimensions and Lists of Saves for all BlockTypes
         public BoardData(int width, int height,
+            bool p_Is_Unlocked,
             List<Block_Save_Data> p_Block_Saves,
             List<Farm_Save_Data> p_farm_Saves,
             List<Food_Save_Data> p_Food_Saves,
@@ -36,6 +38,8 @@ namespace EvolvingCode.MergingBoard
         {
             board_Dims.x = width;
             board_Dims.y = height;
+
+            is_Unlocked = p_Is_Unlocked;
 
             block_Saves = p_Block_Saves;
             farm_Saves = p_farm_Saves;

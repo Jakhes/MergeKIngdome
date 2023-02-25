@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
+using TMPro;
 
 namespace EvolvingCode.MergingBoard
 {
@@ -12,29 +15,38 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] private List<Board_Infos> _Side_Boards;
         [SerializeField] private Button _Go_Up_Button;
         [SerializeField] private Button _Go_Down_Button;
-        public int current_Side_Board;
+        [SerializeField] private Vector3 _Up_Target_Pos;
+        [SerializeField] private Vector3 _Center_Target_Pos;
+        [SerializeField] private Vector3 _Down_Target_Pos;
+        [SerializeField] private float _Board_Fade_Move_Speed_Time;
+        [SerializeField] private float _Board_Fade_Shrink_Speed_Time;
+        [SerializeField] private TMP_Text _Board_Name_Text;
 
-        // public void FocusBoard(int id)
-        // {
-        //     Board new_Board = boards.Find(n => n.board_Id == id).board;
-        //     if (new_Board != null && current_Board != new_Board)
-        //     {
-        //         // Fade out old Board
-        //         //if (current_Board != null)
-        //         //{
-        //         //    current_Board.FadeOutBoard();
-        //         //}
-        //         // Fade to new Board
-        //         current_Board = new_Board;
-        //         //new_Board.gameObject.SetActive(true);
-        //         //new_Board.transform.parent.transform.localScale = new Vector3(1, 1, 1);
-        //         new_Board.FocusOnBoard();
-        //     }
-        //     else
-        //     {
-        //         Debug.Log("Could not find Board with ID : " + id);
-        //     }
-        // }
+
+
+        public int current_Side_Board;
+        private Side_Board_State _current_Side_Board_State;
+
+        void Update()
+        {
+            if (current_Side_Board <= 0)
+            {
+                _Go_Up_Button.interactable = false;
+            }
+            else
+            {
+                _Go_Up_Button.interactable = true;
+            }
+            if (current_Side_Board >= _Side_Boards.Count - 1)
+            {
+                _Go_Down_Button.interactable = false;
+            }
+            else
+            {
+                _Go_Down_Button.interactable = true;
+            }
+            _Board_Name_Text.text = _Side_Boards[current_Side_Board].board.name;
+        }
 
         internal void InitBoards()
         {
@@ -44,11 +56,11 @@ namespace EvolvingCode.MergingBoard
             foreach (var item in _Side_Boards)
             {
                 item.board.InitiateBoard();
-                item.board.FadeOutBoard();
+                item.board.transform.parent.transform.position = _Up_Target_Pos;
             }
             _Main_Board.board.FocusOnBoard();
+            FadeInBoard(false, _Side_Boards[1].board.transform.parent, _Side_Boards[0].board.transform.parent);
 
-            _Side_Boards[current_Side_Board].board.transform.parent.transform.localScale = new Vector3(1, 1, 1);
         }
 
         public void SaveBoards()
@@ -78,58 +90,52 @@ namespace EvolvingCode.MergingBoard
             }
         }
 
-        public void Next_Day_All_Boards()
+        public bool Next_Day_All_Boards()
         {
-            _Main_Board.board.NextDay();
-            _Side_Boards.ForEach(n => n.board.NextDay());
+            if (_current_Side_Board_State == Side_Board_State.Normal_State)
+            {
+                _Main_Board.board.NextDay();
+                _Side_Boards.ForEach(n => n.board.NextDay());
+                return true;
+            }
+            return false;
         }
 
         public void SideBoardGoUp()
         {
             int l_New_Side_Board_ID = current_Side_Board - 1;
-            if (l_New_Side_Board_ID < 0)
-            {
-                _Go_Up_Button.interactable = false;
-            }
-            else if (l_New_Side_Board_ID == 0)
-            {
-                _Go_Up_Button.interactable = false;
-                _Go_Down_Button.interactable = true;
-                _Side_Boards[current_Side_Board].board.FadeOutBoard();
-                _Side_Boards[l_New_Side_Board_ID].board.transform.parent.transform.localScale = new Vector3(1, 1, 1);
-                current_Side_Board -= 1;
-            }
-            else
-            {
-                _Go_Down_Button.interactable = true;
-                _Side_Boards[current_Side_Board].board.FadeOutBoard();
-                _Side_Boards[l_New_Side_Board_ID].board.transform.parent.transform.localScale = new Vector3(1, 1, 1);
-                current_Side_Board -= 1;
-            }
+            FadeInBoard(false, _Side_Boards[current_Side_Board].board.transform.parent, _Side_Boards[l_New_Side_Board_ID].board.transform.parent);
+            current_Side_Board -= 1;
         }
 
         public void SideBoardGoDown()
         {
             int l_New_Side_Board_ID = current_Side_Board + 1;
+            FadeInBoard(true, _Side_Boards[current_Side_Board].board.transform.parent, _Side_Boards[l_New_Side_Board_ID].board.transform.parent);
+            current_Side_Board += 1;
+        }
 
-            if (l_New_Side_Board_ID > _Side_Boards.Count)
+        async void FadeInBoard(bool p_Fade_Up, Transform p_Fade_Out, Transform p_Fade_In)
+        {
+            _current_Side_Board_State = Side_Board_State.Moving_State;
+
+            if (p_Fade_Up)
             {
-                _Go_Down_Button.interactable = false;
-            }
-            else if (l_New_Side_Board_ID == _Side_Boards.Count - 1)
-            {
-                _Go_Down_Button.interactable = false;
-                _Go_Up_Button.interactable = true;
-                _Side_Boards[current_Side_Board].board.FadeOutBoard();
-                _Side_Boards[l_New_Side_Board_ID].board.transform.parent.transform.localScale = new Vector3(1, 1, 1);
-                current_Side_Board += 1;
+                p_Fade_Out.transform.DOScale(new Vector3(0.01f, 0.01f, _Board_Fade_Shrink_Speed_Time), 1);
+                p_Fade_Out.transform.DOMoveY(_Up_Target_Pos.y, _Board_Fade_Move_Speed_Time);
+                p_Fade_In.transform.position = _Down_Target_Pos;
+                p_Fade_In.transform.DOScale(new Vector3(1f, 1f, 1), _Board_Fade_Shrink_Speed_Time);
+                await p_Fade_In.transform.DOMoveY(_Center_Target_Pos.y, _Board_Fade_Move_Speed_Time).AsyncWaitForCompletion();
+                _current_Side_Board_State = Side_Board_State.Normal_State;
             }
             else
             {
-                _Go_Up_Button.interactable = true;
-                _Side_Boards[current_Side_Board].board.FadeOutBoard();
-                _Side_Boards[l_New_Side_Board_ID].board.transform.parent.transform.localScale = new Vector3(1, 1, 1);
-                current_Side_Board += 1;
+                p_Fade_Out.transform.DOScale(new Vector3(0.01f, 0.01f, _Board_Fade_Shrink_Speed_Time), 1);
+                p_Fade_Out.transform.DOMoveY(_Down_Target_Pos.y, _Board_Fade_Move_Speed_Time);
+                p_Fade_In.transform.position = _Up_Target_Pos;
+                p_Fade_In.transform.DOScale(new Vector3(1f, 1f, 1), _Board_Fade_Shrink_Speed_Time);
+                await p_Fade_In.transform.DOMoveY(_Center_Target_Pos.y, _Board_Fade_Move_Speed_Time).AsyncWaitForCompletion();
+                _current_Side_Board_State = Side_Board_State.Normal_State;
             }
         }
     }
@@ -141,5 +147,11 @@ namespace EvolvingCode.MergingBoard
         public Board board;
         public string board_Save_Name;
         public string new_Game_Board;
+    }
+
+    public enum Side_Board_State
+    {
+        Normal_State,
+        Moving_State
     }
 }
