@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac836604aa5cc814a9a47d41ef08194f, type: 3}
   m_Name: EmptyUnlockable
   m_EditorClassIdentifier: 
-  id: 18
+  id: 19
   name: Unlockable
   blockType: 15
   description: A Field to be Unlocked
@@ -23,5 +23,5 @@ MonoBehaviour:
   level: 1
   isSellable: 0
   value: 0
-  price: 50
-  underlyingBlock: {fileID: 11400000, guid: b8bd22f73febfc1498e61a12196227b8, type: 2}
+  price: 25
+  underlyingBlock: {fileID: 11400000, guid: e1c6abc3a461e354e8570337a516e4f1, type: 2}

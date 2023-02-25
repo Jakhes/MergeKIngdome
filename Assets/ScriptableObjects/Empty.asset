@@ -16,9 +16,10 @@ MonoBehaviour:
   name: Empty
   blockType: 0
   description: A empty Block
-  sprite: {fileID: 21300000, guid: 8b9402ec9437b7a4db26ab0911edcf9d, type: 3}
+  sprite: {fileID: -1527512132, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 0
   isMergeable: 1
   isMaxLevel: 0
   level: 0
+  isSellable: 0
   value: 0

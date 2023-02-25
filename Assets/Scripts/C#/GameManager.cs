@@ -22,21 +22,11 @@ public class GameManager : MonoBehaviour
     {
         boardManager.InitBoards();
         LoadGame();
-
-
-
-
-        boardManager.FocusBoard(0);
     }
 
     void Update()
     {
         gold_Text.text = "Gold: " + player_Data.gold;
-    }
-
-    public void Focus(int id)
-    {
-        boardManager.FocusBoard(id);
     }
 
 

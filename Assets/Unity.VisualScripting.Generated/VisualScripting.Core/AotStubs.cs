@@ -13076,7 +13076,6 @@ namespace Unity.VisualScripting.Generated.Aot
         {
             global::GameManager target = default(global::GameManager);
             int arg0 = default(int);
-            target.Focus(arg0);
             global::Unity.VisualScripting.InstanceActionInvoker<GameManager, int> optimized = new global::Unity.VisualScripting.InstanceActionInvoker<GameManager, int>(default(global::System.Reflection.MethodInfo));
             optimized.Invoke(default(global::GameManager), arg0);
             optimized.Invoke(default(object[]));

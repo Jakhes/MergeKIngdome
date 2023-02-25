@@ -192,7 +192,6 @@ namespace EvolvingCode.MergingBoard
         public async void FadeOutBoard()
         {
             await transform.parent.transform.DOScale(new Vector3(0.01f, 0.01f, 1), 1).AsyncWaitForCompletion();
-            this.gameObject.SetActive(false);
         }
 
         public void UpdateCharges()
