@@ -210,6 +210,7 @@ namespace EvolvingCode
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
             _Farm_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -238,6 +239,7 @@ namespace EvolvingCode
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
             _Farm_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -295,6 +297,7 @@ namespace EvolvingCode
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
             _Farm_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(false);
 
@@ -334,6 +337,7 @@ namespace EvolvingCode
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
             _Farm_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -401,6 +405,7 @@ namespace EvolvingCode
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
             _Farm_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -458,6 +463,7 @@ namespace EvolvingCode
             _Shop_Panel.SetActive(true);
             _Storage_Panel.SetActive(false);
             _Farm_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Button_Panel.SetActive(false);
 
@@ -509,6 +515,7 @@ namespace EvolvingCode
             _Shop_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
             _Farm_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(true);
             _Button_Panel.SetActive(true);
 
@@ -567,6 +574,7 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(true);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Farm_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
@@ -640,8 +648,9 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
-            _Upgradeable_Panel.SetActive(false);
             _Storage_Panel.SetActive(true);
+            _Unlockable_Panel.SetActive(false);
+            _Upgradeable_Panel.SetActive(false);
             _Farm_Panel.SetActive(false);
             _Button_Panel.SetActive(true);
 
@@ -701,6 +710,8 @@ namespace EvolvingCode
             _Refiner_Panel.SetActive(false);
             _Results_Panel.SetActive(false);
             _Shop_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
+            _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
             _Storage_Panel.SetActive(false);
             _Farm_Panel.SetActive(true);
