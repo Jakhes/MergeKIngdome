@@ -161,6 +161,10 @@ namespace EvolvingCode.MergingBoard
         // ? Can i make sure this gets called only once
         public void InitiateBoard()
         {
+            if (isInitiated)
+            {
+                return;
+            }
             isInitiated = true;
             grid_Position = this.transform.position;
             nodes = new List<Node>();
@@ -200,10 +204,33 @@ namespace EvolvingCode.MergingBoard
             Camera.main.GetComponent<Camera>().DOOrthoSize(l_Target_OrthoSize, travel_Time);
         }
 
-        public async void FadeOutBoard()
+        public void LockBoard()
         {
-            await transform.parent.transform.DOScale(new Vector3(0.01f, 0.01f, 1), 1).AsyncWaitForCompletion();
+            Debug.Log("Locking Board: " + board_Id);
+            _locked_View_Shield.SetActive(true);
+            List<Block> l_All_Blocks = new List<Block>();
+            nodes.ForEach(n => l_All_Blocks.Add(n.current_Block));
+
+            foreach (var l_Block in l_All_Blocks)
+            {
+                l_Block.GetComponent<Rigidbody2D>().simulated = false;
+            }
         }
+        public void UnlockBoard()
+        {
+            _is_Unlocked = true;
+            _locked_View_Shield.SetActive(false);
+            List<Block> l_All_Blocks = new List<Block>();
+            nodes.ForEach(n => l_All_Blocks.Add(n.current_Block));
+
+            foreach (var l_Block in l_All_Blocks)
+            {
+                l_Block.GetComponent<Rigidbody2D>().simulated = true;
+            }
+        }
+
+
+        /// Block Methods for the Board
 
         public void UpdateCharges()
         {
@@ -724,30 +751,5 @@ namespace EvolvingCode.MergingBoard
                 ReplaceBlock(p_To_Unlock_Block.Parent_Node, l_Underlying_Block_ID);
             }
         }
-        public void LockBoard()
-        {
-            Debug.Log("Locking Board: " + board_Id);
-            _locked_View_Shield.SetActive(true);
-            List<Block> l_All_Blocks = new List<Block>();
-            nodes.ForEach(n => l_All_Blocks.Add(n.current_Block));
-
-            foreach (var l_Block in l_All_Blocks)
-            {
-                l_Block.GetComponent<Rigidbody2D>().simulated = false;
-            }
-        }
-        public void UnlockBoard()
-        {
-            _is_Unlocked = true;
-            _locked_View_Shield.SetActive(false);
-            List<Block> l_All_Blocks = new List<Block>();
-            nodes.ForEach(n => l_All_Blocks.Add(n.current_Block));
-
-            foreach (var l_Block in l_All_Blocks)
-            {
-                l_Block.GetComponent<Rigidbody2D>().simulated = true;
-            }
-        }
     }
-
 }

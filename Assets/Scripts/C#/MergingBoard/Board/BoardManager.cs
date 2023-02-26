@@ -11,7 +11,7 @@ namespace EvolvingCode.MergingBoard
 {
     public class BoardManager : MonoBehaviour
     {
-        [SerializeField] private Board_Infos _Main_Board;
+        [SerializeField] public Board_Infos _Main_Board;
         [SerializeField] private List<Board_Infos> _Side_Boards;
         [SerializeField] private Button _Go_Up_Button;
         [SerializeField] private Button _Go_Down_Button;
@@ -57,6 +57,7 @@ namespace EvolvingCode.MergingBoard
             {
                 item.board.InitiateBoard();
                 item.board.transform.parent.transform.position = _Up_Target_Pos;
+                item.board.transform.parent.transform.localScale = new Vector3(0.01f, 0.01f, 1f);
             }
             _Main_Board.board.FocusOnBoard();
             FadeInBoard(false, _Side_Boards[1].board.transform.parent, _Side_Boards[0].board.transform.parent);
@@ -138,6 +139,29 @@ namespace EvolvingCode.MergingBoard
                 _current_Side_Board_State = Side_Board_State.Normal_State;
             }
         }
+
+        public void UnlockBoard(int p_Board_ID)
+        {
+            if (p_Board_ID == -1)
+            {
+                _Main_Board.board.UnlockBoard();
+            }
+            else if (p_Board_ID >= 0 && p_Board_ID < _Side_Boards.Count)
+            {
+                _Side_Boards[p_Board_ID].board.UnlockBoard();
+            }
+        }
+        public void LockBoard(int p_Board_ID)
+        {
+            if (p_Board_ID == -1)
+            {
+                _Main_Board.board.LockBoard();
+            }
+            else if (p_Board_ID >= 0 && p_Board_ID < _Side_Boards.Count)
+            {
+                _Side_Boards[p_Board_ID].board.LockBoard();
+            }
+        }
     }
 
     [Serializable]
@@ -146,7 +170,6 @@ namespace EvolvingCode.MergingBoard
         public int board_Id;
         public Board board;
         public string board_Save_Name;
-        public string new_Game_Board;
     }
 
     public enum Side_Board_State

@@ -17,7 +17,7 @@ MonoBehaviour:
   blockType: 15
   description: A Field to be Unlocked
   sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
-  isMoveable: 0
+  isMoveable: 1
   isMergeable: 0
   isMaxLevel: 1
   level: 1

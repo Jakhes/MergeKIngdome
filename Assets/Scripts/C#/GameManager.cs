@@ -112,6 +112,18 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameOver");
     }
+
+    public void ProgressCastleState()
+    {
+        if (player_Data.castleProgress == CastleProgress.None)
+        {
+            boardManager._Main_Board.board.Try_Spawning_Block_On_Board(5, Vector2.one);
+            boardManager._Main_Board.board.Try_Spawning_Block_On_Board(7, Vector2.one);
+            boardManager._Main_Board.board.Try_Spawning_Block_On_Board(7, Vector2.one);
+            boardManager.UnlockBoard(2);
+            player_Data.castleProgress = CastleProgress.Tent;
+        }
+    }
 }
 
 [Serializable]
@@ -121,9 +133,22 @@ public class PlayerData
 
     public int days = 1;
 
-    public PlayerData(int pGold, int pDays)
+    public CastleProgress castleProgress = CastleProgress.None;
+
+    public PlayerData(int pGold, int pDays, CastleProgress p_Castle_Progress)
     {
         this.gold = pGold;
         this.days = pDays;
+        castleProgress = p_Castle_Progress;
     }
+}
+
+[Serializable]
+public enum CastleProgress
+{
+    None,
+    Tent,
+    Hut,
+    Hall,
+    Castle
 }

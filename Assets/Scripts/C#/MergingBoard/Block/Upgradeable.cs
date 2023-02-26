@@ -9,6 +9,13 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] public List<UpgradeMaterial> _Upgrade_Materials;
         [SerializeField] private bool _Is_Upgrade_Ready;
 
+        private GameManager gameManager;
+
+        void Start()
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+
 
 
 
@@ -49,6 +56,10 @@ namespace EvolvingCode.MergingBoard
             {
                 Board parent_Board = this.GetComponentInParent<Board>();
                 // this destroys this Block
+                if (((UpgradeableData)block_Data).upgrade_Target.id == 4)
+                {
+                    gameManager.ProgressCastleState();
+                }
                 parent_Board.ReplaceBlock(this.Parent_Node, ((UpgradeableData)block_Data).upgrade_Target.id);
             }
         }
