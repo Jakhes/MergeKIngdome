@@ -40,6 +40,8 @@ namespace EvolvingCode.MergingBoard
         public async void NextDay(Vector2 p_House_Pos)
         {
             current_Labor = ((WorkerData)block_Data).max_Labor;
+
+            // Makes the Worker "walk" home to recharge
             await transform.DOMove(p_House_Pos, travel_Time).AsyncWaitForCompletion();
             MoveBlockToNode();
         }

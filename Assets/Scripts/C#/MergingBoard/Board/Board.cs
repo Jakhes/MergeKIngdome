@@ -84,6 +84,7 @@ namespace EvolvingCode.MergingBoard
                                 upgradeable_Saves.Add(((Upgradeable)n.current_Block).SaveBlock());
                                 break;
                             case BlockType.Worker:
+                                // Worker that are assigned a home get saved by the Home and also spawned on Load by the House
                                 if (!((Worker)n.current_Block).has_Home)
                                 {
                                     worker_Saves.Add(((Worker)n.current_Block).SaveBlock());
@@ -657,7 +658,14 @@ namespace EvolvingCode.MergingBoard
                 }
                 else
                 {
-                    PushOtherBlockAway(A, B);
+                    if (B.block_Data.isMoveable)
+                    {
+                        PushOtherBlockAway(A, B);
+                    }
+                    else
+                    {
+                        A.MoveBlockToNode();
+                    }
                 }
             }
         }
