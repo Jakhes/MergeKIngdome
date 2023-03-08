@@ -52,19 +52,19 @@ namespace EvolvingCode
         [SerializeField] private TMP_Text _Health_Text;
         [SerializeField] private TMP_Text _Damage_Text;
         [SerializeField] private TMP_Text _Defense_Text;
-        [SerializeField] private Image _Tired_Image;
-        [SerializeField] private TMP_Text _Tired_Text;
+        [SerializeField] private TMP_Text _Labor_Left_Text;
+        [SerializeField] private Image _Worker_Has_Home_Image;
+        [SerializeField] private TMP_Text _Worker_Has_Home_Text;
+
 
         // Workstation References
         [SerializeField] private GameObject _Workstation_Info_Panel;
         [SerializeField] private Image _IsLimitless_Image;
         [SerializeField] private TMP_Text _IsLimitless_Text;
         [SerializeField] private TMP_Text _ChargesLeft_Text;
-        [SerializeField] private TMP_Text _Days_Per_Charge_Text;
+        [SerializeField] private TMP_Text _Needed_Labor_Text;
         [SerializeField] private TMP_Text _Items_Per_Charge_Text;
         [SerializeField] private TMP_Text _Storage_Text;
-        [SerializeField] private Image _HasWorker_Image;
-        [SerializeField] private TMP_Text _HasWorker_Text;
 
         // Results References
         [SerializeField] private GameObject _Results_Panel;
@@ -307,15 +307,18 @@ namespace EvolvingCode
             AddBasicBlockInfo(p_Worker_Data);
 
             // Worker Extra Info
+            if (p_Worker.has_Home)
+                _Worker_Has_Home_Image.sprite = true_Sprite;
+            else
+                _Worker_Has_Home_Image.sprite = false_Sprite;
+
             _Job_Text.text = "Job : " + p_Worker_Data.job.ToString();
             _Health_Text.text = p_Worker.currentHealth + " / " + p_Worker_Data.maxHP + " HP";
             _Damage_Text.text = p_Worker_Data.attackDamage + " Damage";
             _Defense_Text.text = p_Worker_Data.defense + " Defense";
+            _Labor_Left_Text.text = p_Worker.current_Labor + " / " + p_Worker_Data.max_Labor + " Labor";
 
-            if (p_Worker.isTired)
-                _Tired_Image.sprite = true_Sprite;
-            else
-                _Tired_Image.sprite = false_Sprite;
+
 
             // Activate useable Buttons
             _Sell_Button.SetActive(p_Worker_Data.isSellable);
@@ -346,21 +349,18 @@ namespace EvolvingCode
             // Header and Description
             AddBasicBlockInfo(p_WorkstationData);
 
-            // Worker Extra Info
+            // Workstation Info
             if (p_WorkstationData.isLimitless)
                 _IsLimitless_Image.sprite = true_Sprite;
             else
                 _IsLimitless_Image.sprite = false_Sprite;
 
             _ChargesLeft_Text.text = "Charges Left: " + p_Workstation.remainingCharges;
-            _Days_Per_Charge_Text.text = (p_WorkstationData.productionDays - p_Workstation.currentProductionDay + 1) + " Work Units until next Charge";
+            _Needed_Labor_Text.text = p_Workstation.current_Needed_Labor + "/" + p_WorkstationData.needed_Labor + " Needed Labor until next Charge";
             _Items_Per_Charge_Text.text = p_WorkstationData.items_Per_Charge + " Items per Charge";
-            _Items_Per_Charge_Text.text = p_Workstation.item_Buffer.Count + " / " + p_WorkstationData.storageLimit + " Stored";
+            _Storage_Text.text = p_Workstation.item_Buffer.Count + " Stored";
 
-            if (p_Workstation.hasWorker)
-                _HasWorker_Image.sprite = true_Sprite;
-            else
-                _HasWorker_Image.sprite = false_Sprite;
+
 
             // Results
             int result_Amount = p_WorkstationData.possible_Results.Count;
@@ -418,7 +418,7 @@ namespace EvolvingCode
             _Room_Limit_Text.text = p_House.inhabitants.Count + " / " + p_HouseData.roomLimit + " Room used";
 
             // Inhabitants Scroll View
-            List<Worker_Save_Data> l_Inhabitants_List = p_House.inhabitants;
+            List<Worker> l_Inhabitants_List = p_House.inhabitants;
             int l_Inhabitants_Amount = l_Inhabitants_List.Count;
             int l_Inhabitants_Content_Window_Width = l_Inhabitants_Amount * 130 + 40;
             _Inhabitants_Scroll_Content_Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(l_Inhabitants_Content_Window_Width, 110);
@@ -431,7 +431,7 @@ namespace EvolvingCode
             for (int i = 0; i < l_Inhabitants_Amount; i++)
             {
                 l_Images[i].canvasRenderer.SetAlpha(1);
-                int l_Worker_Block_ID = l_Inhabitants_List[i].base_Block_Save.id;
+                int l_Worker_Block_ID = l_Inhabitants_List[i].block_Data.id;
                 Sprite sprite = _BlockManager.GetBlock_Data_By_ID(l_Worker_Block_ID).sprite;
                 l_Images[i].sprite = sprite;
             }

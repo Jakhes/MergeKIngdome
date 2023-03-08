@@ -34,6 +34,6 @@ MonoBehaviour:
   storageLimit: 4
   isLimitless: 0
   charges: 2
+  needed_Labor: 2
   items_Per_Charge: 5
-  productionDays: 1
   allowedJobs: 0000000001000000

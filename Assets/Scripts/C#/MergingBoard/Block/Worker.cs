@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
@@ -8,14 +9,17 @@ namespace EvolvingCode.MergingBoard
     public class Worker : Block
     {
         [SerializeField] public int currentHealth;
-        [SerializeField] public bool isTired;
+        [SerializeField] public int current_Labor;
+        [SerializeField] public bool has_Home;
+
 
         public void init_Block(WorkerData init_Block_Data, float p_Travel_Time)
         {
             init_Block((BlockData)init_Block_Data, p_Travel_Time);
 
             currentHealth = init_Block_Data.maxHP;
-            isTired = false;
+            current_Labor = init_Block_Data.max_Labor;
+            has_Home = false;
         }
 
         public void init_Block(WorkerData init_Block_Data, float p_Travel_Time, Worker_Save_Data block_Save)
@@ -23,23 +27,21 @@ namespace EvolvingCode.MergingBoard
             init_Block((BlockData)init_Block_Data, p_Travel_Time);
 
             currentHealth = block_Save.current_HP;
-            isTired = block_Save.isTired;
-        }
-
-        private void Update()
-        {
-
+            current_Labor = block_Save.current_Labor;
+            has_Home = block_Save.has_Home;
         }
 
         public new Worker_Save_Data SaveBlock()
         {
-            Worker_Save_Data workStation_Save = new Worker_Save_Data(base.SaveBlock(), currentHealth, isTired);
+            Worker_Save_Data workStation_Save = new Worker_Save_Data(base.SaveBlock(), currentHealth, current_Labor, has_Home);
             return workStation_Save;
         }
 
-        public void Sleep()
+        public async void NextDay(Vector2 p_House_Pos)
         {
-
+            current_Labor = ((WorkerData)block_Data).max_Labor;
+            await transform.DOMove(p_House_Pos, travel_Time).AsyncWaitForCompletion();
+            MoveBlockToNode();
         }
 
         public void TakeDamage(int damage)
@@ -55,6 +57,17 @@ namespace EvolvingCode.MergingBoard
         {
             Destroy(this.gameObject);
         }
+
+        public int UseLabor(int current_Needed_Labor)
+        {
+            Debug.Log(current_Labor + " and " + current_Needed_Labor);
+            if (current_Labor > 0 && current_Needed_Labor > 0)
+            {
+                current_Labor--;
+                return current_Needed_Labor - 1;
+            }
+            return current_Needed_Labor;
+        }
     }
 
     [System.Serializable]
@@ -62,13 +75,15 @@ namespace EvolvingCode.MergingBoard
     {
         public Block_Save_Data base_Block_Save;
         public int current_HP;
-        public bool isTired;
+        public int current_Labor;
+        public bool has_Home;
 
-        public Worker_Save_Data(Block_Save_Data p_Base_Block_Save, int p_Current_HP, bool p_IsTired)
+        public Worker_Save_Data(Block_Save_Data p_Base_Block_Save, int p_Current_HP, int p_Current_Labor, bool p_Has_Home)
         {
             base_Block_Save = p_Base_Block_Save;
             current_HP = p_Current_HP;
-            isTired = p_IsTired;
+            current_Labor = p_Current_Labor;
+            has_Home = p_Has_Home;
         }
     }
 }

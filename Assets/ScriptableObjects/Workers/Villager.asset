@@ -21,9 +21,10 @@ MonoBehaviour:
   isMergeable: 1
   isMaxLevel: 0
   level: 1
+  isSellable: 0
   value: 1
   maxHP: 5
   attackDamage: 1
   defense: 0
-  foodConsumption: 1
   job: 0
+  max_Labor: 2

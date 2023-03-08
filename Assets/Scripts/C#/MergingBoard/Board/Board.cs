@@ -84,7 +84,10 @@ namespace EvolvingCode.MergingBoard
                                 upgradeable_Saves.Add(((Upgradeable)n.current_Block).SaveBlock());
                                 break;
                             case BlockType.Worker:
-                                worker_Saves.Add(((Worker)n.current_Block).SaveBlock());
+                                if (!((Worker)n.current_Block).has_Home)
+                                {
+                                    worker_Saves.Add(((Worker)n.current_Block).SaveBlock());
+                                }
                                 break;
                             case BlockType.WorkStation:
                                 workStation_Saves.Add(((Workstation)n.current_Block).SaveBlock());
@@ -491,6 +494,29 @@ namespace EvolvingCode.MergingBoard
             return false;
         }
 
+        public Worker Try_Spawning_Worker_Block_On_Board_With_Save_And_Return(int id, Vector2 spawn_Pos, Worker_Save_Data workerSave)
+        {
+            var free_nodes = nodes
+                                .Where(n => n.board_Pos == workerSave.base_Block_Save.node_Pos)
+                                .OrderBy(b => Random.value)
+                                .ToList();
+            if (free_nodes.Count > 0)
+            {
+                Block old_Block = free_nodes[0].current_Block;
+                var block = block_Manager.Load_Block_From_Save(workerSave, free_nodes[0]);
+                if (block == null) return null;
+                block.transform.parent = this.transform;
+                block.transform.position = spawn_Pos;
+                block.MoveBlockToNode();
+                if (old_Block != null)
+                {
+                    Destroy(old_Block.gameObject);
+                }
+                return (Worker)block;
+            }
+            return null;
+        }
+
         public bool Try_Spawning_Food_Block_On_Board_With_Save(int id, Vector2 spawn_Pos, Food_Save_Data foodSave)
         {
             var free_nodes = nodes
@@ -538,14 +564,14 @@ namespace EvolvingCode.MergingBoard
             }
             else if (A.BlockType == BlockType.Worker && B.BlockType == BlockType.WorkStation)
             {
-                if (!((Workstation)B).TryTakeWorker((Worker)A))
+                if (!((Workstation)B).TryToLabor((Worker)A))
                 {
                     A.MoveBlockToNode();
                 }
             }
             else if (A.BlockType == BlockType.Worker && B.BlockType == BlockType.House)
             {
-                if (!((House)B).TryTakeWorker((Worker)A))
+                if (!((House)B).TryAssignWorker((Worker)A))
                 {
                     A.MoveBlockToNode();
                 }

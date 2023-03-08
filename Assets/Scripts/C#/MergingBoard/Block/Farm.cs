@@ -58,11 +58,9 @@ namespace EvolvingCode.MergingBoard
 
         public bool TryWorkOnFarm(Worker p_Worker)
         {
-            if (((FarmData)block_Data).needs_Labor && _Still_Needed_Labor > 0 && !p_Worker.isTired)
+            if (((FarmData)block_Data).needs_Labor && _Still_Needed_Labor > 0)
             {
-                _Still_Needed_Labor -= 1;
-                p_Worker.isTired = true;
-                return true;
+                _Still_Needed_Labor = p_Worker.UseLabor(_Still_Needed_Labor);
             }
             return false;
         }

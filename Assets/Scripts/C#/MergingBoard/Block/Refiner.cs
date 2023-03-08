@@ -41,10 +41,9 @@ namespace EvolvingCode.MergingBoard
         public bool TryWorkOnRefinement(Worker p_Worker)
         {
             Debug.Log("Trying Refining!");
-            if (_Is_A_Recipe_Selected && _Selected_Recipe.is_Labor_Needed && _Still_Needed_Labor > 0 && !p_Worker.isTired)
+            if (_Is_A_Recipe_Selected && _Selected_Recipe.is_Labor_Needed && _Still_Needed_Labor > 0)
             {
-                _Still_Needed_Labor -= 1;
-                p_Worker.isTired = true;
+                _Still_Needed_Labor = p_Worker.UseLabor(_Still_Needed_Labor);
                 TryRefining();
                 return true;
             }
