@@ -5,7 +5,7 @@ namespace EvolvingCode.MergingBoard
     [System.Serializable]
     public class BoardData
     {
-        public UnityEngine.Vector2 board_Dims;
+        public UnityEngine.Vector2 board_Dims; // doesn't serve a real purpose since the board dims don't change through the game
         public bool is_Unlocked = false;
         public List<Block_Save_Data> block_Saves;
         public List<Farm_Save_Data> farm_Saves;
@@ -21,7 +21,8 @@ namespace EvolvingCode.MergingBoard
         public List<WorkStation_Save_Data> workStation_Saves;
 
         // contains the Board Dimensions and Lists of Saves for all BlockTypes
-        public BoardData(int width, int height,
+        public BoardData(
+            int width, int height,
             bool p_Is_Unlocked,
             List<Block_Save_Data> p_Block_Saves,
             List<Farm_Save_Data> p_farm_Saves,

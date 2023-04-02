@@ -23,6 +23,9 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] private TMP_Text _Board_Name_Text;
 
 
+        [SerializeField] private BlockManager block_Manager;
+
+
 
         public int current_Side_Board;
         private Side_Board_State _current_Side_Board_State;
@@ -75,20 +78,89 @@ namespace EvolvingCode.MergingBoard
         {
             if (p_Load_New_Game)
             {
-                _Main_Board.board.loadBoard(
-                    FileHandler.ReadFromJSON<BoardData>("NewGame" + _Main_Board.board_Save_Name + ".json"));
+                BoardData l_BoardData = FileHandler.ReadFromJSON<BoardData>("NewGame" + _Main_Board.board_Save_Name + ".json");
+                LoadBoard(_Main_Board.board, l_BoardData);
 
-                _Side_Boards.ForEach(n => n.board.loadBoard(
-                    FileHandler.ReadFromJSON<BoardData>("NewGame" + n.board_Save_Name + ".json")));
+                foreach (Board_Infos l_Side_Board_Info in _Side_Boards)
+                {
+                    BoardData l_Side_BoardData = FileHandler.ReadFromJSON<BoardData>("NewGame" + l_Side_Board_Info.board_Save_Name + ".json");
+                    LoadBoard(l_Side_Board_Info.board, l_Side_BoardData);
+                }
             }
             else
             {
-                _Main_Board.board.loadBoard(
-                    FileHandler.ReadFromJSON<BoardData>(_Main_Board.board_Save_Name + ".json"));
+                BoardData l_BoardData = FileHandler.ReadFromJSON<BoardData>(_Main_Board.board_Save_Name + ".json");
+                LoadBoard(_Main_Board.board, l_BoardData);
 
-                _Side_Boards.ForEach(n => n.board.loadBoard(
-                    FileHandler.ReadFromJSON<BoardData>(n.board_Save_Name + ".json")));
+                foreach (Board_Infos l_Side_Board_Info in _Side_Boards)
+                {
+                    BoardData l_Side_BoardData = FileHandler.ReadFromJSON<BoardData>(l_Side_Board_Info.board_Save_Name + ".json");
+                    LoadBoard(l_Side_Board_Info.board, l_Side_BoardData);
+                }
             }
+        }
+
+        public void LoadBoard(Board p_Board, BoardData p_BoardData)
+        {
+            List<(Vector2, Block)> l_Loaded_Blocks = new List<(Vector2, Block)>();
+
+            if (p_BoardData == default(BoardData))
+            {
+                Debug.Log("No Board save found init new Game Board!");
+                p_Board.loadBoard();
+                return;
+            }
+
+            foreach (Block_Save_Data blockData in p_BoardData.block_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (Farm_Save_Data blockData in p_BoardData.farm_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (Food_Save_Data blockData in p_BoardData.food_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (Generator_Save_Data blockData in p_BoardData.generator_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (House_Save_Data blockData in p_BoardData.house_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (Refiner_Save_Data blockData in p_BoardData.refiner_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (Shop_Save_Data blockData in p_BoardData.shop_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (Storage_Save_Data blockData in p_BoardData.storage_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (Unlockable_Save_Data blockData in p_BoardData.unlockable_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (Upgradeable_Save_Data blockData in p_BoardData.upgradeable_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (Worker_Save_Data blockData in p_BoardData.worker_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+            foreach (WorkStation_Save_Data blockData in p_BoardData.workStation_Saves)
+            {
+                l_Loaded_Blocks.Add((blockData.base_Block_Save.node_Pos, block_Manager.Load_Block_From_Save(blockData)));
+            }
+
+            p_Board.loadBoard(p_BoardData.board_Dims, p_BoardData.is_Unlocked, l_Loaded_Blocks);
         }
 
         public bool Next_Day_All_Boards()

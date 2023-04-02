@@ -95,202 +95,142 @@ namespace EvolvingCode.MergingBoard
             return block;
         }
 
-        internal Block Load_Block_From_Save(Block_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Block_Save_Data save_Data)
         {
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.id);
 
             Block block;
-            block = Instantiate(block_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(block_Prefab, Vector3.zero, Quaternion.identity);
             block.init_Block(block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
 
-        internal Block Load_Block_From_Save(Farm_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Farm_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(farm_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(farm_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Farm>().init_Block((FarmData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
-        internal Block Load_Block_From_Save(Food_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Food_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(food_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(food_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Food>().init_Block((FoodData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
 
-        internal Block Load_Block_From_Save(Generator_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Generator_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(generator_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(generator_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Generator>().init_Block((GeneratorData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
 
-        internal Block Load_Block_From_Save(House_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(House_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(house_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(house_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<House>().init_Block((HouseData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
-        internal Block Load_Block_From_Save(Refiner_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Refiner_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(refiner_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(refiner_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Refiner>().init_Block((RefinerData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
 
-        internal Block Load_Block_From_Save(Shop_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Shop_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(shop_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(shop_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Shop>().init_Block((ShopData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
 
-        internal Block Load_Block_From_Save(Storage_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Storage_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(storage_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(storage_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Storage>().init_Block((StorageData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
-        internal Block Load_Block_From_Save(Unlockable_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Unlockable_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(unlockable_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(unlockable_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Unlockable>().init_Block((UnlockableData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
 
-        internal Block Load_Block_From_Save(Upgradeable_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Upgradeable_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(upgradeable_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(upgradeable_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Upgradeable>().init_Block((UpgradeableData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
 
-        internal Block Load_Block_From_Save(Worker_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(Worker_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(worker_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(worker_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Worker>().init_Block((WorkerData)block_Info, block_Travel_Time, save_Data);
 
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
-
             return block;
         }
 
-        internal Block Load_Block_From_Save(WorkStation_Save_Data save_Data, Node parent_Node)
+        internal Block Load_Block_From_Save(WorkStation_Save_Data save_Data)
         {
 
             BlockData block_Info = GetBlock_Data_By_ID(save_Data.base_Block_Save.id);
 
             Block block;
-            block = Instantiate(workstation_Prefab, parent_Node.transform.position, Quaternion.identity);
+            block = Instantiate(workstation_Prefab, Vector3.zero, Quaternion.identity);
             block.GetComponent<Workstation>().init_Block((WorkStationData)block_Info, block_Travel_Time, save_Data);
-
-            Destroy(parent_Node.current_Block.gameObject);
-
-            parent_Node.current_Block = block;
-            block.Parent_Node = parent_Node;
 
             return block;
         }
