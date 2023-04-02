@@ -53,6 +53,11 @@ namespace EvolvingCode.MergingBoard
         {
 
         }
+
+        public virtual void SellBlock()
+        {
+
+        }
     }
 
     [System.Serializable]

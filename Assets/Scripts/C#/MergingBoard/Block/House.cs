@@ -79,6 +79,11 @@ namespace EvolvingCode.MergingBoard
                 inhabitants.Add(worker);
             }
         }
+
+        public override void SellBlock()
+        {
+            inhabitants.ForEach(x => x.has_Home = false);
+        }
     }
 
     [System.Serializable]
