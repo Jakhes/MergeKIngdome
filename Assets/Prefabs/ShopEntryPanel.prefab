@@ -441,7 +441,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 100
+  m_PreferredWidth: 125
   m_PreferredHeight: 50
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -565,9 +565,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184b2e0bf55471442807ab1e3b0068f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockID: 0
+  _BlockID: 0
   _Block_Image: {fileID: 566725537842536951}
-  _Cost_Text: {fileID: 543739167767555832}
+  _Entry_Text: {fileID: 543739167767555832}
+  _Cost_Button_Text: {fileID: 729295321624557356}
 --- !u!1001 &2215632657088215803
 PrefabInstance:
   m_ObjectHideFlags: 0
