@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EvolvingCode.IngameMessages;
 using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
@@ -39,6 +40,8 @@ namespace EvolvingCode.MergingBoard
 
                 return true;
             }
+            WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+            l_WarningMessageManager.Invalid(transform.position);
             return false;
         }
 
@@ -53,6 +56,8 @@ namespace EvolvingCode.MergingBoard
 
                 return true;
             }
+            WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+            l_WarningMessageManager.Invalid(transform.position);
             return false;
         }
 
@@ -62,6 +67,12 @@ namespace EvolvingCode.MergingBoard
             {
                 _Still_Needed_Labor = p_Worker.UseLabor(_Still_Needed_Labor);
             }
+            else
+            {
+                WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                l_WarningMessageManager.Invalid(transform.position);
+            }
+
             return false;
         }
 
@@ -79,6 +90,9 @@ namespace EvolvingCode.MergingBoard
                 _Still_Needed_Labor = ((FarmData)block_Data).needed_Labor;
                 _Still_Needed_Days = ((FarmData)block_Data).needed_Days;
                 _Slot_Entries.RemoveAll(x => true);
+
+                SuccessMessageManager l_SuccessMessageManager = this.GetComponentInParent<Board>().SuccessMessageManager;
+                l_SuccessMessageManager.Harvesting();
             }
         }
 
@@ -90,6 +104,8 @@ namespace EvolvingCode.MergingBoard
                 (!((FarmData)block_Data).needs_Labor || _Still_Needed_Labor <= 0))
             {
                 _Still_Needed_Days -= 1;
+                InfoMessageManager l_InfoMessageManager = this.GetComponentInParent<Board>().InfoMessageManager;
+                l_InfoMessageManager.Growing(_Still_Needed_Days, transform.position);
             }
         }
 

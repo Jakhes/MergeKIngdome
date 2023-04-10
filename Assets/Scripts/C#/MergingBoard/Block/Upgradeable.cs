@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using EvolvingCode.IngameMessages;
 using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
@@ -55,12 +56,21 @@ namespace EvolvingCode.MergingBoard
             if (_Is_Upgrade_Ready)
             {
                 Board parent_Board = this.GetComponentInParent<Board>();
+
+                SuccessMessageManager l_SuccessMessageManager = this.GetComponentInParent<Board>().SuccessMessageManager;
+                l_SuccessMessageManager.Upgrade(transform.position);
+
                 // this destroys this Block
                 if (((UpgradeableData)block_Data).upgrade_Target.id == 4)
                 {
                     gameManager.ProgressCastleState();
                 }
                 parent_Board.ReplaceBlock(this.Parent_Node, ((UpgradeableData)block_Data).upgrade_Target.id);
+            }
+            else
+            {
+                WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                l_WarningMessageManager.MissingResources();
             }
         }
 

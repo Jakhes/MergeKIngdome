@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EvolvingCode.IngameMessages;
 using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
@@ -58,6 +59,8 @@ namespace EvolvingCode.MergingBoard
                 {
                     _Item_Buffer.Add(l_Result_Blocks.id);
                 }
+                SuccessMessageManager l_SuccessMessageManager = this.GetComponentInParent<Board>().SuccessMessageManager;
+                l_SuccessMessageManager.Refining(transform.position);
                 _Is_A_Recipe_Selected = false;
             }
         }

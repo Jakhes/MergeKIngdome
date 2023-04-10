@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EvolvingCode.IngameMessages;
 using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
@@ -55,7 +56,18 @@ namespace EvolvingCode.MergingBoard
                 inhabitants.Add(p_Worker);
                 p_Worker.has_Home = true;
 
-                //TODO Adding a Log message
+                InfoMessageManager l_InfoMessageManager = this.GetComponentInParent<Board>().InfoMessageManager;
+                l_InfoMessageManager.AssignHouse();
+            }
+            else if (inhabitants.Count >= ((HouseData)block_Data).roomLimit)
+            {
+                WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                l_WarningMessageManager.HouseFull();
+            }
+            else if (inhabitants.Contains(p_Worker) || p_Worker.has_Home)
+            {
+                WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                l_WarningMessageManager.AlreadyAssigned();
             }
             return false;
         }
@@ -65,7 +77,7 @@ namespace EvolvingCode.MergingBoard
             if (inhabitants.Contains(p_Worker))
             {
                 inhabitants.Remove(p_Worker);
-                p_Worker.has_Home = false;
+                p_Worker.LoseHome();
             }
         }
 
@@ -82,7 +94,7 @@ namespace EvolvingCode.MergingBoard
 
         public override void SellBlock()
         {
-            inhabitants.ForEach(x => x.has_Home = false);
+            inhabitants.ForEach(x => x.LoseHome());
         }
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EvolvingCode.IngameMessages;
 using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
@@ -35,15 +36,22 @@ namespace EvolvingCode.MergingBoard
             {
                 if (p_Current_Gold_Amount < l_Selected_Entry.Cost)
                 {
+                    WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                    l_WarningMessageManager.NotEnoughGold(l_Selected_Entry.Cost);
                     return p_Current_Gold_Amount;
                 }
 
                 Board parent_Board = this.GetComponentInParent<Board>();
                 if (!parent_Board.Try_Spawning_Block_On_Board(p_Block_ID, Parent_Node.transform.position))
                 {
+                    WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                    l_WarningMessageManager.BoardFull();
+
                     return p_Current_Gold_Amount;
                 }
 
+                SuccessMessageManager l_SuccessMessageManager = this.GetComponentInParent<Board>().SuccessMessageManager;
+                l_SuccessMessageManager.Bought();
                 return p_Current_Gold_Amount - l_Selected_Entry.Cost;
             }
         }

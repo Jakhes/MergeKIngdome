@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using EvolvingCode.IngameMessages;
 using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
@@ -44,6 +45,9 @@ namespace EvolvingCode.MergingBoard
             // Makes the Worker "walk" home to recharge
             await transform.DOMove(p_House_Pos, travel_Time).AsyncWaitForCompletion();
             MoveBlockToNode();
+
+            InfoMessageManager l_InfoMessageManager = this.GetComponentInParent<Board>().InfoMessageManager;
+            l_InfoMessageManager.LaborRecharged(((WorkerData)block_Data).max_Labor, Parent_Node.transform.position);
         }
 
         public void TakeDamage(int damage)
@@ -62,13 +66,21 @@ namespace EvolvingCode.MergingBoard
 
         public int UseLabor(int current_Needed_Labor)
         {
-            Debug.Log(current_Labor + " and " + current_Needed_Labor);
             if (current_Labor > 0 && current_Needed_Labor > 0)
             {
                 current_Labor--;
                 return current_Needed_Labor - 1;
             }
+            WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+            l_WarningMessageManager.NotEnoughLabor();
             return current_Needed_Labor;
+        }
+
+        internal void LoseHome()
+        {
+            has_Home = false;
+            WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+            l_WarningMessageManager.LostHouse(transform.position);
         }
     }
 

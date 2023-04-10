@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EvolvingCode.IngameMessages;
 using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
@@ -39,6 +40,8 @@ namespace EvolvingCode.MergingBoard
 
             if (remainingCharges <= 0 && item_Buffer.Count <= 0)
             {
+                InfoMessageManager l_InfoMessageManager = this.GetComponentInParent<Board>().InfoMessageManager;
+                l_InfoMessageManager.NoChargesLeft(transform.position);
                 this.GetComponentInParent<Board>().RemoveBlock(this);
             }
 
@@ -77,6 +80,9 @@ namespace EvolvingCode.MergingBoard
         {
             if (item_Buffer.Count <= 0 && current_Needed_Labor <= 0 && remainingCharges > 0)
             {
+                SuccessMessageManager l_SuccessMessageManager = this.GetComponentInParent<Board>().SuccessMessageManager;
+                l_SuccessMessageManager.Generating(transform.position);
+
                 for (int i = 0; i < ((WorkStationData)block_Data).items_Per_Charge; i++)
                 {
                     item_Buffer.Add(((WorkStationData)block_Data).possible_Results.GetRandom().id);
@@ -94,6 +100,11 @@ namespace EvolvingCode.MergingBoard
             if (((WorkStationData)block_Data).allowedJobs.Contains(((WorkerData)(worker.block_Data)).job))
             {
                 current_Needed_Labor = worker.UseLabor(current_Needed_Labor);
+                if (current_Needed_Labor > 0)
+                {
+                    InfoMessageManager l_InfoMessageManager = this.GetComponentInParent<Board>().InfoMessageManager;
+                    l_InfoMessageManager.LaborUsed(((WorkStationData)block_Data).needed_Labor - current_Needed_Labor, ((WorkStationData)block_Data).needed_Labor, transform.position);
+                }
             }
             return false;
         }

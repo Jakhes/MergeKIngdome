@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Pool;
@@ -12,6 +13,7 @@ namespace EvolvingCode.IngameMessages
         [SerializeField] private float _Current_Time = 0;
 
         [SerializeField] private Animator _Text_Animation;
+        [SerializeField] private TMP_Text _Message_Text;
 
         public IObjectPool<FloatingInfoMessage> pool;
 
@@ -27,6 +29,11 @@ namespace EvolvingCode.IngameMessages
         {
             _Current_Time = 0;
             _Text_Animation.Play("FloatingText");
+        }
+
+        public void ChangeText(string p_Text)
+        {
+            _Message_Text.text = p_Text;
         }
     }
 }

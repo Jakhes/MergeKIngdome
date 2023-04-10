@@ -5,6 +5,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using EvolvingCode.IngameMessages;
 
 
 namespace EvolvingCode.MergingBoard
@@ -56,7 +57,8 @@ namespace EvolvingCode.MergingBoard
 
         public virtual void SellBlock()
         {
-
+            SuccessMessageManager l_SuccessMessageManager = this.GetComponentInParent<Board>().SuccessMessageManager;
+            l_SuccessMessageManager.Sold(transform.position);
         }
     }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using EvolvingCode.IngameMessages;
 
 namespace EvolvingCode.MergingBoard
 {
@@ -19,6 +20,9 @@ namespace EvolvingCode.MergingBoard
 
         [SerializeField] private Merger merge_Manager;
         [SerializeField] private BlockManager block_Manager;
+        [SerializeField] private InfoMessageManager infoMessageManager;
+        [SerializeField] private WarningMessageManager warningMessageManager;
+        [SerializeField] private SuccessMessageManager successMessageManager;
 
 
 
@@ -29,6 +33,10 @@ namespace EvolvingCode.MergingBoard
         public Vector2 offset;
         public float travel_Time;
         public float orthographicOffset;
+
+        public InfoMessageManager InfoMessageManager { get => infoMessageManager; }
+        public WarningMessageManager WarningMessageManager { get => warningMessageManager; }
+        public SuccessMessageManager SuccessMessageManager { get => successMessageManager; }
 
         public BoardData saveBoard()
         {

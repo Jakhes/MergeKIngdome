@@ -5,6 +5,7 @@ using EvolvingCode.MergingBoard;
 using System;
 using TMPro;
 using System.IO;
+using EvolvingCode.IngameMessages;
 
 public class GameManager : MonoBehaviour
 {
@@ -122,6 +123,9 @@ public class GameManager : MonoBehaviour
             boardManager._Main_Board.board.Try_Spawning_Block_On_Board(7, Vector2.one);
             boardManager.UnlockBoard(2);
             player_Data.castleProgress = CastleProgress.Tent;
+            SuccessMessageManager l_SuccessMessageManager = this.GetComponentInParent<Board>().SuccessMessageManager;
+            l_SuccessMessageManager.Upgrade(transform.position);
+
         }
     }
 }

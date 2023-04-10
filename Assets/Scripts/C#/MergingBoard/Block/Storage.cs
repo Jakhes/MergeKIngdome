@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EvolvingCode.IngameMessages;
 using UnityEngine;
 
 namespace EvolvingCode.MergingBoard
@@ -19,6 +20,17 @@ namespace EvolvingCode.MergingBoard
                 currently_Stored_Block_ID = p_Block.block_Data.id;
                 stored_Amount += 1;
                 return true;
+            }
+            if (!((StorageData)block_Data).allowed_Types.Contains(p_Block.block_Data.blockType))
+            {
+                WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                l_WarningMessageManager.Invalid(transform.position);
+            }
+
+            if (stored_Amount >= ((StorageData)block_Data).max_Storage)
+            {
+                WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                l_WarningMessageManager.Full();
             }
             return false;
         }
@@ -73,6 +85,11 @@ namespace EvolvingCode.MergingBoard
             if (l_Parent_Board.Try_Spawning_Block_On_Board(currently_Stored_Block_ID, Parent_Node.transform.position))
             {
                 stored_Amount -= 1;
+            }
+            else
+            {
+                WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                l_WarningMessageManager.BoardFull();
             }
             CheckIfStorageEmpty();
         }
