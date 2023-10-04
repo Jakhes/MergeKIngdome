@@ -13,10 +13,12 @@ namespace EvolvingCode
         public Board current_Board;
         public GameManager game_Manager;
         [SerializeField] private BlockManager _BlockManager;
-        [SerializeField] private Block current_Selected_Block;
+        [SerializeField] public Block current_Selected_Block;
 
         [SerializeField] private bool _locked;
         [SerializeField] private RectTransform _rectTransform;
+
+        [SerializeField] private Transform _Selection_Indicator;
 
         public Sprite true_Sprite;
         public Sprite false_Sprite;
@@ -146,6 +148,25 @@ namespace EvolvingCode
             }
         }
 
+        public void ChangeBlockFocus(Block selected_Block)
+        {
+            if (current_Selected_Block == null)
+            {
+                return;
+            }
+            if (selected_Block.gameObject != current_Selected_Block.gameObject)
+            {
+
+                UpdateMenu(selected_Block);
+            }
+            else
+            {
+                Debug.Log("Deactivate");
+
+                DeactivateMenu();
+            }
+        }
+
         public void UpdateMenu(Block selected_Block)
         {
             BlockData block_Data = selected_Block.block_Data;
@@ -191,6 +212,15 @@ namespace EvolvingCode
                     ResourceSelection(selected_Block, block_Data);
                     break;
             }
+
+            // Set the Selection Indicator on the current Blocks position
+            if (selected_Block.block_Data.blockType != BlockType.Empty)
+            {
+                _Selection_Indicator.position = Camera.main.WorldToScreenPoint(selected_Block.transform.position);
+            }
+
+            Debug.Log("Activate");
+
 
             current_Selected_Block = selected_Block;
         }

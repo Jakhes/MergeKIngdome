@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BoardManager boardManager;
     [SerializeField] private TMP_Text gold_Text;
     [SerializeField] private TMP_Text _days_Text;
+    [SerializeField] private SuccessMessageManager _SuccessMsgManager;
+    [SerializeField] private WarningMessageManager _WarningMsgManager;
+    [SerializeField] private InfoMessageManager _InfoMsgManager;
 
     private static bool isLoading = false;
     [SerializeField] private bool _Load_New_Game = false;
@@ -123,8 +126,8 @@ public class GameManager : MonoBehaviour
             boardManager._Main_Board.board.Try_Spawning_Block_On_Board(7, Vector2.one);
             boardManager.UnlockBoard(2);
             player_Data.castleProgress = CastleProgress.Tent;
-            SuccessMessageManager l_SuccessMessageManager = this.GetComponentInParent<Board>().SuccessMessageManager;
-            l_SuccessMessageManager.Upgrade(transform.position);
+
+            _SuccessMsgManager.CastleStageReached(Input.mousePosition, "Tent");
 
         }
     }

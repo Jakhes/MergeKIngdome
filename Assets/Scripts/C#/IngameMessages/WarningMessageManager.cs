@@ -107,6 +107,14 @@ namespace EvolvingCode.IngameMessages
             l_Message.PlayAnimation();
         }
 
+        internal void StorageEmpty()
+        {
+            FloatingWarningMessage l_Message = _Message_Object_Pool.Get();
+            l_Message.gameObject.transform.position = Input.mousePosition;
+            l_Message.ChangeText("Storage Empty!");
+            l_Message.PlayAnimation();
+        }
+
         internal void NotEnoughGold(int p_Cost)
         {
             FloatingWarningMessage l_Message = _Message_Object_Pool.Get();

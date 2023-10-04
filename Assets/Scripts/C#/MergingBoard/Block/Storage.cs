@@ -40,6 +40,10 @@ namespace EvolvingCode.MergingBoard
             Board l_Parent_Board = this.GetComponentInParent<Board>();
             for (int i = stored_Amount; i > 0; i--)
             {
+                if (currently_Stored_Block_ID == 0)
+                {
+                    return;
+                }
                 if (l_Parent_Board.Try_Spawning_Block_On_Board(currently_Stored_Block_ID, Parent_Node.transform.position))
                 {
                     stored_Amount -= 1;
@@ -82,6 +86,12 @@ namespace EvolvingCode.MergingBoard
         public override void DoubleClickAction()
         {
             Board l_Parent_Board = this.GetComponentInParent<Board>();
+            if (currently_Stored_Block_ID == 0 || stored_Amount <= 0)
+            {
+                WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
+                l_WarningMessageManager.StorageEmpty();
+                return;
+            }
             if (l_Parent_Board.Try_Spawning_Block_On_Board(currently_Stored_Block_ID, Parent_Node.transform.position))
             {
                 stored_Amount -= 1;

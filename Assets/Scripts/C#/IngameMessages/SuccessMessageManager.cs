@@ -81,6 +81,14 @@ namespace EvolvingCode.IngameMessages
             l_Message.PlayAnimation();
         }
 
+        public void CastleStageReached(Vector3 p_Block_Position, string p_Stage_Name)
+        {
+            FloatingSuccessMessage l_Message = _Message_Object_Pool.Get();
+            l_Message.gameObject.transform.position = Input.mousePosition;
+            l_Message.ChangeText("You reached Stage " + p_Stage_Name);
+            l_Message.PlayAnimation();
+        }
+
         //
         public void WorkstationChargeDone(Vector3 p_Block_Position)
         {
