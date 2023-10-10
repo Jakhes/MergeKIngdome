@@ -89,7 +89,18 @@ namespace EvolvingCode.MergingBoard
             {
                 saved_Inhabitants.Remove(saved_Worker);
                 inhabitants.Add(worker);
+                worker.current_House = this;
             }
+        }
+
+        public override void Upgrade()
+        {
+            if (block_Data.isMaxLevel) return;
+
+            inhabitants.ForEach(x => x.LoseHome());
+
+            Board board = this.GetComponentInParent<Board>();
+            board.ReplaceBlock(Parent_Node, ((HouseData)block_Data).houseUpgrade.id);
         }
 
         public override void SellBlock()

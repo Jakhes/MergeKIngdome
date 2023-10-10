@@ -51,7 +51,7 @@ namespace EvolvingCode.MergingBoard
             return true;
         }
 
-        public void UpgradeBlock()
+        public override void Upgrade()
         {
             if (_Is_Upgrade_Ready)
             {

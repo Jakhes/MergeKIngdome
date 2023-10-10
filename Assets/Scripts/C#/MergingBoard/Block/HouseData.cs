@@ -8,5 +8,6 @@ namespace EvolvingCode.MergingBoard
     public class HouseData : BlockData
     {
         [SerializeField] public int roomLimit;
+        [SerializeField] public UpgradeableData houseUpgrade;
     }
 }

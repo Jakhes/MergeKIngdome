@@ -332,7 +332,7 @@ namespace EvolvingCode
             _Farm_Panel.SetActive(false);
             _Unlockable_Panel.SetActive(false);
             _Upgradeable_Panel.SetActive(false);
-            _Button_Panel.SetActive(false);
+            _Button_Panel.SetActive(true);
 
             // Fill in the Data
 
@@ -356,7 +356,7 @@ namespace EvolvingCode
             // Activate useable Buttons
             _Sell_Button.SetActive(p_Worker_Data.isSellable);
             _Generate_All_Button.SetActive(false);
-            _Upgrade_Button.SetActive(false);
+            _Upgrade_Button.SetActive(true);
             _Empty_Button.SetActive(false);
         }
 
@@ -481,7 +481,7 @@ namespace EvolvingCode
             // Activate useable Buttons
             _Sell_Button.SetActive(p_HouseData.isSellable);
             _Generate_All_Button.SetActive(false);
-            _Upgrade_Button.SetActive(false);
+            _Upgrade_Button.SetActive(true);
             _Empty_Button.SetActive(false);
         }
 
@@ -789,8 +789,7 @@ namespace EvolvingCode
             // Increase the Stored Item Images Pool if necessary
             while (_Farm_Slot_Item_Panel_Pool.Count <= p_FarmData.max_Slots)
             {
-                GameObject l_Slot_Image_Object = Instantiate(_Farm_Slot_Image_Prefab);
-                l_Slot_Image_Object.transform.SetParent(_Farm_Slots_Scroll_Content_Obj.transform);
+                GameObject l_Slot_Image_Object = Instantiate(_Farm_Slot_Image_Prefab, _Farm_Slots_Scroll_Content_Obj.transform);
                 _Farm_Slot_Item_Panel_Pool.Add(l_Slot_Image_Object.GetComponent<Image>());
             }
 
@@ -883,7 +882,10 @@ namespace EvolvingCode
 
         public void Upgrade()
         {
-            ((Upgradeable)current_Selected_Block).UpgradeBlock();
+            if (current_Selected_Block != null)
+            {
+                current_Selected_Block.Upgrade();
+            }
         }
 
         public void UnlockBlock()

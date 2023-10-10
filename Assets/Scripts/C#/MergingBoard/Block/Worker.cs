@@ -11,6 +11,7 @@ namespace EvolvingCode.MergingBoard
     {
         [SerializeField] public int currentHealth;
         [SerializeField] public int current_Labor;
+        [SerializeField] public House current_House;
         [SerializeField] public bool has_Home;
 
 
@@ -50,20 +51,6 @@ namespace EvolvingCode.MergingBoard
             l_InfoMessageManager.LaborRecharged(((WorkerData)block_Data).max_Labor, Parent_Node.transform.position);
         }
 
-        public void TakeDamage(int damage)
-        {
-            currentHealth -= damage;
-            if (currentHealth <= 0)
-            {
-                Die();
-            }
-        }
-
-        private void Die()
-        {
-            Destroy(this.gameObject);
-        }
-
         public int UseLabor(int current_Needed_Labor)
         {
             if (current_Labor > 0 && current_Needed_Labor > 0)
@@ -81,6 +68,19 @@ namespace EvolvingCode.MergingBoard
             has_Home = false;
             WarningMessageManager l_WarningMessageManager = this.GetComponentInParent<Board>().WarningMessageManager;
             l_WarningMessageManager.LostHouse(transform.position);
+        }
+
+        public override void Upgrade()
+        {
+            if (block_Data.isMaxLevel) return;
+
+            if (current_House != null)
+            {
+                current_House.TryRemoveWorker(this);
+            }
+
+            Board board = this.GetComponentInParent<Board>();
+            board.ReplaceBlock(Parent_Node, ((WorkerData)block_Data).workerUpgrade.id);
         }
     }
 

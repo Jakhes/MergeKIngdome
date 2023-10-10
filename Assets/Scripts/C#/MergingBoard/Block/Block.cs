@@ -55,6 +55,11 @@ namespace EvolvingCode.MergingBoard
 
         }
 
+        public virtual void Upgrade()
+        {
+
+        }
+
         public virtual void SellBlock()
         {
             SuccessMessageManager l_SuccessMessageManager = this.GetComponentInParent<Board>().SuccessMessageManager;

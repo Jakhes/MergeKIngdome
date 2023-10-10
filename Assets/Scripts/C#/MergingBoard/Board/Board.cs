@@ -393,7 +393,14 @@ namespace EvolvingCode.MergingBoard
         {
             if (B.IsEmpty)
             {
-                SwitchPlaceWithEmpty(A, B);
+                if (B.GetComponentInParent<Board>().board_Id != 0 && (A.BlockType == BlockType.Worker || A.BlockType == BlockType.House))
+                {
+                    A.MoveBlockToNode();
+                }
+                else
+                {
+                    SwitchPlaceWithEmpty(A, B);
+                }
             }
             else if (A.BlockType == BlockType.Worker && B.BlockType == BlockType.WorkStation)
             {
@@ -508,6 +515,11 @@ namespace EvolvingCode.MergingBoard
                 }
                 else
                 {
+                    if (B.GetComponentInParent<Board>().board_Id != 0 && (A.BlockType == BlockType.Worker || A.BlockType == BlockType.House))
+                    {
+                        A.MoveBlockToNode();
+                        return;
+                    }
                     if (B.block_Data.isMoveable)
                     {
                         PushOtherBlockAway(A, B);

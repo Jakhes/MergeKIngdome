@@ -12,6 +12,9 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] public int defense;
         [SerializeField] public Job job;
         [SerializeField] public int max_Labor;
+
+        [SerializeField] public int tier;
+        [SerializeField] public UpgradeableData workerUpgrade;
     }
 
     public enum Job
