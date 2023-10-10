@@ -121,6 +121,7 @@ namespace EvolvingCode
         [SerializeField] private GameObject _Sell_Button;
         [SerializeField] private GameObject _Generate_All_Button;
         [SerializeField] private GameObject _Upgrade_Button;
+        [SerializeField] private GameObject _Empty_Button;
 
 
         private void Update()
@@ -253,6 +254,7 @@ namespace EvolvingCode
             _Sell_Button.SetActive(true);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
+            _Empty_Button.SetActive(false);
         }
 
         private void GeneratorSelection(Generator p_Generator, GeneratorData p_GeneratorData)
@@ -311,6 +313,7 @@ namespace EvolvingCode
             // if it is a neighbor generator deactivate generate all button
             _Generate_All_Button.SetActive(!p_GeneratorData.isNeighborGenerator);
             _Upgrade_Button.SetActive(false);
+            _Empty_Button.SetActive(false);
         }
 
         private void WorkerSelection(Worker p_Worker, WorkerData p_Worker_Data)
@@ -354,6 +357,7 @@ namespace EvolvingCode
             _Sell_Button.SetActive(p_Worker_Data.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
+            _Empty_Button.SetActive(false);
         }
 
         private void WorkStationSelection(Workstation p_Workstation, WorkStationData p_WorkstationData)
@@ -419,6 +423,7 @@ namespace EvolvingCode
             _Sell_Button.SetActive(p_WorkstationData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
+            _Empty_Button.SetActive(false);
         }
 
         private void HouseSelection(House p_House, HouseData p_HouseData)
@@ -477,6 +482,7 @@ namespace EvolvingCode
             _Sell_Button.SetActive(p_HouseData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
+            _Empty_Button.SetActive(false);
         }
 
         private void ShopSelection(Shop p_Shop, ShopData p_ShopData)
@@ -513,8 +519,7 @@ namespace EvolvingCode
             // Increase the Shop UI Entries Pool if necessary
             while (_Shop_Entry_Panel_Pool.Count < l_Shop_Entries_Amount)
             {
-                GameObject l_Shop_Entry_Object = Instantiate(_Shop_Entry_Panel_Prefab);
-                l_Shop_Entry_Object.transform.SetParent(_Shop_Scroll_Content_Obj.transform);
+                GameObject l_Shop_Entry_Object = Instantiate(_Shop_Entry_Panel_Prefab, _Shop_Scroll_Content_Obj.transform);
                 _Shop_Entry_Panel_Pool.Add(l_Shop_Entry_Object.GetComponent<ShopUIEntry>());
             }
 
@@ -569,8 +574,7 @@ namespace EvolvingCode
             // Increase the Shop UI Entries Pool if necessary
             while (_Upgradeable_Entry_Panel_Pool.Count < l_Upgrade_Materials_Amount)
             {
-                GameObject l_Upgrade_Material_Object = Instantiate(_Upgradeable_Entry_Panel_Prefab);
-                l_Upgrade_Material_Object.transform.SetParent(_Upgradeable_Scroll_Content_Obj.transform);
+                GameObject l_Upgrade_Material_Object = Instantiate(_Upgradeable_Entry_Panel_Prefab, _Upgradeable_Scroll_Content_Obj.transform);
                 _Upgradeable_Entry_Panel_Pool.Add(l_Upgrade_Material_Object.GetComponent<UpgradeMaterialUI>());
             }
 
@@ -590,6 +594,7 @@ namespace EvolvingCode
             _Sell_Button.SetActive(p_UpgradeableData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(true);
+            _Empty_Button.SetActive(false);
         }
 
         private void RefinerSelection(Refiner p_Refiner, RefinerData p_RefinerData)
@@ -643,8 +648,7 @@ namespace EvolvingCode
             // Increase the Refining Recipes UI Entries Pool if necessary
             while (_Refiner_Recipe_Panel_Pool.Count < l_RefiningRecipes_Amount)
             {
-                GameObject l_RefiningRecipesUI_Object = Instantiate(_Refiner_Recipe_Panel_Prefab);
-                l_RefiningRecipesUI_Object.transform.SetParent(_Refiner_Scroll_Content_Obj.transform);
+                GameObject l_RefiningRecipesUI_Object = Instantiate(_Refiner_Recipe_Panel_Prefab, _Refiner_Scroll_Content_Obj.transform);
                 _Refiner_Recipe_Panel_Pool.Add(l_RefiningRecipesUI_Object.GetComponent<RefinerRecipeUI>());
             }
 
@@ -664,6 +668,7 @@ namespace EvolvingCode
             _Sell_Button.SetActive(p_RefinerData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
+            _Empty_Button.SetActive(false);
         }
 
         private void StorageSelection(Storage p_Storage, StorageData p_StorageData)
@@ -700,8 +705,7 @@ namespace EvolvingCode
             // Increase the Stored Item Images Pool if necessary
             while (_Storage_Item_Panel_Pool.Count < p_StorageData.max_Storage)
             {
-                GameObject l_Stored_Item_Image_Object = Instantiate(_Stored_Item_Image_Prefab);
-                l_Stored_Item_Image_Object.transform.SetParent(_Storage_Scroll_Content_Obj.transform);
+                GameObject l_Stored_Item_Image_Object = Instantiate(_Stored_Item_Image_Prefab, _Storage_Scroll_Content_Obj.transform);
                 _Storage_Item_Panel_Pool.Add(l_Stored_Item_Image_Object.GetComponent<Image>());
             }
 
@@ -726,6 +730,7 @@ namespace EvolvingCode
             _Sell_Button.SetActive(p_StorageData.isSellable);
             _Generate_All_Button.SetActive(false);
             _Upgrade_Button.SetActive(false);
+            _Empty_Button.SetActive(true);
         }
 
         private void FarmSelection(Farm p_Farm, FarmData p_FarmData)
@@ -884,6 +889,11 @@ namespace EvolvingCode
         public void UnlockBlock()
         {
             game_Manager.UnlockBlock((Unlockable)current_Selected_Block);
+        }
+
+        public void EmptyStorage()
+        {
+            ((Storage)current_Selected_Block).TryEmptyStorage();
         }
 
         public void BuyBlock(int p_BlockID)
