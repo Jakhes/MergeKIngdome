@@ -26170,7 +26170,7 @@ MonoBehaviour:
   _Sell_Button: {fileID: 1160611073}
   _Generate_All_Button: {fileID: 715861892}
   _Upgrade_Button: {fileID: 2093332366}
-  _Empty_Button: {fileID: 0}
+  _Empty_Button: {fileID: 1201418486}
 --- !u!1 &2051521034
 GameObject:
   m_ObjectHideFlags: 0

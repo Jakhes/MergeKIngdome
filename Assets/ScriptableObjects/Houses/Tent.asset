@@ -24,3 +24,4 @@ MonoBehaviour:
   isSellable: 1
   value: 10
   roomLimit: 2
+  houseUpgrade: {fileID: 11400000, guid: afbc5c9734118dc4494aad0227e539dc, type: 2}

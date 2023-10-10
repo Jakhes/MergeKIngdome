@@ -28,3 +28,5 @@ MonoBehaviour:
   defense: 0
   job: 0
   max_Labor: 2
+  tier: 1
+  workerUpgrade: {fileID: 11400000, guid: afbc5c9734118dc4494aad0227e539dc, type: 2}
