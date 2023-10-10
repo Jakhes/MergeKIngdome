@@ -130,5 +130,13 @@ namespace EvolvingCode.IngameMessages
             l_Message.ChangeText("Full!");
             l_Message.PlayAnimation();
         }
+
+        internal void StorageMergeNeedsToBeEmpty()
+        {
+            FloatingWarningMessage l_Message = _Message_Object_Pool.Get();
+            l_Message.gameObject.transform.position = Input.mousePosition;
+            l_Message.ChangeText("Storage has to be empty!");
+            l_Message.PlayAnimation();
+        }
     }
 }

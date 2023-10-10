@@ -481,11 +481,29 @@ namespace EvolvingCode.MergingBoard
                     A.MoveBlockToNode();
                 }
             }
+            else if (A.BlockType == BlockType.Storage && B.BlockType == BlockType.Storage)
+            {
+                if (((Storage)A).stored_Amount == 0 && ((Storage)B).stored_Amount == 0)
+                {
+                    int result_Block_ID;
+                    if (merge_Manager.is_Valid_Merge(A.block_Data.id, B.block_Data.id, out result_Block_ID))
+                    {
+
+                        MergeBlocks(A, B, result_Block_ID);
+                    }
+                }
+                else
+                {
+                    warningMessageManager.StorageMergeNeedsToBeEmpty();
+                    A.MoveBlockToNode();
+                }
+            }
             else
             {
                 int result_Block_ID;
                 if (merge_Manager.is_Valid_Merge(A.block_Data.id, B.block_Data.id, out result_Block_ID))
                 {
+
                     MergeBlocks(A, B, result_Block_ID);
                 }
                 else
