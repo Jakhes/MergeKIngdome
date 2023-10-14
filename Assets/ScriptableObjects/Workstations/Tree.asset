@@ -31,9 +31,8 @@ MonoBehaviour:
       weight: 5
     - item: {fileID: 11400000, guid: a1f7288f7ef07004ebf26bd97b3ed91a, type: 2}
       weight: 15
-  storageLimit: 4
   isLimitless: 0
-  charges: 2
+  charges: 1
   needed_Labor: 2
   items_Per_Charge: 5
-  allowedJobs: 0000000001000000
+  required_Worker_Tier: 1

@@ -14831,7 +14831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3244430a9d61f4b887da1ad3d0bf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board_Id: 1
+  board_Id: 3
   width: 5
   height: 5
   _is_Unlocked: 0
@@ -25399,7 +25399,7 @@ MonoBehaviour:
   _Worker_Has_Home_Text: {fileID: 597597364}
   _Workstation_Info_Panel: {fileID: 96585669}
   _IsLimitless_Image: {fileID: 1828912731}
-  _RequiredTier_Text: {fileID: 0}
+  _RequiredTier_Text: {fileID: 1208950715}
   _IsLimitless_Text: {fileID: 2009740164}
   _ChargesLeft_Text: {fileID: 1117456676}
   _Needed_Labor_Text: {fileID: 2075992818}
