@@ -51,6 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "cSpell.words": ["Mergeable","Tweening","Unlockable"],
+    "cSpell.words": ["Ingame", "Mergeable", "Tweening", "Unlockable"],
     "dotnet.defaultSolution": "MergeKIngdome.sln"
 }

@@ -12,6 +12,6 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] public int charges;
         [SerializeField] public int needed_Labor;
         [SerializeField] public int items_Per_Charge;
-        [SerializeField] public List<Job> allowedJobs;
+        [SerializeField] public int required_Worker_Tier;
     }
 }

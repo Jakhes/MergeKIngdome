@@ -25,6 +25,7 @@ namespace EvolvingCode
 
 
         // Header References
+        [Header("Header References")]
         [SerializeField] private GameObject _Header_Panel;
         [SerializeField] private Image _Main_Image;
         [SerializeField] private TMP_Text _Name_Text;
@@ -34,34 +35,37 @@ namespace EvolvingCode
 
 
         // Description References
+        [Header("Description References")]
         [SerializeField] private GameObject _Description_Panel;
         [SerializeField] private TMP_Text _Description_Text;
 
         // Charge References
+        [Header("Charge References")]
         [SerializeField] private GameObject _Charge_Panel;
         [SerializeField] private TMP_Text _Days_charge_Text;
         [SerializeField] private TMP_Text _Remaining_Text;
         [SerializeField] private TMP_Text _Stored_Text;
 
         // House References
+        [Header("House References")]
         [SerializeField] private GameObject _House_Info_Panel;
         [SerializeField] private TMP_Text _Room_Limit_Text;
         [SerializeField] private GameObject _Inhabitants_Scroll_Content_Obj;
 
         // Worker References
+        [Header("Worker References")]
         [SerializeField] private GameObject _Worker_Extra_Info_Panel;
-        [SerializeField] private TMP_Text _Job_Text;
-        [SerializeField] private TMP_Text _Health_Text;
-        [SerializeField] private TMP_Text _Damage_Text;
-        [SerializeField] private TMP_Text _Defense_Text;
+        [SerializeField] private TMP_Text _Tier_Text;
         [SerializeField] private TMP_Text _Labor_Left_Text;
         [SerializeField] private Image _Worker_Has_Home_Image;
         [SerializeField] private TMP_Text _Worker_Has_Home_Text;
 
 
         // Workstation References
+        [Header("Workstation References")]
         [SerializeField] private GameObject _Workstation_Info_Panel;
         [SerializeField] private Image _IsLimitless_Image;
+        [SerializeField] private TMP_Text _RequiredTier_Text;
         [SerializeField] private TMP_Text _IsLimitless_Text;
         [SerializeField] private TMP_Text _ChargesLeft_Text;
         [SerializeField] private TMP_Text _Needed_Labor_Text;
@@ -69,17 +73,20 @@ namespace EvolvingCode
         [SerializeField] private TMP_Text _Storage_Text;
 
         // Results References
+        [Header("Results References")]
         [SerializeField] private GameObject _Results_Panel;
         [SerializeField] private GameObject _Scroll_Content_Obj;
         [SerializeField] private Image _Content_Image_Prefab;
 
         // Shop References
+        [Header("Shop References")]
         [SerializeField] private GameObject _Shop_Panel;
         [SerializeField] private GameObject _Shop_Scroll_Content_Obj;
         [SerializeField] private GameObject _Shop_Entry_Panel_Prefab;
         [SerializeField] private List<ShopUIEntry> _Shop_Entry_Panel_Pool;
 
         // Upgradeable References
+        [Header("Upgradeable References")]
         [SerializeField] private GameObject _Upgradeable_Panel;
         [SerializeField] private UpgradeMaterialUI _Upgrade_Target_Panel;
         [SerializeField] private GameObject _Upgradeable_Scroll_Content_Obj;
@@ -87,6 +94,7 @@ namespace EvolvingCode
         [SerializeField] private List<UpgradeMaterialUI> _Upgradeable_Entry_Panel_Pool;
 
         // Refiner References
+        [Header("Refiner References")]
         [SerializeField] private GameObject _Refiner_Panel;
         [SerializeField] private UpgradeMaterialUI _Selected_Refining_Base_Block_Panel;
         [SerializeField] private TMP_Text _Refining_Labor_Still_Needed_Text;
@@ -95,6 +103,7 @@ namespace EvolvingCode
         [SerializeField] private List<RefinerRecipeUI> _Refiner_Recipe_Panel_Pool;
 
         // Storage References
+        [Header("Storage References")]
         [SerializeField] private GameObject _Storage_Panel;
         [SerializeField] private TMP_Text _Current_Storage_Text;
         [SerializeField] private TMP_Text _Stored_Block_Text;
@@ -103,6 +112,7 @@ namespace EvolvingCode
         [SerializeField] private List<Image> _Storage_Item_Panel_Pool;
 
         // Farm References
+        [Header("Farm References")]
         [SerializeField] private GameObject _Farm_Panel;
         [SerializeField] private TMP_Text _Farm_Type_Text;
         [SerializeField] private TMP_Text _Farm_Needed_Labor_Text;
@@ -113,10 +123,12 @@ namespace EvolvingCode
         [SerializeField] private List<Image> _Farm_Slot_Item_Panel_Pool;
 
         // Unlockable References
+        [Header("Unlockable References")]
         [SerializeField] private GameObject _Unlockable_Panel;
         [SerializeField] private TMP_Text _Unlockable_Price_Text;
 
         // Button References
+        [Header("Button References")]
         [SerializeField] private GameObject _Button_Panel;
         [SerializeField] private GameObject _Sell_Button;
         [SerializeField] private GameObject _Generate_All_Button;
@@ -171,6 +183,11 @@ namespace EvolvingCode
         public void UpdateMenu(Block selected_Block)
         {
             BlockData block_Data = selected_Block.block_Data;
+            // Set the Selection Indicator on the current Blocks position
+            if (selected_Block.block_Data.blockType != BlockType.Empty && selected_Block != null)
+            {
+                _Selection_Indicator.position = Camera.main.WorldToScreenPoint(selected_Block.transform.position);
+            }
 
             switch (selected_Block.block_Data.blockType)
             {
@@ -214,11 +231,7 @@ namespace EvolvingCode
                     break;
             }
 
-            // Set the Selection Indicator on the current Blocks position
-            if (selected_Block.block_Data.blockType != BlockType.Empty)
-            {
-                _Selection_Indicator.position = Camera.main.WorldToScreenPoint(selected_Block.transform.position);
-            }
+
 
             Debug.Log("Activate");
 
@@ -345,10 +358,7 @@ namespace EvolvingCode
             else
                 _Worker_Has_Home_Image.sprite = false_Sprite;
 
-            _Job_Text.text = "Job : " + p_Worker_Data.job.ToString();
-            _Health_Text.text = p_Worker.currentHealth + " / " + p_Worker_Data.maxHP + " HP";
-            _Damage_Text.text = p_Worker_Data.attackDamage + " Damage";
-            _Defense_Text.text = p_Worker_Data.defense + " Defense";
+            _Tier_Text.text = "Tier : " + p_Worker_Data.tier;
             _Labor_Left_Text.text = p_Worker.current_Labor + " / " + p_Worker_Data.max_Labor + " Labor";
 
 
@@ -389,6 +399,7 @@ namespace EvolvingCode
             else
                 _IsLimitless_Image.sprite = false_Sprite;
 
+            _RequiredTier_Text.text = "Tier: " + p_WorkstationData.required_Worker_Tier + " Worker required!";
             _ChargesLeft_Text.text = "Charges Left: " + p_Workstation.remainingCharges;
             _Needed_Labor_Text.text = p_Workstation.current_Needed_Labor + "/" + p_WorkstationData.needed_Labor + " Needed Labor until next Charge";
             _Items_Per_Charge_Text.text = p_WorkstationData.items_Per_Charge + " Items per Charge";

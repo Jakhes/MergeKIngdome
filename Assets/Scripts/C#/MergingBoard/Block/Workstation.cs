@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EvolvingCode.IngameMessages;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 
 namespace EvolvingCode.MergingBoard
 {
@@ -97,7 +98,7 @@ namespace EvolvingCode.MergingBoard
 
         public bool TryToLabor(Worker worker)
         {
-            if (((WorkStationData)block_Data).allowedJobs.Contains(((WorkerData)(worker.block_Data)).job))
+            if (((WorkerData)worker.block_Data).tier >= ((WorkStationData)block_Data).required_Worker_Tier)
             {
                 current_Needed_Labor = worker.UseLabor(current_Needed_Labor);
                 if (current_Needed_Labor > 0)

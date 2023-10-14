@@ -19,7 +19,6 @@ namespace EvolvingCode.MergingBoard
         {
             init_Block((BlockData)init_Block_Data, p_Travel_Time);
 
-            currentHealth = init_Block_Data.maxHP;
             current_Labor = init_Block_Data.max_Labor;
             has_Home = false;
         }
@@ -28,14 +27,13 @@ namespace EvolvingCode.MergingBoard
         {
             init_Block((BlockData)init_Block_Data, p_Travel_Time);
 
-            currentHealth = block_Save.current_HP;
             current_Labor = block_Save.current_Labor;
             has_Home = block_Save.has_Home;
         }
 
         public new Worker_Save_Data SaveBlock()
         {
-            Worker_Save_Data workStation_Save = new Worker_Save_Data(base.SaveBlock(), currentHealth, current_Labor, has_Home);
+            Worker_Save_Data workStation_Save = new Worker_Save_Data(base.SaveBlock(), current_Labor, has_Home);
             return workStation_Save;
         }
 
@@ -88,14 +86,12 @@ namespace EvolvingCode.MergingBoard
     public struct Worker_Save_Data
     {
         public Block_Save_Data base_Block_Save;
-        public int current_HP;
         public int current_Labor;
         public bool has_Home;
 
-        public Worker_Save_Data(Block_Save_Data p_Base_Block_Save, int p_Current_HP, int p_Current_Labor, bool p_Has_Home)
+        public Worker_Save_Data(Block_Save_Data p_Base_Block_Save, int p_Current_Labor, bool p_Has_Home)
         {
             base_Block_Save = p_Base_Block_Save;
-            current_HP = p_Current_HP;
             current_Labor = p_Current_Labor;
             has_Home = p_Has_Home;
         }
