@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8666f37ab2e4f1749b75b5f329a4e2aa, type: 3}
-  m_Name: Villager
+  m_Name: SmallRobo
   m_EditorClassIdentifier: 
   id: 8
-  name: Villager
+  name: Small Robo
   blockType: 10
-  description: A simple Worker of your town
+  description: A simple Worker of your town. Needs a home to regenerate his Labor
+    energy.
   sprite: {fileID: -1643885123, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
@@ -23,10 +24,6 @@ MonoBehaviour:
   level: 1
   isSellable: 0
   value: 1
-  maxHP: 5
-  attackDamage: 1
-  defense: 0
-  job: 0
   max_Labor: 2
   tier: 1
-  workerUpgrade: {fileID: 11400000, guid: afbc5c9734118dc4494aad0227e539dc, type: 2}
+  workerUpgrade: {fileID: 11400000, guid: 752d10616e1ead245a873d79d04c512b, type: 2}

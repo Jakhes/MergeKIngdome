@@ -15,12 +15,12 @@ MonoBehaviour:
   id: 6
   name: Apple
   blockType: 3
-  description: An apple to eat.
-  sprite: {fileID: 538541422, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  description: An apple to sell.
+  sprite: {fileID: 714516720, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
   isMaxLevel: 0
   level: 1
   isSellable: 1
-  value: 1
+  value: 5
   maxCharges: 1

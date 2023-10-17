@@ -15,13 +15,13 @@ MonoBehaviour:
   id: 7
   name: Tent
   blockType: 5
-  description: A small tent for workers to rest and eat.
+  description: A small tent for workers to rest. Can be upgraded into a House.
   sprite: {fileID: -1017943826, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
   isMaxLevel: 0
   level: 1
   isSellable: 1
-  value: 10
-  roomLimit: 2
-  houseUpgrade: {fileID: 11400000, guid: afbc5c9734118dc4494aad0227e539dc, type: 2}
+  value: 5
+  roomLimit: 1
+  houseUpgrade: {fileID: 11400000, guid: 648dbd94c7dd99a45824beb7027603b3, type: 2}

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c4a5d70b49f62428919976521dbdac, type: 3}
+  m_Name: Smelter
+  m_EditorClassIdentifier: 
+  id: 64
+  name: Smelter
+  blockType: 6
+  description: Smelts Iron and Gold into Ingots
+  sprite: {fileID: 1046724806, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 1
+  isMergeable: 1
+  isMaxLevel: 1
+  level: 1
+  isSellable: 0
+  value: 0
+  refinement_Recipes:
+  - base_Block_To_Refine: {fileID: 11400000, guid: 8eb6266206a00de44aca06fb60af3bc6, type: 2}
+    refinement_Results:
+    - {fileID: 11400000, guid: 5b337b5b47eeaac458e669ad6c834647, type: 2}
+    - {fileID: 11400000, guid: 5b337b5b47eeaac458e669ad6c834647, type: 2}
+    is_Labor_Needed: 1
+    needed_Labor: 2
+  - base_Block_To_Refine: {fileID: 11400000, guid: 6ea29da13459d8047934076b6b1f53cb, type: 2}
+    refinement_Results:
+    - {fileID: 11400000, guid: 0045c4681989e224dac00097646a93be, type: 2}
+    - {fileID: 11400000, guid: 0045c4681989e224dac00097646a93be, type: 2}
+    is_Labor_Needed: 1
+    needed_Labor: 2

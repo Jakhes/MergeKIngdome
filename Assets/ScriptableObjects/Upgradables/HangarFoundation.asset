@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9da9e767712bc84d896b5fb21ce3cbf, type: 3}
+  m_Name: HangarFoundation
+  m_EditorClassIdentifier: 
+  id: 87
+  name: Hangar Foundation
+  blockType: 1
+  description: Foundation where to build a new Hangar.
+  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 1
+  isMergeable: 1
+  isMaxLevel: 1
+  level: 3
+  isSellable: 1
+  value: 0
+  initial_Upgrade_Materials:
+  - block_ID: 34
+    needed: 2
+    has: 0
+  - block_ID: 58
+    needed: 2
+    has: 0
+  - block_ID: 65
+    needed: 2
+    has: 0
+  upgrade_Target: {fileID: 11400000, guid: 3baaa112bb9683a4da0d3c3c43fc454c, type: 2}

@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9da9e767712bc84d896b5fb21ce3cbf, type: 3}
-  m_Name: VillageCenter
+  m_Name: S-RoboUpgrade
   m_EditorClassIdentifier: 
-  id: 4
-  name: VillageCenter
+  id: 81
+  name: S-Robo Upgrade
   blockType: 1
-  description: The Towns Center. Can be Upgraded.
-  sprite: {fileID: -513518808, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
-  isMoveable: 0
+  description: A small Robo ready to be upgraded into a Big Robo.
+  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 1
   isMergeable: 1
   isMaxLevel: 0
-  level: 2
+  level: 1
   isSellable: 0
   value: 0
   initial_Upgrade_Materials:
-  - block_ID: 3
-    needed: 5
+  - block_ID: 28
+    needed: 1
     has: 0
-  - block_ID: 13
-    needed: 4
+  - block_ID: 56
+    needed: 1
     has: 0
-  - block_ID: 14
-    needed: 4
+  - block_ID: 34
+    needed: 2
     has: 0
-  upgrade_Target: {fileID: 11400000}
+  upgrade_Target: {fileID: 11400000, guid: a8b9c67e40e3b5542a961ca6653b03f5, type: 2}

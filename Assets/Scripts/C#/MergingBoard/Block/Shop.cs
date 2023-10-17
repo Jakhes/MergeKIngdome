@@ -26,8 +26,8 @@ namespace EvolvingCode.MergingBoard
 
         public int BuyBlock(int p_Block_ID, int p_Current_Gold_Amount)
         {
-            ShopEntry l_Selected_Entry = ((ShopData)block_Data).shopEntries.Find(x => x.BlockID == p_Block_ID);
-            if (l_Selected_Entry.BlockID == 0)
+            ShopEntry l_Selected_Entry = ((ShopData)block_Data).shopEntries.Find(x => x.BlockData.id == p_Block_ID);
+            if (l_Selected_Entry.BlockData.id == 0)
             {
                 Debug.Log("Tried Buying a Block with the ID " + p_Block_ID + ", but there is no Shop Entry with that ID.");
                 return p_Current_Gold_Amount;
@@ -62,7 +62,7 @@ namespace EvolvingCode.MergingBoard
     [System.Serializable]
     public struct ShopEntry
     {
-        public int BlockID;
+        public BlockData BlockData;
         public int Cost;
     }
 

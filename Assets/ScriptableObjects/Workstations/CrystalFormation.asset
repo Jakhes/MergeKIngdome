@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9cff2dd48eee2409699244ddc50262, type: 3}
+  m_Name: CrystalFormation
+  m_EditorClassIdentifier: 
+  id: 70
+  name: Crystal Formation
+  blockType: 11
+  description: A natural formation of magical Crystals.
+  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 1
+  isMergeable: 1
+  isMaxLevel: 1
+  level: 1
+  isSellable: 1
+  value: 10
+  possible_Results:
+    list:
+    - item: {fileID: 11400000, guid: 3c2e048c3836ecf4fb667369d0119149, type: 2}
+      weight: 90
+    - item: {fileID: 11400000, guid: 93c5bd00c25d46f4e8411f0e50176502, type: 2}
+      weight: 10
+  isLimitless: 0
+  charges: 2
+  needed_Labor: 4
+  items_Per_Charge: 4
+  required_Worker_Tier: 3

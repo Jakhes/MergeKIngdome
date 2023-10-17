@@ -16,15 +16,27 @@ MonoBehaviour:
   name: Builder
   blockType: 12
   description: The Marketplace where you can buy basic Blocks.
-  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  sprite: {fileID: -935903276, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 0
-  isMaxLevel: 0
+  isMaxLevel: 1
   level: 2
   isSellable: 0
   value: 0
   shopEntries:
-  - BlockID: 11
-    Cost: 10
-  - BlockID: 16
-    Cost: 30
+  - BlockData: {fileID: 11400000, guid: 044c02e8ddcb32e4280965aa674ca4be, type: 2}
+    Cost: 400
+  - BlockData: {fileID: 11400000, guid: ce23bc69be50b8041a4068fe5df0a07c, type: 2}
+    Cost: 100
+  - BlockData: {fileID: 11400000, guid: 65d649822f71eb446b9e84d308c64f23, type: 2}
+    Cost: 200
+  - BlockData: {fileID: 11400000, guid: 08f70f29a38677b44935ad06bcf60437, type: 2}
+    Cost: 40
+  - BlockData: {fileID: 11400000, guid: 3b105f0349ef39844bef88db86512d9f, type: 2}
+    Cost: 50
+  - BlockData: {fileID: 11400000, guid: 1fb2d4dfc5c8c764bb83c0565b59154c, type: 2}
+    Cost: 150
+  - BlockData: {fileID: 11400000, guid: f101114b8abbbef46bed9f684a0da94a, type: 2}
+    Cost: 250
+  - BlockData: {fileID: 11400000, guid: a347b6cece416f240bd7e7cc9f8f3dfa, type: 2}
+    Cost: 150

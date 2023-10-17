@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9cff2dd48eee2409699244ddc50262, type: 3}
+  m_Name: Rock
+  m_EditorClassIdentifier: 
+  id: 22
+  name: Rock
+  blockType: 11
+  description: A small rock that can be mined for stone.
+  sprite: {fileID: 1951164511, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 1
+  isMergeable: 1
+  isMaxLevel: 1
+  level: 1
+  isSellable: 1
+  value: 1
+  possible_Results:
+    list:
+    - item: {fileID: 11400000, guid: d7aeba6d3e6b9524b9d1b8adf4a3ed30, type: 2}
+      weight: 85
+    - item: {fileID: 11400000, guid: d4997b38de32f30448fd9b3686ac858d, type: 2}
+      weight: 10
+    - item: {fileID: 11400000, guid: 95c1574c0022ff44c9fa4a5c75fbec95, type: 2}
+      weight: 4
+    - item: {fileID: 11400000, guid: a87265c9ce9653c449aa1bb9116a0be6, type: 2}
+      weight: 1
+  isLimitless: 0
+  charges: 1
+  needed_Labor: 4
+  items_Per_Charge: 4
+  required_Worker_Tier: 1

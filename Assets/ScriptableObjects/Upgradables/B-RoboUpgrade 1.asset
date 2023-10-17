@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9da9e767712bc84d896b5fb21ce3cbf, type: 3}
+  m_Name: B-RoboUpgrade 1
+  m_EditorClassIdentifier: 
+  id: 82
+  name: B-Robo Upgrade
+  blockType: 1
+  description: A big Robo ready to be upgraded into a Strong Robo.
+  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 1
+  isMergeable: 1
+  isMaxLevel: 0
+  level: 2
+  isSellable: 0
+  value: 0
+  initial_Upgrade_Materials:
+  - block_ID: 69
+    needed: 1
+    has: 0
+  - block_ID: 65
+    needed: 1
+    has: 0
+  upgrade_Target: {fileID: 11400000, guid: dc4b8397fbbb64d438bde353afb2afed, type: 2}

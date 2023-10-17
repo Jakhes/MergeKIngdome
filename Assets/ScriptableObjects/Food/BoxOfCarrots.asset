@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58db504252e92974c8355ff0bd7eaf1c, type: 3}
+  m_Name: BoxOfCarrots
+  m_EditorClassIdentifier: 
+  id: 38
+  name: Box of Carrots
+  blockType: 3
+  description: A Box of Carrots to sell.
+  sprite: {fileID: -1723987197, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 1
+  isMergeable: 1
+  isMaxLevel: 1
+  level: 4
+  isSellable: 1
+  value: 150
+  maxCharges: 1

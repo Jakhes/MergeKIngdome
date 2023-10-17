@@ -16,17 +16,17 @@ MonoBehaviour:
   name: Tree
   blockType: 11
   description: A small tree that can be cut for wood.
-  sprite: {fileID: 2066379397, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  sprite: {fileID: 483613492, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
-  isMaxLevel: 0
+  isMaxLevel: 1
   level: 1
   isSellable: 1
   value: 1
   possible_Results:
     list:
     - item: {fileID: 11400000, guid: 3c2e048c3836ecf4fb667369d0119149, type: 2}
-      weight: 85
+      weight: 80
     - item: {fileID: 11400000, guid: 93c5bd00c25d46f4e8411f0e50176502, type: 2}
       weight: 5
     - item: {fileID: 11400000, guid: a1f7288f7ef07004ebf26bd97b3ed91a, type: 2}

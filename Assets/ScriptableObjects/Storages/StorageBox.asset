@@ -22,6 +22,6 @@ MonoBehaviour:
   isMaxLevel: 0
   level: 1
   isSellable: 1
-  value: 10
+  value: 30
   max_Storage: 4
   allowed_Types: 0200000003000000

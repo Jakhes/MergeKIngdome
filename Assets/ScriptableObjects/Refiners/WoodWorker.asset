@@ -16,7 +16,7 @@ MonoBehaviour:
   name: WoodWorker
   blockType: 6
   description: Can Refine Wood.
-  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  sprite: {fileID: 137102475, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
   isMaxLevel: 0
@@ -26,12 +26,6 @@ MonoBehaviour:
   refinement_Recipes:
   - base_Block_To_Refine: {fileID: 11400000, guid: 989e47b06da2e4a4db4b115f1f742af5, type: 2}
     refinement_Results:
-    - {fileID: 11400000, guid: 547bbd3d197766a4abe3119cb54be6e9, type: 2}
-    - {fileID: 11400000, guid: 547bbd3d197766a4abe3119cb54be6e9, type: 2}
+    - {fileID: 11400000, guid: 2c14b0df0e44d77488c11bcaba577f16, type: 2}
     is_Labor_Needed: 1
     needed_Labor: 2
-  - base_Block_To_Refine: {fileID: 11400000, guid: 3c2e048c3836ecf4fb667369d0119149, type: 2}
-    refinement_Results:
-    - {fileID: 11400000, guid: a1f7288f7ef07004ebf26bd97b3ed91a, type: 2}
-    is_Labor_Needed: 1
-    needed_Labor: 1

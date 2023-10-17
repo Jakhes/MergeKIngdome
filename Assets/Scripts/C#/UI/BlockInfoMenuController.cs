@@ -174,7 +174,6 @@ namespace EvolvingCode
             }
             else
             {
-                Debug.Log("Deactivate");
 
                 DeactivateMenu();
             }
@@ -230,11 +229,6 @@ namespace EvolvingCode
                     ResourceSelection(selected_Block, block_Data);
                     break;
             }
-
-
-
-            Debug.Log("Activate");
-
 
             current_Selected_Block = selected_Block;
         }
@@ -537,7 +531,7 @@ namespace EvolvingCode
             for (int i = 0; i < l_Shop_Entries_Amount; i++)
             {
                 _Shop_Entry_Panel_Pool[i].gameObject.SetActive(true);
-                int l_Block_ID = l_Shop_Entry_List[i].BlockID;
+                int l_Block_ID = l_Shop_Entry_List[i].BlockData.id;
                 BlockData l_BlockData = _BlockManager.GetBlock_Data_By_ID(l_Block_ID);
                 _Shop_Entry_Panel_Pool[i].SetUpEntry(l_BlockData.sprite, l_BlockData.name, l_Shop_Entry_List[i].Cost + " G", l_Block_ID);
             }

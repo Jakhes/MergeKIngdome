@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9da9e767712bc84d896b5fb21ce3cbf, type: 3}
+  m_Name: VillageHut
+  m_EditorClassIdentifier: 
+  id: 20
+  name: Village Hut
+  blockType: 1
+  description: The Big Village Hut at the center. Can be upgraded.
+  sprite: {fileID: 2104870627, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 0
+  isMergeable: 1
+  isMaxLevel: 0
+  level: 3
+  isSellable: 0
+  value: 0
+  initial_Upgrade_Materials: []
+  upgrade_Target: {fileID: 11400000, guid: e2284cec16982604e88ea57ddb0499a8, type: 2}

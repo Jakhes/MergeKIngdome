@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c4a5d70b49f62428919976521dbdac, type: 3}
+  m_Name: GemCutter
+  m_EditorClassIdentifier: 
+  id: 75
+  name: Gem Cutter
+  blockType: 6
+  description: Cuts crude Crystals into shape.
+  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  isMoveable: 1
+  isMergeable: 1
+  isMaxLevel: 1
+  level: 1
+  isSellable: 0
+  value: 0
+  refinement_Recipes:
+  - base_Block_To_Refine: {fileID: 11400000, guid: cb2d7891146f7024e815bf020140424a, type: 2}
+    refinement_Results:
+    - {fileID: 11400000, guid: 1512ce861b5632c4e9cea5483558a55d, type: 2}
+    is_Labor_Needed: 1
+    needed_Labor: 4

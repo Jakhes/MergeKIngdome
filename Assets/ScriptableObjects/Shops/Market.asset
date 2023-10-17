@@ -15,21 +15,24 @@ MonoBehaviour:
   id: 5
   name: Market
   blockType: 12
-  description: The Marketplace where you can buy basic Blocks.
-  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  description: The Marketplace where you can buy Seeds, basic Blocks and Robos.
+  sprite: {fileID: -322295871, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 0
-  isMaxLevel: 0
-  level: 2
+  isMaxLevel: 1
+  level: 1
+  isSellable: 0
   value: 0
   shopEntries:
-  - BlockID: 1
-    Cost: 10
-  - BlockID: 8
+  - BlockData: {fileID: 11400000, guid: c9f7c9dc2b94cb64ba359d2dbf613171, type: 2}
+    Cost: 15
+  - BlockData: {fileID: 11400000, guid: 22f97b08e1e1c864797036d04e97cabe, type: 2}
+    Cost: 20
+  - BlockData: {fileID: 11400000, guid: 41fb58187bb73fd45baa663638d51d02, type: 2}
     Cost: 25
-  - BlockID: 9
-    Cost: 1
-  - BlockID: 7
-    Cost: 25
-  - BlockID: 14
-    Cost: 5
+  - BlockData: {fileID: 11400000, guid: 3c2e048c3836ecf4fb667369d0119149, type: 2}
+    Cost: 50
+  - BlockData: {fileID: 11400000, guid: d7aeba6d3e6b9524b9d1b8adf4a3ed30, type: 2}
+    Cost: 70
+  - BlockData: {fileID: 11400000, guid: d627d0c03eb18c74382d92f1d018f010, type: 2}
+    Cost: 100

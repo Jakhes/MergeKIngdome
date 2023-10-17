@@ -9,17 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40e046f95aab3c74eade186965d43464, type: 3}
+  m_Script: {fileID: 11500000, guid: 58db504252e92974c8355ff0bd7eaf1c, type: 3}
   m_Name: Carrot
   m_EditorClassIdentifier: 
   id: 13
   name: Carrot
-  blockType: 2
-  description: A small Carrot
-  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  blockType: 3
+  description: An carrot to sell.
+  sprite: {fileID: -817071778, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
   isMaxLevel: 0
   level: 1
   isSellable: 1
-  value: 1
+  value: 10
+  maxCharges: 1

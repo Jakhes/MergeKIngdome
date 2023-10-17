@@ -16,17 +16,17 @@ MonoBehaviour:
   name: CropFarm
   blockType: 13
   description: A small farm for growing seeds to full harvest
-  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  sprite: {fileID: -1635524678, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
-  isMaxLevel: 0
+  isMaxLevel: 1
   level: 1
   isSellable: 1
   value: 10
   max_Slots: 1
   farmType: 0
   needs_SecondaryResource: 1
-  secondaryResource: {fileID: 11400000, guid: a1f7288f7ef07004ebf26bd97b3ed91a, type: 2}
+  secondaryResource: {fileID: 11400000, guid: fdd514fc870e3864c893c88235c7099a, type: 2}
   needs_Labor: 1
   needed_Labor: 1
   needed_Days: 1
