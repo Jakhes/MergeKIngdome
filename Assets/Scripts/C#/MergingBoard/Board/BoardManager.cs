@@ -212,6 +212,7 @@ namespace EvolvingCode.MergingBoard
             }
         }
 
+        // Board Id goes from 0-2
         public void UnlockBoard(int p_Board_ID)
         {
             if (p_Board_ID == -1)

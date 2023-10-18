@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Log
   blockType: 2
   description: A simple Wood Log
-  sprite: {fileID: 841438450, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  sprite: {fileID: 2127964320, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
   isMaxLevel: 0

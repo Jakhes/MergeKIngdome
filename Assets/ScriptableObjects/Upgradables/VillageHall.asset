@@ -23,5 +23,24 @@ MonoBehaviour:
   level: 4
   isSellable: 0
   value: 0
-  initial_Upgrade_Materials: []
+  initial_Upgrade_Materials:
+  - block_ID: 58
+    needed: 10
+    has: 0
+  - block_ID: 65
+    needed: 5
+    has: 0
+  - block_ID: 69
+    needed: 5
+    has: 0
+  - block_ID: 80
+    needed: 2
+    has: 0
+  - block_ID: 34
+    needed: 6
+    has: 0
+  - block_ID: 78
+    needed: 1
+    has: 0
   upgrade_Target: {fileID: 11400000, guid: 5500ff9715ca79b49b48dd7c355da15f, type: 2}
+  is_Castle_Upgrade: 1

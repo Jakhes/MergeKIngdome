@@ -28,3 +28,4 @@ MonoBehaviour:
     needed: 1
     has: 0
   upgrade_Target: {fileID: 11400000, guid: c9c540a306c01164f94683f2b26f7a16, type: 2}
+  is_Castle_Upgrade: 1

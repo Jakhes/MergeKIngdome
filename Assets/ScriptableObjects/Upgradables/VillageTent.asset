@@ -27,10 +27,8 @@ MonoBehaviour:
   - block_ID: 3
     needed: 5
     has: 0
-  - block_ID: 13
-    needed: 4
-    has: 0
-  - block_ID: 14
-    needed: 4
+  - block_ID: 25
+    needed: 5
     has: 0
   upgrade_Target: {fileID: 11400000, guid: ec6f2897cd781334c8c98093defcf01c, type: 2}
+  is_Castle_Upgrade: 1

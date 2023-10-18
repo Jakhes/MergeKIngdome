@@ -123,12 +123,21 @@ public class GameManager : MonoBehaviour
         {
             boardManager._Main_Board.board.Try_Spawning_Block_On_Board(5, Vector2.one);
             boardManager._Main_Board.board.Try_Spawning_Block_On_Board(7, Vector2.one);
-            boardManager._Main_Board.board.Try_Spawning_Block_On_Board(7, Vector2.one);
-            boardManager.UnlockBoard(2);
+            boardManager._Main_Board.board.Try_Spawning_Block_On_Board(8, Vector2.one);
+            boardManager._Main_Board.board.Try_Spawning_Block_On_Board(11, Vector2.one);
+            boardManager.UnlockBoard(1);
             player_Data.castleProgress = CastleProgress.Tent;
 
             _SuccessMsgManager.CastleStageReached(Input.mousePosition, "Tent");
+        }
+        else if (player_Data.castleProgress == CastleProgress.Tent)
+        {
+            boardManager._Main_Board.board.Try_Spawning_Block_On_Board(14, Vector2.one);
+            boardManager._Main_Board.board.Try_Spawning_Block_On_Board(48, Vector2.one);
+            boardManager._Main_Board.board.Try_Spawning_Block_On_Board(12, Vector2.one);
+            player_Data.castleProgress = CastleProgress.Hut;
 
+            _SuccessMsgManager.CastleStageReached(Input.mousePosition, "Hut");
         }
     }
 }

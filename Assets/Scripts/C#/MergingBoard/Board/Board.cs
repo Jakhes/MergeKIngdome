@@ -549,7 +549,7 @@ namespace EvolvingCode.MergingBoard
             // Fill in the replacer Block
             p_To_Be_Replaced.current_Block = p_Replacer_Block;
             p_Replacer_Block.Parent_Node = p_To_Be_Replaced;
-            p_Replacer_Block.transform.parent = this.transform;
+            p_Replacer_Block.transform.parent = p_To_Be_Replaced.transform.parent;
             p_Replacer_Block.transform.localScale = Vector3.one;
             p_Replacer_Block.transform.position = p_To_Be_Replaced.transform.position;
         }

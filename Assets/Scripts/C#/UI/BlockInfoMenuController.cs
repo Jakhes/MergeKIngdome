@@ -76,7 +76,7 @@ namespace EvolvingCode
         [Header("Results References")]
         [SerializeField] private GameObject _Results_Panel;
         [SerializeField] private GameObject _Scroll_Content_Obj;
-        [SerializeField] private Image _Content_Image_Prefab;
+        [SerializeField] private List<Image> _Content_Images;
 
         // Shop References
         [Header("Shop References")]
@@ -296,8 +296,7 @@ namespace EvolvingCode
             int result_Amount = p_GeneratorData.possible_Results.Count;
             int content_Window_Width = result_Amount * 130 + 40;
             _Scroll_Content_Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(content_Window_Width, 110);
-            List<Image> images = _Scroll_Content_Obj
-                .GetComponentsInChildren<Image>()
+            List<Image> images = _Content_Images
                 .Take(result_Amount)
                 .ToList();
 
@@ -405,8 +404,7 @@ namespace EvolvingCode
             int result_Amount = p_WorkstationData.possible_Results.Count;
             int content_Window_Width = result_Amount * 130 + 40;
             _Scroll_Content_Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(content_Window_Width, 110);
-            List<Image> images = _Scroll_Content_Obj
-                .GetComponentsInChildren<Image>()
+            List<Image> images = _Content_Images
                 .Take(result_Amount)
                 .ToList();
 

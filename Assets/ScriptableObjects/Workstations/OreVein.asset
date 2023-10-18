@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: OreVein
   m_EditorClassIdentifier: 
   id: 60
-  name: Tree
+  name: OreVein
   blockType: 11
-  description: A small tree that can be cut for wood.
-  sprite: {fileID: 483613492, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  description: A metal rich vein that can be mined for iron and gold.
+  sprite: {fileID: -538871072, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
   isMaxLevel: 1

@@ -25,3 +25,4 @@ MonoBehaviour:
   value: 0
   initial_Upgrade_Materials: []
   upgrade_Target: {fileID: 0}
+  is_Castle_Upgrade: 1

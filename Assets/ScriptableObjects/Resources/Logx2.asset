@@ -16,7 +16,7 @@ MonoBehaviour:
   name: 2 Logs
   blockType: 2
   description: 2 Logs put together
-  sprite: {fileID: 520152693, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  sprite: {fileID: 1984519976, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
   isMaxLevel: 0

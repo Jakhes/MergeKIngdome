@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Log Stack
   blockType: 2
   description: A full heap of Logs
-  sprite: {fileID: 865249697, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
+  sprite: {fileID: 428370160, guid: 31494b65b822ca143b3c91e89b3bb6b4, type: 3}
   isMoveable: 1
   isMergeable: 1
   isMaxLevel: 1

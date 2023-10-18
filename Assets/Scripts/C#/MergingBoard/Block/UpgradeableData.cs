@@ -9,5 +9,6 @@ namespace EvolvingCode.MergingBoard
     {
         [SerializeField] public List<UpgradeMaterial> initial_Upgrade_Materials;
         [SerializeField] public BlockData upgrade_Target;
+        [SerializeField] public bool is_Castle_Upgrade;
     }
 }

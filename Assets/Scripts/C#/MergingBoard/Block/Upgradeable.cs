@@ -61,7 +61,7 @@ namespace EvolvingCode.MergingBoard
                 l_SuccessMessageManager.Upgrade(transform.position);
 
                 // this destroys this Block
-                if (((UpgradeableData)block_Data).upgrade_Target.id == 4)
+                if (((UpgradeableData)block_Data).is_Castle_Upgrade)
                 {
                     gameManager.ProgressCastleState();
                 }
