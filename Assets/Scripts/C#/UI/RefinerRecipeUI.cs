@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using EvolvingCode.MergingBoard;
 
-namespace EvolvingCode
+namespace EvolvingCode.UI
 {
     public class RefinerRecipeUI : MonoBehaviour
     {

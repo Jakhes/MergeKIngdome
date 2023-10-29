@@ -22,4 +22,5 @@ namespace EvolvingCode.MergingBoard
         [SerializeField] public bool isSellable;
         [SerializeField] public int value;
     }
+
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-namespace EvolvingCode
+namespace EvolvingCode.UI
 {
     public class MainMenuController : MonoBehaviour
     {

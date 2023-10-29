@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-namespace EvolvingCode
+namespace EvolvingCode.UI
 {
     public class UpgradeMaterialUI : MonoBehaviour
     {

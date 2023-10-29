@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
-namespace EvolvingCode
+namespace EvolvingCode.UI
 {
     public class BlockInfoMenuController : MonoBehaviour
     {
