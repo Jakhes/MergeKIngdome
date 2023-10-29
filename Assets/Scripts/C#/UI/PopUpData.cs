@@ -8,6 +8,8 @@ namespace EvolvingCode.UI
     public class PopUpData : ScriptableObject
     {
         [SerializeField] private string _Title;
+
+        [TextArea]
         [SerializeField] private string _Main_Text;
         [SerializeField] private string _Button_Text;
         [SerializeField] private Color _Rim_Color;

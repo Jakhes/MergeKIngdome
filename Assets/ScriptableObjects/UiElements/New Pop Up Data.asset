@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: New Pop Up Data
   m_EditorClassIdentifier: 
   _Title: Congratulations, you Won!
-  _Main_Text: You did it! You managed to build your own Castle and have established
+  _Main_Text: 'You did it! You managed to build your own Castle and have established
     your own Kingdome.
+
+    Nice new Line !'
   _Button_Text: Resume
   _Rim_Color: {r: 0.58431375, g: 0.5411765, b: 0.65882355, a: 1}
